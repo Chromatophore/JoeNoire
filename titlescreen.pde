@@ -1,5 +1,3 @@
-// test?
-
 class screen_title
 {
   PImage title_img_bg, title_img_city;
