@@ -1,6 +1,7 @@
 int game_width = 128;
 int game_height = 128;
 PFont font;
+level1 lv1;
 
 screen_title titlescreen;
 
@@ -21,8 +22,14 @@ void setup()
   noStroke();
   background(255);
   
-  tbtest = new textbox(loadImage("data/textbox.png"),loadImage("data/portraitbase.png"),
+  PImage[] bossAnim = new PImage[2];
+  bossAnim[0] = loadImage("data/boss1.png");
+  bossAnim[1] = loadImage("data/boss2.png");
+  
+  tbtest = new textbox(loadImage("data/textbox.png"),bossAnim,
   "Hello Olive!!! This is a test. A really really long test that should span many many lines.");
+  
+  lv1 = new level1();
 }
 
 void draw() { 
@@ -30,9 +37,11 @@ void draw() {
   
   scale(4.0,4.0);
   
-  titlescreen.draw();
+  //titlescreen.draw();
   
-  tbtest.draw(); //<>//
+  //tbtest.draw(); //<>//
+  
+  lv1.draw();
 }
 
 class basic_image
@@ -89,5 +98,11 @@ class basic_image
     }
     popMatrix();
   }
-  
 } //<>//
+
+void keyPressed() {
+  if (key == 'z')
+  {
+    lv1.nextCrate();
+  }
+}

@@ -88,7 +88,7 @@ class textbox
   String this_text;
   float progress_so_far;
   int string_length;
-  PImage portrait;
+  PImage[] portrait;
   
   int text_box_height;
   PImage textbox_background;
@@ -101,9 +101,9 @@ class textbox
   int secondline_clip_marker = 0;
   
   
-  textbox(PImage pBG, PImage pPortrait, String pText)
+  textbox(PImage pBG, PImage[] pPortraits, String pText)
   {
-    portrait = pPortrait;
+    portrait = pPortraits;
     this_text = pText + " ";
     string_length = this_text.length();
     
@@ -146,7 +146,12 @@ class textbox
       {
         image(textbox_background,0,0);
         translate(-44,0);
-        image(portrait, 0,0);
+        
+        int frame = int(progress_so_far) % 2;
+        if (int(progress_so_far) == string_length)
+          frame = 0;
+        image(portrait[frame], 0,0);
+        
         if (progress_so_far < string_length)
         {
           progress_so_far += 0.20;
@@ -157,7 +162,7 @@ class textbox
         String textwrite = this_text;
         int linedrops = 0;
         int lastspace = 0;
-        int nextspace = 0;
+        //int nextspace = 0;
         
         int chars_on_line = 0;
         
@@ -198,7 +203,7 @@ class textbox
                   if (charry[k] == 32 || charry[k] == 10)
                   {
                     // record this index
-                    nextspace = k;
+                    //nextspace = k;
                     // break the loop;
                     k = string_length;
                     // Check the x position isn't outside of our wrapping size
