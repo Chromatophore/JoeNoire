@@ -16,6 +16,7 @@ class level1
     Crate = new basic_image(loadImage("data/crate1.png"),0,0);
     
     new_box();
+    current_camera_x = 512 - 128;
   }
   
   void draw()
@@ -41,7 +42,7 @@ class level1
       current_camera_x -= 0.1 * (current_camera_x - camera_x);
     }
       
-    print(box_current_x + "\n");
+    //print(box_current_x + "\n");
     Crate.setPos(64 + box_current_x - current_camera_x,51);
     
     if (box_current_x < -64)

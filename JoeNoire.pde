@@ -3,6 +3,8 @@ int game_height = 128;
 PFont font;
 level1 lv1;
 
+inputblob inp;
+
 screen_title titlescreen;
 
 textbox tbtest;
@@ -11,6 +13,8 @@ void setup()
 {
   size(512,512, P2D);
   ((PGraphicsOpenGL)g).textureSampling(3);
+  
+  inp = new inputblob();
   
   font = loadFont("RetroDeco-20.vlw");
   textFont(font, 20);
@@ -32,16 +36,19 @@ void setup()
   lv1 = new level1();
 }
 
-void draw() { 
-  // Displays the image at its actual size at point (0,0)
-  
+void draw() {
+  // Set up our initial scale:
   scale(4.0,4.0);
   
-  //titlescreen.draw();
+  // Draw whatever scene we're on
   
+  //titlescreen.draw();
   //tbtest.draw(); //<>//
   
   lv1.draw();
+  
+  // Inform the input class to clear the down states because we're at the end of the frame:
+  inp.input_has_been_read();
 }
 
 class basic_image
@@ -100,9 +107,86 @@ class basic_image
   }
 } //<>//
 
-void keyPressed() {
-  if (key == 'z')
+// Input handling
+void keyPressed(KeyEvent e)
+{
+  inp.do_input(key, 1);
+}
+
+void keyReleased(KeyEvent e)
+{
+  inp.do_input(key, 0);
+}
+
+
+class inputblob
+{
+  int z_state;
+  int x_state;
+  int c_state;
+  
+  boolean z_down;
+  boolean x_down;
+  boolean c_down;
+  
+  int up_state;
+  int down_state;
+  int left_state;
+  int right_state;
+  
+  float x_axis;
+  float y_axis;
+  
+  inputblob()
   {
-    lv1.nextCrate();
+    
   }
+  
+  void input_has_been_read()
+  {
+    z_down = false;
+    x_down = false;
+    c_down = false;
+  }
+  
+  void do_input(char c, int down)
+  {
+    if (key == CODED)
+    {
+      if (keyCode == UP)
+        up_state = down;
+      if (keyCode == DOWN);
+        down_state = down;
+      if (keyCode == LEFT)
+        left_state = down;
+      if (keyCode == RIGHT)
+        right_state = down;
+    }
+    else
+    {
+       if (c == 'z')
+       {
+         z_state = down;
+         if (down == 1)
+           z_down = true;
+       }
+       if (c == 'x')
+       {
+         x_state = down;
+         if (down == 1)
+           x_down = true;
+       }
+       if (c == 'c')
+       {
+         c_state = down;
+         if (down == 1)
+           c_down = true;
+       }
+    }
+    
+    x_axis = -1 * left_state + 1 * right_state;
+    y_axis = -1 * up_state + 1 * down_state; 
+
+  }
+
 }
