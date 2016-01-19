@@ -5,9 +5,24 @@ class level1
   basic_image WareHouseSky;
   basic_image Crate1;
   basic_image Crate2;
+  basic_image conveyor_wheels;
+  
+  basic_image arrow_left;
+  basic_image arrow_right;
+  basic_image next_button;
+  
   basic_image Cursor;
   
-  int time_between_crates = 1000;
+  float cursor_x = 64;
+  float cursor_y = 64;
+  float effective_cursor_x = 64;
+  float effective_cursor_y = 64;
+  
+  int cog_steps = 5;
+  int cog_current = 0;
+  int cogspin = 0;
+  
+  int time_between_crates = 3000;
   
   crate[] crate_locations;
   int focus_crate = 0;
@@ -16,8 +31,7 @@ class level1
   
   float current_camera_x;
   
-  float cursor_x = 64;
-  float cursor_y = 64;
+  float point_to_kill_crate = -40;
   
   float cursor_speed = 1.0;
   
@@ -26,15 +40,10 @@ class level1
   
   int current_crates = 0;
   
-  float crate_speed = 2.5;
+  float camera_crate_offset = -8;
+  float crate_speed = 0.5;
   
-  int jitter_steps = 15;
-  float jitter_range = 2;
-  int jitter_current = 0;
-  float jitter_x_last;
-  float jitter_y_last;
-  float jitter_x;
-  float jitter_y;
+  boolean drawui;
   
   level1()
   {
@@ -42,7 +51,15 @@ class level1
     WareHouseSky = new basic_image(loadImage("data/MIT/warehouse_sky.png"),64,256);
     Crate1 = new basic_image(loadImage("data/MIT/lv1/crate1.png"),0,0);
     Crate2 = new basic_image(loadImage("data/MIT/lv1/crate2.png"),0,0);
+    
+    conveyor_wheels = new basic_image(loadImage("data/MIT/lv1/conveyorwheels.png"),15,64);
+    
+    arrow_left = new basic_image(loadImage("data/MIT/lv1/leftside_arrow.png"),15,64);
+    arrow_right = new basic_image(loadImage("data/MIT/lv1/rightside_arrow.png"),113,64);
+    next_button = new basic_image(loadImage("data/MIT/lv1/next.png"),113,96);
+    
     Cursor = new basic_image(loadImage("data/MIT/cursor1.png"),64,64);
+    
     
     current_camera_x = 512 - 128;
     
@@ -59,13 +76,29 @@ class level1
   
   void TakeInput(inputblob i)
   {
-    if (i.z_down)
+    if (i.z_down)  // treat as swap?
     {
-      nextCrate();
+      
     }
-    if (i.x_down)
+    if (i.x_down)  // treat as click?
     {
-      crate_locations[focus_crate].showside++;
+      if (drawui)
+      {
+        // test current cursor:
+        if (arrow_left.do_box_test(effective_cursor_x, effective_cursor_y))
+        {
+          crate_locations[focus_crate].showside += 3;
+        }
+        else if (arrow_right.do_box_test(effective_cursor_x, effective_cursor_y))
+        {
+          crate_locations[focus_crate].showside += 1;
+        }
+        else if (next_button.do_box_test(effective_cursor_x, effective_cursor_y))
+        {
+          nextCrate();
+        }
+      }
+      
     }
     cursor_x = constrain( cursor_x + cursor_speed * i.x_axis, 0, 127);
     cursor_y = constrain( cursor_y + cursor_speed * i.y_axis, 0, 127);
@@ -98,12 +131,11 @@ class level1
       }
       else
       {
-         j = 9999;        
+         j = 9999;
       }
-      
     }
     
-    box_current_x = crate_locations[focus_crate].x - 10;
+    box_current_x = crate_locations[focus_crate].x + camera_crate_offset;
     
     // If there is no box, go to the far right
     if (box_current_x < -1000)
@@ -125,11 +157,36 @@ class level1
     {
       current_camera_x -= 0.1 * (current_camera_x - camera_x);
     }
+    
+    // if we are close to the crate we should draw the crate UI:
+    drawui = false;
+    if (abs(current_camera_x - box_current_x) < 5 || box_current_x < 64)
+    {
+        drawui = true;
+    }
       
     // relationship from camera to the midpoint of the texture will be:
     float BGpos = -1 * current_camera_x + 256 + 64;
     WareHouseBG.setPos(BGpos,64);
     WareHouseBG.draw();
+    
+    
+    
+    if (cog_current > cog_steps)
+    {
+      cog_current = 0;
+      cogspin = 9 - cogspin;
+    }
+    else
+    {
+      cog_current++;
+    }
+    
+    float nearest_cog = BGpos + cogspin;
+
+    //nearest_cog -= nearest_cog % 9;
+    conveyor_wheels.setPos(64 + nearest_cog % 18,103);
+    conveyor_wheels.draw();
     
     //print(box_current_x + "\n");
 
@@ -143,7 +200,7 @@ class level1
       }
       else
       {
-        if (crate_x < -64)
+        if (crate_x < point_to_kill_crate)
         {
           shift_crate_list();
           j--;
@@ -166,31 +223,24 @@ class level1
     
     
     
-    //noStroke();
+    // Draw the black box at the bottom:
     fill(color(0,0,0));
     rect(0,128-16,128,16);
 
-    float j_x = 0;
-    float j_y = 0;
-    if (jitter_current == jitter_steps)
+    if (drawui)
     {
-      jitter_x_last = jitter_x;
-      jitter_y_last = jitter_y;
-      jitter_x = random(jitter_range) - jitter_range / 2;
-      jitter_y = random(jitter_range) - jitter_range / 2;
-      jitter_current = 0;
-      
-      j_x = jitter_x_last;
-      j_y = jitter_y_last;
+      arrow_left.draw();
+      arrow_right.draw();
+      next_button.draw();
     }
-    else
-    {
-      j_x = lerp(jitter_x_last,jitter_x,jitter_current / float(jitter_steps));
-      j_y = lerp(jitter_y_last,jitter_y,jitter_current / float(jitter_steps));
-      jitter_current++;
-    }
+
+    jitter.set_calm(cursor_y / 128.0);
+
+    jitter.calc_jitter();
+    effective_cursor_x = jitter.apply_jitter_x(cursor_x);
+    effective_cursor_y = jitter.apply_jitter_y(cursor_y);
     
-    Cursor.setPos(cursor_x + j_x,cursor_y + j_y);
+    Cursor.setPos(effective_cursor_x,effective_cursor_y);
     Cursor.draw();
   }
   

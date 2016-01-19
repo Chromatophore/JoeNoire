@@ -2,6 +2,7 @@ int game_width = 128;
 int game_height = 128;
 PFont font;
 level1 lv1;
+jitterbug jitter;
 
 inputblob inp;
 
@@ -15,6 +16,7 @@ void setup()
   ((PGraphicsOpenGL)g).textureSampling(3);
   
   inp = new inputblob();
+  jitter = new jitterbug();
   
   font = loadFont("RetroDeco-20.vlw");
   textFont(font, 20);
@@ -31,7 +33,7 @@ void setup()
   bossAnim[1] = loadImage("data/MIT/boss2.png");
   
   tbtest = new textbox(loadImage("data/MIT/textbox.png"),bossAnim,
-  "Hello Olive!!! This is a test. A really really long test that should span many many lines.");
+  "Hi #SAGameDev. I am trying to make a game but will probably fail BOO HOO ME :(.");
   
   lv1 = new level1();
 }
@@ -47,7 +49,6 @@ void draw() {
   
   lv1.TakeInput(inp);
   lv1.draw();
-  
   
   // Inform the input class to clear the down states because we're at the end of the frame:
   inp.input_has_been_read();
@@ -106,6 +107,11 @@ class basic_image
       image(imageRef,0,0);
     }
     popMatrix();
+  }
+  
+  boolean do_box_test(float x, float y)
+  {
+    return box_test(x,y, x_float, y_float, imageRef.width / 2, imageRef.height / 2);    
   }
 } //<>//
 
@@ -192,5 +198,14 @@ class inputblob
     //print(x_axis + " " + y_axis + "\n");
 
   }
+}
 
+boolean box_test(float x, float y, float box_x, float box_y, float w, float h)
+{
+  boolean minx = x > (box_x - w);
+  boolean miny = y > (box_y - h);
+  boolean maxx = x < (box_x + w);
+  boolean maxy = y < (box_y + h);
+  // if all these things are true then we're solid.
+  return minx & miny & maxx & maxy;
 }

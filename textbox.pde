@@ -2,6 +2,8 @@
 int[] var_width_array;
 // This is going to be a thing that takes a string line of code and displays it as a text box I guess
 
+float text_box_open_speed = 4;
+
 void textbox_setup()
 {
   var_width_array = new int[256];
@@ -48,7 +50,7 @@ void textbox_setup()
   var_width_array[val++] = 4;
   var_width_array[val++] = 4;
   var_width_array[val++] = 4;
-  var_width_array[val++] = 5;
+  var_width_array[val++] = 3;  // shorter f since it will likely be followed by a vowel
   var_width_array[val++] = 4;
   var_width_array[val++] = 4;
   var_width_array[val++] = 1;
@@ -80,6 +82,11 @@ void textbox_setup()
   var_width_array[32] = 3;
   var_width_array[33] = 1;
   var_width_array[46] = 1;
+  var_width_array[35] = 6;
+  
+  var_width_array[58] = 4;
+  var_width_array[40] = 3;
+  var_width_array[41] = 3;
 }
 
 class textbox
@@ -90,7 +97,7 @@ class textbox
   int string_length;
   PImage[] portrait;
   
-  int text_box_height;
+  float text_box_height;
   PImage textbox_background;
   
   int isOpening;
@@ -139,7 +146,7 @@ class textbox
       translate(64,128 - 20);
       if (text_box_height < 40)
       {
-        text_box_height += 2;
+        text_box_height += text_box_open_speed;
         image(textbox_background,0,0,128,text_box_height);
       }
       else
@@ -257,7 +264,7 @@ class textbox
       if (text_box_height > 0)
       {
         translate(64,128 - 20);
-        text_box_height -= 2;
+        text_box_height -= text_box_open_speed;
         image(textbox_background,0,0,128,text_box_height);
       }
     }
