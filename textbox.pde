@@ -134,6 +134,8 @@ class textbox
   {
     int wrapsize = 86;
     
+    textFont(font, 20);
+    
     test_progress += 1; //<>//
     if (test_progress > 600)
     {

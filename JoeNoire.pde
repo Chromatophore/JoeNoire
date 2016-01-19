@@ -1,8 +1,11 @@
 int game_width = 128;
 int game_height = 128;
 PFont font;
+PFont font_ui;
 level1 lv1;
 jitterbug jitter;
+
+UI theUI;
 
 inputblob inp;
 
@@ -18,7 +21,10 @@ void setup()
   inp = new inputblob();
   jitter = new jitterbug();
   
+  theUI = new UI();
+  
   font = loadFont("RetroDeco-20.vlw");
+  font_ui = loadFont("Minimal4-14.vlw");
   textFont(font, 20);
   textbox_setup();
 
@@ -49,7 +55,7 @@ void draw() {
   
   lv1.TakeInput(inp);
   lv1.draw();
-  
+
   // Inform the input class to clear the down states because we're at the end of the frame:
   inp.input_has_been_read();
 }

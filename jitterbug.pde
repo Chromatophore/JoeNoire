@@ -21,14 +21,24 @@ class jitterbug
   void set_calm(float calmness)
   {
     next_calm = calmness;
+    theUI.set_calm(constrain(next_calm,0.0,2.0));
   }
   
   void recalc_calm()
   {
+    theUI.calc_jitter();
+    
+    if (next_calm > 1)
+    {
+      next_calm = 2 - next_calm;      
+    }
+    if (next_calm < 0)
+      next_calm = 0;
+    //print(next_calm + "\n");
+    
     jitter_range = map(next_calm,  0.0,0.9,  12,0);
     if (jitter_range < 0)
       jitter_range = 0;
-    print(jitter_range + "\n");
     jitter_steps = int(map(next_calm,  0.0,1.0,  1,15));
     
     jitter_x = random(jitter_range) - jitter_range / 2;

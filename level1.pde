@@ -74,6 +74,8 @@ class level1
     start_milli = -1;
   }
   
+  float calmness = 0.0;
+  
   void TakeInput(inputblob i)
   {
     if (i.z_down)  // treat as swap?
@@ -98,7 +100,13 @@ class level1
           nextCrate();
         }
       }
-      
+    }
+    if (i.c_state > 0)
+    {
+      calmness += 0.01;
+      if (calmness > 2.0)
+        calmness = 0.0;
+      jitter.set_calm(calmness);
     }
     cursor_x = constrain( cursor_x + cursor_speed * i.x_axis, 0, 127);
     cursor_y = constrain( cursor_y + cursor_speed * i.y_axis, 0, 127);
@@ -110,6 +118,7 @@ class level1
     {
       start_milli = millis();
       lastcrate = start_milli;
+      jitter.set_calm(calmness);
     }
       
     if (millis() > lastcrate + time_between_crates)
@@ -207,6 +216,11 @@ class level1
         }
         else
         {
+          if (crate_x < 20 && focus_crate == 0)
+          {
+            focus_crate++;
+          }
+          
           if ((crate_locations[j].showside % 2) == 0)
           {
             Crate1.setPos(64 + crate_x - current_camera_x,51);
@@ -234,12 +248,14 @@ class level1
       next_button.draw();
     }
 
-    jitter.set_calm(cursor_y / 128.0);
-
     jitter.calc_jitter();
     effective_cursor_x = jitter.apply_jitter_x(cursor_x);
     effective_cursor_y = jitter.apply_jitter_y(cursor_y);
     
+    // draw the UI now
+    theUI.draw();
+    
+    // and finally the cursor
     Cursor.setPos(effective_cursor_x,effective_cursor_y);
     Cursor.draw();
   }
@@ -274,7 +290,7 @@ class level1
       current_crates--;
       
       if (focus_crate > 0)
-        focus_crate--;
+        focus_crate -= 1;
   }
 }
 
