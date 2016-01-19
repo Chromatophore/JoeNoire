@@ -38,11 +38,11 @@ class level1
   
   level1()
   {
-    WareHouseBG = new basic_image(loadImage("data/warehouse.png"),-128,64);
-    WareHouseSky = new basic_image(loadImage("data/warehouse_sky.png"),64,256);
-    Crate1 = new basic_image(loadImage("data/lv1/crate1.png"),0,0);
-    Crate2 = new basic_image(loadImage("data/lv1/crate2.png"),0,0);
-    Cursor = new basic_image(loadImage("data/cursor1.png"),64,64);
+    WareHouseBG = new basic_image(loadImage("data/MIT/warehouse.png"),-128,64);
+    WareHouseSky = new basic_image(loadImage("data/MIT/warehouse_sky.png"),64,256);
+    Crate1 = new basic_image(loadImage("data/MIT/lv1/crate1.png"),0,0);
+    Crate2 = new basic_image(loadImage("data/MIT/lv1/crate2.png"),0,0);
+    Cursor = new basic_image(loadImage("data/MIT/cursor1.png"),64,64);
     
     current_camera_x = 512 - 128;
     

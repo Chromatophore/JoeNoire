@@ -27,10 +27,10 @@ void setup()
   background(255);
   
   PImage[] bossAnim = new PImage[2];
-  bossAnim[0] = loadImage("data/boss1.png");
-  bossAnim[1] = loadImage("data/boss2.png");
+  bossAnim[0] = loadImage("data/MIT/boss1.png");
+  bossAnim[1] = loadImage("data/MIT/boss2.png");
   
-  tbtest = new textbox(loadImage("data/textbox.png"),bossAnim,
+  tbtest = new textbox(loadImage("data/MIT/textbox.png"),bossAnim,
   "Hello Olive!!! This is a test. A really really long test that should span many many lines.");
   
   lv1 = new level1();
