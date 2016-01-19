@@ -45,7 +45,9 @@ void draw() {
   //titlescreen.draw();
   //tbtest.draw(); //<>//
   
+  lv1.TakeInput(inp);
   lv1.draw();
+  
   
   // Inform the input class to clear the down states because we're at the end of the frame:
   inp.input_has_been_read();
@@ -155,7 +157,7 @@ class inputblob
     {
       if (keyCode == UP)
         up_state = down;
-      if (keyCode == DOWN);
+      if (keyCode == DOWN)
         down_state = down;
       if (keyCode == LEFT)
         left_state = down;
@@ -186,6 +188,8 @@ class inputblob
     
     x_axis = -1 * left_state + 1 * right_state;
     y_axis = -1 * up_state + 1 * down_state; 
+    
+    //print(x_axis + " " + y_axis + "\n");
 
   }
 
