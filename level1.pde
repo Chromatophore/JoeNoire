@@ -28,6 +28,11 @@ class level1
   
   float crate_speed = 2.5;
   
+  int jitter_steps = 15;
+  float jitter_range = 2;
+  int jitter_current = 0;
+  float jitter_x_last;
+  float jitter_y_last;
   float jitter_x;
   float jitter_y;
   
@@ -38,7 +43,6 @@ class level1
     Crate1 = new basic_image(loadImage("data/lv1/crate1.png"),0,0);
     Crate2 = new basic_image(loadImage("data/lv1/crate2.png"),0,0);
     Cursor = new basic_image(loadImage("data/cursor1.png"),64,64);
-    
     
     current_camera_x = 512 - 128;
     
@@ -166,9 +170,27 @@ class level1
     fill(color(0,0,0));
     rect(0,128-16,128,16);
 
+    float j_x = 0;
+    float j_y = 0;
+    if (jitter_current == jitter_steps)
+    {
+      jitter_x_last = jitter_x;
+      jitter_y_last = jitter_y;
+      jitter_x = random(jitter_range) - jitter_range / 2;
+      jitter_y = random(jitter_range) - jitter_range / 2;
+      jitter_current = 0;
+      
+      j_x = jitter_x_last;
+      j_y = jitter_y_last;
+    }
+    else
+    {
+      j_x = lerp(jitter_x_last,jitter_x,jitter_current / float(jitter_steps));
+      j_y = lerp(jitter_y_last,jitter_y,jitter_current / float(jitter_steps));
+      jitter_current++;
+    }
     
-    
-    Cursor.setPos(cursor_x,cursor_y);
+    Cursor.setPos(cursor_x + j_x,cursor_y + j_y);
     Cursor.draw();
   }
   
