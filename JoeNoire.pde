@@ -13,6 +13,8 @@ screen_title titlescreen;
 
 textbox tbtest;
 
+boolean show_ui = true;
+
 void setup()
 {
   size(512,512, P2D);
@@ -55,9 +57,18 @@ void draw() {
   
   lv1.TakeInput(inp);
   lv1.draw();
+  
+  if (show_ui)
+  {
+    jitter.TakeInput(inp);
+    theUI.TakeInput(inp);
+    theUI.draw();
+  }
 
   // Inform the input class to clear the down states because we're at the end of the frame:
   inp.input_has_been_read();
+  
+  //println(frameRate);
 }
 
 class basic_image

@@ -11,13 +11,7 @@ class level1
   basic_image arrow_right;
   basic_image next_button;
   
-  basic_image Cursor;
-  
-  float cursor_x = 64;
-  float cursor_y = 64;
-  float effective_cursor_x = 64;
-  float effective_cursor_y = 64;
-  
+
   int cog_steps = 5;
   int cog_current = 0;
   int cogspin = 0;
@@ -32,8 +26,6 @@ class level1
   float current_camera_x;
   
   float point_to_kill_crate = -40;
-  
-  float cursor_speed = 1.0;
   
   int start_milli;
   int lastcrate;
@@ -57,10 +49,7 @@ class level1
     arrow_left = new basic_image(loadImage("data/MIT/lv1/leftside_arrow.png"),15,64);
     arrow_right = new basic_image(loadImage("data/MIT/lv1/rightside_arrow.png"),113,64);
     next_button = new basic_image(loadImage("data/MIT/lv1/next.png"),113,96);
-    
-    Cursor = new basic_image(loadImage("data/MIT/cursor1.png"),64,64);
-    
-    
+
     current_camera_x = 512 - 128;
     
     crate_locations = new crate[10];
@@ -74,8 +63,6 @@ class level1
     start_milli = -1;
   }
   
-  float calmness = 0.0;
-  
   void TakeInput(inputblob i)
   {
     if (i.z_down)  // treat as swap?
@@ -86,6 +73,9 @@ class level1
     {
       if (drawui)
       {
+        float effective_cursor_x = theUI.GetCursorX();
+        float effective_cursor_y = theUI.GetCursorY();
+        
         // test current cursor:
         if (arrow_left.do_box_test(effective_cursor_x, effective_cursor_y))
         {
@@ -103,13 +93,13 @@ class level1
     }
     if (i.c_state > 0)
     {
+      /*
       calmness += 0.01;
       if (calmness > 2.0)
         calmness = 0.0;
       jitter.set_calm(calmness);
+      */
     }
-    cursor_x = constrain( cursor_x + cursor_speed * i.x_axis, 0, 127);
-    cursor_y = constrain( cursor_y + cursor_speed * i.y_axis, 0, 127);
   }
   
   void draw()
@@ -118,7 +108,6 @@ class level1
     {
       start_milli = millis();
       lastcrate = start_milli;
-      jitter.set_calm(calmness);
     }
       
     if (millis() > lastcrate + time_between_crates)
@@ -247,17 +236,6 @@ class level1
       arrow_right.draw();
       next_button.draw();
     }
-
-    jitter.calc_jitter();
-    effective_cursor_x = jitter.apply_jitter_x(cursor_x);
-    effective_cursor_y = jitter.apply_jitter_y(cursor_y);
-    
-    // draw the UI now
-    theUI.draw();
-    
-    // and finally the cursor
-    Cursor.setPos(effective_cursor_x,effective_cursor_y);
-    Cursor.draw();
   }
   
   void new_box()
