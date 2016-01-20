@@ -240,7 +240,6 @@ class jitterbug
     displayed_marker += (marker_position - displayed_marker) * 0.1;
     
     theUI.SetMarker(map(displayed_marker,0,100,0.0,2.0));
-    
 
     if (millis() > pulse_milli)
     {

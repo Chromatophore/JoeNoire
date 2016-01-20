@@ -4,6 +4,8 @@ int[] var_width_array;
 
 float text_box_open_speed = 4;
 
+PImage[] avatar_list;
+
 void textbox_setup()
 {
   var_width_array = new int[256];
@@ -87,11 +89,21 @@ void textbox_setup()
   var_width_array[58] = 4;
   var_width_array[40] = 3;
   var_width_array[41] = 3;
+  
+  
+  avatar_list = new PImage[100];
+  avatar_list[0] = loadImage("data/MIT/boss1.png");
+  avatar_list[1] = loadImage("data/MIT/boss2.png");
 }
 
 class textbox
 {
   int test_progress;
+  
+  int current_text;
+  int text_total;
+  String[] texts;
+  
   String this_text;
   float progress_so_far;
   int string_length;
@@ -107,40 +119,82 @@ class textbox
   int firstline_clip_marker = 0;
   int secondline_clip_marker = 0;
   
+  int total_portraits;
+  int finished_portrait;
   
-  textbox(PImage pBG, PImage[] pPortraits, String pText)
+  textbox(PImage pBG, String pPortraits, int pFinished, String[] pTexts)
   {
-    portrait = pPortraits;
-    this_text = pText + " ";
-    string_length = this_text.length();
+    total_portraits = 0;
+    String[] s = split(pPortraits,",");
+    for (String sub : s)
+    {
+       total_portraits++;
+    }
+    portrait = new PImage[total_portraits];
+    for (int j = 0;j < total_portraits;j++)
+    {
+      portrait[j] = avatar_list[int(s[j])];
+    }
+    
+    finished_portrait = pFinished;
+    
+    texts = pTexts;
+    for (String sub : texts)
+    {
+       text_total++; 
+    }
     
     textbox_background = pBG;
-
-    charry = int( this_text.toCharArray() );
     
-    init();
+    isOpening = 1;
+    SetupLine();
+  }
+  
+  boolean FinishedLine = false;
+  
+  void SetupLine()
+  {
+    if (current_text >= text_total)
+    {
+      // we need to close instead
+      isOpening = 0;
+    }
+    else
+    {
+      this_text = texts[current_text] + " ";
+      string_length = this_text.length();
+      charry = int( this_text.toCharArray() );
+      
+      init();
+    
+      current_text++;
+    }
   }
   
   void init()
   {
+    FinishedLine = false;
     progress_so_far = 0;
-    isOpening = 1;
     test_progress = 0;
     firstline_clip_marker = 0;
     secondline_clip_marker = 0;    
   }
+  
+  boolean WriteFast = false;
   
   void draw()
   {
     int wrapsize = 86;
     
     textFont(font, 20);
+    fill(color(255,255,255));
     
+    /*
     test_progress += 1; //<>//
     if (test_progress > 600)
     {
       isOpening = 0;
-    }
+    }*/
     
     pushMatrix();
     if (isOpening == 1)
@@ -156,14 +210,22 @@ class textbox
         image(textbox_background,0,0);
         translate(-44,0);
         
-        int frame = int(progress_so_far) % 2;
+        int frame = int(progress_so_far) % total_portraits;
         if (int(progress_so_far) == string_length)
-          frame = 0;
+          frame = finished_portrait;
+          
         image(portrait[frame], 0,0);
         
         if (progress_so_far < string_length)
         {
-          progress_so_far += 0.20;
+          if (WriteFast)
+            progress_so_far += 1;
+          else
+            progress_so_far += 0.20;
+        }
+        else
+        {
+          FinishedLine = true; 
         }
         
         translate(16,-5);
@@ -271,14 +333,22 @@ class textbox
       }
     }
     
-    if (test_progress > 1000)
-    {
-      test_progress = 0;
-      init();
-    }
-  
-    
     popMatrix();
+  }
+  
+  void TakeInput(inputblob i)
+  {
+    if (i.x_down && FinishedLine)
+    {
+      SetupLine();
+    }
+    
+    if (i.z_state > 0)
+    {
+       WriteFast = true;
+    }
+    else
+      WriteFast = false;
   }
   
 }

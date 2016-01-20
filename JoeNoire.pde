@@ -1,3 +1,5 @@
+import ddf.minim.*; //<>// //<>//
+
 int game_width = 128;
 int game_height = 128;
 PFont font;
@@ -10,6 +12,10 @@ UI theUI;
 inputblob inp;
 
 screen_title titlescreen;
+
+sounder make_sound;
+
+scoremaster scorer;
 
 textbox tbtest;
 
@@ -30,23 +36,27 @@ void setup()
   textFont(font, 20);
   textbox_setup();
 
+  scorer = new scoremaster();
+  
+  make_sound = new sounder();
+
   titlescreen = new screen_title();
 
   imageMode(CENTER);
   noStroke();
   background(255);
   
-  PImage[] bossAnim = new PImage[2];
-  bossAnim[0] = loadImage("data/MIT/boss1.png");
-  bossAnim[1] = loadImage("data/MIT/boss2.png");
+  String[] tbtext = new String[2];
+  tbtext[0] = "Hi #SAGameDev. I am trying to make a game but will probably fail BOO HOO ME :(.";
+  tbtext[1] = "Here is a second line of text to test with";
   
-  tbtest = new textbox(loadImage("data/MIT/textbox.png"),bossAnim,
-  "Hi #SAGameDev. I am trying to make a game but will probably fail BOO HOO ME :(.");
+  tbtest = new textbox(loadImage("data/MIT/textbox.png"),"0,1",0,tbtext);
   
   lv1 = new level1();
 }
 
-void draw() {
+void draw()
+{
   // Set up our initial scale:
   scale(4.0,4.0);
   
@@ -56,7 +66,7 @@ void draw() {
   // Draw whatever scene we're on
   
   //titlescreen.draw();
-  //tbtest.draw(); //<>//
+  
   
   lv1.TakeInput(inp);
   lv1.draw();
@@ -66,7 +76,12 @@ void draw() {
     jitter.TakeInput(inp);
     theUI.TakeInput(inp);
     theUI.draw();
+    scorer.draw();
   }
+  
+  
+  tbtest.draw();
+  tbtest.TakeInput(inp);
 
   // Inform the input class to clear the down states because we're at the end of the frame:
   inp.input_has_been_read();
@@ -133,7 +148,7 @@ class basic_image
   {
     return box_test(x,y, x_float, y_float, imageRef.width / 2, imageRef.height / 2);    
   }
-} //<>//
+}
 
 // Input handling
 void keyPressed(KeyEvent e)
@@ -144,6 +159,11 @@ void keyPressed(KeyEvent e)
 void keyReleased(KeyEvent e)
 {
   inp.do_input(key, 0);
+}
+
+void stop()
+{
+  make_sound.end_program();  
 }
 
 

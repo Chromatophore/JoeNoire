@@ -2,6 +2,9 @@
 // label type, difficulty, x, y
 // r# = random within this width/height of center
 
+numsides
+14
+
 // 0
 side
 1
@@ -37,7 +40,7 @@ side
 1
 1,2,1046,1036
 
-// 7
+// 7 // accidental duplicate, not going to fix lol
 side
 1
 1,2,1046,1036
@@ -51,20 +54,20 @@ side
 // 9
 side
 2
-0,3,0,0
-1,3,18,0
+0,2,0,0
+1,2,18,0
 
 // 10
 side
 2
-0,3,7,-11
-1,3,-15,11
+0,2,7,-11
+1,2,-15,11
 
 // 11
 side
 2
-0,3,0,-14
-1,3,11,11
+0,2,0,-14
+1,2,11,11
 
 // these are ones that have some of the labels on already
 // 12
@@ -75,42 +78,55 @@ side
 // 13
 side
 2
-0,0,-8,0
-11,0,35,0
+0,0,-7,0
+11,0,25,0
 
-end
+
+
+
 
 // crate definitions of fixed starting crates:
 // these will be the crates that come in in order
 // format is
 // side, fixed side from above
+
+numcrates
+7
+
+//0
 crate
 1
 0,0
 
+//1
 crate
 1
 0,0
 
+//2
 crate
 1
 0,1
 
+//3
 crate
 1
 0,13
 
+//4
 crate
 2
 0,12
 1,1
 
+//5
 crate
 3
 0,12
 1,1
 3,1
 
+//6
 crate
 3
 0,1
