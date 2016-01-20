@@ -71,6 +71,50 @@ class level1
 
     current_camera_x = 512 - 128;
     
+    String lines[] = loadStrings("MIT/level1.txt");
+    
+    sideref[] side_db = new sideref[14];
+    int sidesofar = 0;
+
+    int side_datas = -1;
+    int crate_datas = -1;
+    for (String l : lines)
+    {
+      // side reading
+      if (l.equals("side"))
+      {
+        side_datas = -2;
+      }
+      else if (side_datas == -2)
+      {
+        side_datas = int(l);
+        side_db[sidesofar] = new sideref(side_datas);
+      }
+      else if (side_datas > 0)
+      {
+        String[] subs = split(l,",");
+        println(l);
+        side_data t = new side_data(int(subs[0]), int(subs[1]), float(subs[2]), float(subs[3]));
+        side_db[sidesofar].addside(t);
+        side_datas--;
+        if (side_datas == 0)
+          side_datas = -1;
+      }
+      // end side reading
+      
+      // crate reading
+      if (l.equals("crate"))
+      {
+        crate_datas = -2;
+      }
+      else if (crate_datas == -2)
+      {
+        
+      }
+    }
+    
+    
+    
     crate_locations = new crate[10];
     for (int j = 0;j < 10;j ++)
     {
@@ -389,4 +433,63 @@ class labelgame
   {
     return true;
   }
+}
+
+class sideref
+{
+  int entries;
+  side_data[] myList;
+  sideref(int datas)
+  {
+    entries = datas;
+    myList = new side_data[entries];
+  }
+
+  int added_so_far = 0;
+  void addside(side_data newside)
+  {
+    if (added_so_far > entries)
+      return;
+    myList[added_so_far] = newside;
+    added_so_far++;
+  }
+}
+
+// side data for an invidiual side of a crate
+class side_data
+{
+  int ID;
+  int Diff;
+  float x;
+  float y;
+  side_data(int pID, int pDiff, float xpos, float ypos)
+  {
+    ID = pID;
+    Diff = pDiff;
+    x = xpos;
+    y = ypos;
+  }
+
+  float GetX()
+  {
+    if (x > 1000)
+    {
+      float mid = (x - 1000) / 2;
+      return random(x - 1000) - mid;
+    }
+    else
+      return x;
+  }
+
+  float GetY()
+  {
+    if (y > 1000)
+    {
+      float mid = (y - 1000) / 2;
+      return random(y - 1000) - mid;
+    }
+    else
+      return y;
+  }
+
 }
