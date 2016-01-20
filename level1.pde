@@ -14,6 +14,8 @@ class level1
   basic_image label1;
   basic_image label2;
   
+  basic_image[] label_zones;
+  
   int labels_unlocked = 2;
   int selected_label = 0;
 
@@ -57,13 +59,22 @@ class level1
     
     label1 = new basic_image(loadImage("data/MIT/lv1/l1.png"),64,64);
     label2 = new basic_image(loadImage("data/MIT/lv1/l2.png"),64,64);
+    
+    label_zones = new basic_image[6];
+    
+    label_zones[0] = new basic_image(loadImage("data/MIT/lv1/l1z1.png"),64,64);
+    label_zones[1] = new basic_image(loadImage("data/MIT/lv1/l1z2.png"),64,64);
+    label_zones[2] = new basic_image(loadImage("data/MIT/lv1/l1z3.png"),64,64);
+    label_zones[3] = new basic_image(loadImage("data/MIT/lv1/l2z1.png"),64,64);
+    label_zones[4] = new basic_image(loadImage("data/MIT/lv1/l2z2.png"),64,64);
+    label_zones[5] = new basic_image(loadImage("data/MIT/lv1/l2z3.png"),64,64);
 
     current_camera_x = 512 - 128;
     
     crate_locations = new crate[10];
     for (int j = 0;j < 10;j ++)
     {
-      crate_locations[j] = new crate();      
+      crate_locations[j] = new crate(1,false,0,0);
     }
     
     new_box();
@@ -113,16 +124,9 @@ class level1
         {
           nextCrate();
         }
+        
+        crate_locations[focus_crate].showside = crate_locations[focus_crate].showside % 4;
       }
-    }
-    if (i.c_state > 0)
-    {
-      /*
-      calmness += 0.01;
-      if (calmness > 2.0)
-        calmness = 0.0;
-      jitter.set_calm(calmness);
-      */
     }
   }
   
@@ -163,7 +167,6 @@ class level1
     if (box_current_x < -1000)
       box_current_x = 600;
     
-    
     // attempt to draw the box in the middle of the screen but clamp it such that we don't move the camera off screen
     float camera_x = box_current_x;
     if (camera_x > 512 - 64)
@@ -191,8 +194,6 @@ class level1
     float BGpos = -1 * current_camera_x + 256 + 64;
     WareHouseBG.setPos(BGpos,64);
     WareHouseBG.draw();
-    
-    
     
     if (cog_current > cog_steps)
     {
@@ -234,15 +235,31 @@ class level1
             focus_crate++;
           }
           
+          float box_x = 64 + crate_x - current_camera_x;
+          float box_y = 51;
           if ((crate_locations[j].showside % 2) == 0)
           {
-            Crate1.setPos(64 + crate_x - current_camera_x,51);
+            Crate1.setPos(box_x,box_y);
             Crate1.draw();
           }
           else
           {
-            Crate2.setPos(64 + crate_x - current_camera_x,51);
+            Crate2.setPos(box_x,box_y);
             Crate2.draw();
+          }
+          
+          for (labelgame label : crate_locations[j].labels_needed)
+          {
+            if (label != null)
+            {
+              if (label.face == crate_locations[j].showside)
+              {
+                basic_image label_place;
+                label_place = label_zones[label.type * 3 + label.hardness];
+                label_place.setPos(box_x - 5 + label.x, box_y + 7 + label.y);
+                label_place.draw();
+              }
+            }
           }
         }
       }
@@ -288,7 +305,7 @@ class level1
       {
         crate_locations[j] = crate_locations[j+1];
       }
-      crate_locations[9] = new crate();
+      crate_locations[9] = new crate(1,false,0,0);
       current_crates--;
       
       if (focus_crate > 0)
@@ -304,10 +321,6 @@ class crate
   
   labelgame[] labels_applied;
   labelgame[] labels_needed;
-  crate ()
-  {
-     x = -1100; 
-  }
   
   crate(int labels_to_be_added, boolean enable_rotation, int hardness, int positional)
   {
@@ -324,9 +337,9 @@ class crate
       int face = 0;
       if (enable_rotation)
       {
-        face = int(random(4));        
+        face = int(random(4));
       }
-      labels_needed[j] = new labelgame(j, face, hardness);
+      labels_needed[j] = new labelgame(j % 2, face, hardness, positional);
     }
     x = -1100;
   }
@@ -343,22 +356,37 @@ class labelgame
   int type;
   int face;
   int hardness;
+  
+  float x;
+  float y;
+  
   labelgame(int pType, int pFace, float pos_x, float pos_y)
   {
     type = pType;
     face = pFace;
+    x = pos_x;
+    y = pos_y;
   }
   
-  labelgame(int pType, int pFace, int pHardness)
+  labelgame(int pType, int pFace, int pHardness, int positional)
   {
     type = pType;
     face = pFace;
     hardness = pHardness;
+    
+    if (positional == 0)
+    {
+      x = 0;
+      y = 0;
+    }
+    if (positional == 1)
+    {
+      
+    }
   }
   
   boolean compare()
   {
-    
     return true;
   }
 }
