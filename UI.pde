@@ -12,6 +12,7 @@ class UI
   basic_image marker2;
   
   basic_image Cursor;
+  basic_image Cursor_Replace;
   
   float cursor_x = 64;
   float cursor_y = 64;
@@ -19,8 +20,6 @@ class UI
   float effective_cursor_y = 64;
   
   float cursor_speed = 1.0;
-  
-  float calmness = 1.0;
   float panic_buildup = 0.0;
   
   int smiles = 0;
@@ -31,6 +30,7 @@ class UI
   float marker_jitter = 0;
   
   boolean marker_pulse = false;
+  
   
   UI()
   {
@@ -49,18 +49,14 @@ class UI
     sads = 0;
   }
   
-  void set_calm(float pCalm)
-  {
-    calmness = pCalm;
-  }
   void set_buildup(float buildup)
   {
-    panic_buildup = buildup; 
+    panic_buildup = constrain(buildup,0,1.0); 
   }
     
   void calc_jitter()
   {
-    marker_jitter = random(abs(calmness - 1)*2) - 1;
+    marker_jitter = random(abs(panic_buildup - 1)*2) - 1;
   }
   
   void pulse(boolean state)
@@ -80,7 +76,7 @@ class UI
     
     fill(color(170,170,170));
  
-    float panic_bar = constrain(panic_buildup,0,bar_max);
+    float panic_bar = map(panic_buildup,0,1.0,bar_max,0);
     rect(64 - panic_bar, 128 - 14, 2 * panic_bar, 12);
     
     ui_base.draw();
@@ -103,9 +99,26 @@ class UI
     effective_cursor_x = jitter.apply_jitter_x(cursor_x);
     effective_cursor_y = jitter.apply_jitter_y(cursor_y);
 
-    Cursor.setPos(effective_cursor_x,effective_cursor_y);
-    Cursor.draw();
+    if (cursor_y > 128 - 16)
+    {
+      float amount_below = pow(constrain((cursor_y - (128-16)) / 8.0,0,1.0), 0.5);
+      effective_cursor_x = lerp(effective_cursor_x, cursor_x, amount_below);
+      effective_cursor_y = lerp(effective_cursor_y, cursor_y, amount_below);
+    }
+
+    if (cursor_override_state && Cursor_Replace != null && cursor_y < 128-16)
+    {
+      Cursor_Replace.setPos(effective_cursor_x,effective_cursor_y);
+      Cursor_Replace.draw();
+    }
+    else
+    {
+      Cursor.setPos(effective_cursor_x,effective_cursor_y);
+      Cursor.draw();
+    }
   }
+  
+  boolean cursor_override_state = false;
   
   float GetCursorX()
   {
@@ -114,6 +127,12 @@ class UI
   float GetCursorY()
   {
     return effective_cursor_y;
+  }
+ 
+  void OverrideCursor(boolean state, basic_image pReplace)
+  {
+    cursor_override_state = state;
+    Cursor_Replace = pReplace;    
   }
   
   void TakeInput(inputblob i)

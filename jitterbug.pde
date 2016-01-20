@@ -4,9 +4,11 @@ int minimum_cycle = 250;
 
 class jitterbug
 {
+  boolean player_must_pump = false;
+  
   jitterbug()
   {
-    pulse_milli = millis() + map(next_calm, 0,1.0,minimum_cycle,maximum_cycle);
+    pulse_milli = millis() + map(overall_state, 0,1.0,minimum_cycle,maximum_cycle);
   }
   
   int jitter_steps = 15;
@@ -19,18 +21,12 @@ class jitterbug
   
   // We pump the marker into position by getting the pulse right:
   float marker_position = 50;
+  float displayed_marker = 50;
   
   // How out of place it is adds to the panic bar behind it.
   
   float overall_state = 1.0;
-  float next_calm = 1.0;
-  
-  // We can have our calmness set here but we will stop using this:
-  void set_calm(float calmness)
-  {
-    next_calm = calmness;
-    theUI.set_calm(constrain(next_calm,0.0,2.0));
-  }
+  float state_pregradient = 1.0;
   
   void calc_jitter()
   {
@@ -54,13 +50,7 @@ class jitterbug
     // Tell the UI to recalculate the amount of jitter to apply to the cursor.
     theUI.calc_jitter();
     
-    if (next_calm > 1)
-    {
-      next_calm = 2 - next_calm;      
-    }
-    if (next_calm < 0)
-      next_calm = 0;
-    //print(next_calm + "\n");
+    float next_calm = overall_state;
     
     pulse_nextmax = int(map(next_calm, 0,1.0,minimum_cycle,maximum_cycle));
     
@@ -90,9 +80,6 @@ class jitterbug
   
   float pulse_milli = 0;
   
-  int calm_button_score = 0;
-  
-  
   float calm_start = -1;
   float release_start = -1;
   
@@ -105,7 +92,7 @@ class jitterbug
   
   void reset_pulse()
   {
-    ideal_beat_total = map(next_calm, 0,1.0,minimum_cycle,maximum_cycle);
+    ideal_beat_total = map(overall_state, 0,1.0,minimum_cycle,maximum_cycle);
     pulse_milli = millis() + ideal_beat_total;
   }
   
@@ -121,15 +108,80 @@ class jitterbug
     // we need to work out how even the breathe was
     // and we need to work out how close it is to the correct cycle of time
     
-    float score = map(total_delta,0,ideal_beat_total,0.0,1.0);
+    float score = 2.0 - map(total_delta,0,2 * ideal_beat_total,0.0,1.0);
     
     // numbers below 1 will indicate that the beat was too fast, and numbers above 1 will indicate that the beat was too slow
     // we want hyper ventilating to go up, so, we do this:
-    marker_position += 2.0 - (constrain(score,0.0,2.0));
+    marker_position = 50 * (constrain(score,0.0,2.0));
+    
+    pump_bar();
+  }
+  
+  void pump_bar()
+  {
+    // this is called every time we pump c or fail to pump c
+  }
+  
+  void apply_bar_math()
+  {
+    // this is called every frame
+    float difference = abs(marker_position - 50) / 50;
+    // difference will be a value from 0 to 1 based on how wrong we are
+    // we want to get better if we're within 0.1
+    
+    float tick = 1.0/60;
+    //println(difference);
+    
+    float modifier = 0;
+    if (difference < 0.2)
+    {
+        modifier = 0.1 * tick * constrain(difference,0.3,1.0);
+    }
+    else if (difference < 0.4)
+    {
+      // we want to get worse but with a cap
+      if (overall_state > 0.8)
+      {
+        modifier = - 0.1 * tick;
+      }
+      else if (overall_state < 0.4)
+      {
+        modifier = 0.05 * tick;
+      }
+    }
+    else if (difference < 0.6)
+    {
+       if (overall_state > 0.4)
+       {
+         modifier = -0.06 * tick;
+       }
+       else
+       {
+         modifier = 0.05 * tick;
+       }
+    }
+    else if (difference < 0.8)
+    {
+      modifier = -0.1 * tick;
+    }
+    else
+    {
+      modifier = -0.2 * tick;
+    }
+    
+    // gradient effect where we move along a curve
+    
+    state_pregradient += modifier;
+    state_pregradient = constrain(state_pregradient,0.0,1.0);
+    
+    overall_state = sin(state_pregradient * 0.5 * PI);
+    
+    overall_state = constrain(overall_state,0,1.0);
   }
   
   void check_did_anything()
   {
+    println(things_done);
     if (things_done > 1)
     {
       // we're ok this turn
@@ -138,17 +190,8 @@ class jitterbug
     else if (things_done == 0)
     {
       // we should be punished
-      float difference = marker_position - 50;
-      if (marker_position <= 50)
-      {
-        marker_position -= (1 + difference / 20); 
-      }
-      else
-      {
-        marker_position += (1 + difference / 20); 
-      }
-      
-      marker_position = constrain(marker_position,0,100);
+      marker_position = 0;
+      pump_bar();
     }
     else if (things_done == 1)
     {
@@ -190,24 +233,26 @@ class jitterbug
       release_start = millis();
     }
     
-    marker_position = constrain(marker_position,0,100);
-    float difference = abs(marker_position - 50);
-    overall_state -= difference;
+    apply_bar_math();
     theUI.set_buildup(overall_state);
     
-    theUI.SetMarker(map(marker_position,0,100,0.0,2.0));
+    marker_position = constrain(marker_position,0,100);
+    displayed_marker += (marker_position - displayed_marker) * 0.1;
     
-    pulse_progress++;
+    theUI.SetMarker(map(displayed_marker,0,100,0.0,2.0));
+    
+
     if (millis() > pulse_milli)
     {
       reset_pulse();
       pulse = !pulse;
       theUI.pulse(pulse);
       
-      if (pulse == false)
+      if (pulse == false && player_must_pump)
       {
         check_did_anything();
       }
     }
+
   }
 }

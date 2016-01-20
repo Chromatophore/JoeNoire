@@ -11,6 +11,11 @@ class level1
   basic_image arrow_right;
   basic_image next_button;
   
+  basic_image label1;
+  basic_image label2;
+  
+  int labels_unlocked = 2;
+  int selected_label = 0;
 
   int cog_steps = 5;
   int cog_current = 0;
@@ -49,6 +54,9 @@ class level1
     arrow_left = new basic_image(loadImage("data/MIT/lv1/leftside_arrow.png"),15,64);
     arrow_right = new basic_image(loadImage("data/MIT/lv1/rightside_arrow.png"),113,64);
     next_button = new basic_image(loadImage("data/MIT/lv1/next.png"),113,96);
+    
+    label1 = new basic_image(loadImage("data/MIT/lv1/l1.png"),64,64);
+    label2 = new basic_image(loadImage("data/MIT/lv1/l2.png"),64,64);
 
     current_camera_x = 512 - 128;
     
@@ -67,7 +75,23 @@ class level1
   {
     if (i.z_down)  // treat as swap?
     {
+      selected_label++;
       
+      if (selected_label > labels_unlocked)
+        selected_label = 0;
+      
+      if (selected_label == 0)
+      {
+        theUI.OverrideCursor(false, null);
+      }
+      else if (selected_label == 1)
+      {
+        theUI.OverrideCursor(true, label1);
+      }
+      else if (selected_label == 2)
+      {
+        theUI.OverrideCursor(true, label2);
+      }
     }
     if (i.x_down)  // treat as click?
     {
@@ -277,8 +301,33 @@ class crate
   float x;
   int showside;
   int[] labelneeds;
-  crate()
+  
+  labelgame[] labels_applied;
+  labelgame[] labels_needed;
+  crate ()
   {
+     x = -1100; 
+  }
+  
+  crate(int labels_to_be_added, boolean enable_rotation, int hardness, int positional)
+  {
+    // we can be created needing certain labels or not
+    // we can also be created with an encouragement to put the labels in particular places
+    // we can also be created with the need to rotate the box or not
+
+    // crates can have up to 10 labels stuck to them I guess.
+    labels_applied = new labelgame[10];
+    labels_needed = new labelgame[labels_to_be_added];
+    
+    for (int j = 0; j < labels_to_be_added; j++)
+    {
+      int face = 0;
+      if (enable_rotation)
+      {
+        face = int(random(4));        
+      }
+      labels_needed[j] = new labelgame(j, face, hardness);
+    }
     x = -1100;
   }
   
@@ -286,5 +335,30 @@ class crate
   {
     x = -1100;
     showside = 0;
+  }
+}
+
+class labelgame
+{
+  int type;
+  int face;
+  int hardness;
+  labelgame(int pType, int pFace, float pos_x, float pos_y)
+  {
+    type = pType;
+    face = pFace;
+  }
+  
+  labelgame(int pType, int pFace, int pHardness)
+  {
+    type = pType;
+    face = pFace;
+    hardness = pHardness;
+  }
+  
+  boolean compare()
+  {
+    
+    return true;
   }
 }

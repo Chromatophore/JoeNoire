@@ -50,6 +50,9 @@ void draw() {
   // Set up our initial scale:
   scale(4.0,4.0);
   
+  // we can do screen shake too lol
+  translate(random(2) - 1.0, random(2) - 1.0);
+  
   // Draw whatever scene we're on
   
   //titlescreen.draw();
