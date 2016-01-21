@@ -99,7 +99,12 @@ void textbox_setup()
   avatar_list[0] = loadImage("data/MIT/boss1.png");
   avatar_list[1] = loadImage("data/MIT/boss2.png");
   
+  
+  avatar_list[10] = loadImage("data/MIT/lady_hand_rings.png");
+  
   portrait_db[0] = new PortraitSet("workboss","0,1",0, "talk1");
+  
+  portrait_db[1] = new PortraitSet("lady_hand_rings","10",0, "talk3");
 }
 
 class textbox
@@ -215,6 +220,7 @@ class textbox
         
         int frame = pSet.GetFrame(int(progress_so_far) == string_length);
         
+        // to do fix this crash:
         image(avatar_list[pSet.framelist[frame]], 0,0);
         
         if (progress_so_far < string_length)
@@ -358,6 +364,10 @@ PortraitSet get_portrait_set(String av_name)
   if (av_name.equals("workboss"))
   {
     return portrait_db[0];
+  }
+  else if (av_name.equals("lady_hand_rings"))
+  {
+    return portrait_db[1];    
   }
   
   return null;

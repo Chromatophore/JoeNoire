@@ -55,9 +55,10 @@ void setup()
   noStroke();
   background(255);
   
-  String[] tbtext = new String[2];
+  String[] tbtext = new String[3];
   tbtext[0] = "workboss^Hi #SAGameDev. I am trying to make a game but will probably fail BOO HOO ME :(.";
   tbtext[1] = "workboss^Here is a second line of text to test with";
+  tbtext[2] = "lady_hand_rings^Look at my beautiful rings!";
   
   tbtest = new textbox(loadImage("data/MIT/textbox.png"),loadImage("data/MIT/textbox_nox.png"),tbtext);
   
@@ -135,8 +136,8 @@ void draw()
     scorer.draw();
   }
   
-  //tbtest.draw();
-  //tbtest.TakeInput(inp);
+  tbtest.draw();
+  tbtest.TakeInput(inp);
 
   // Inform the input class to clear the down states because we're at the end of the frame:
   inp.input_has_been_read();
