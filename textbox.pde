@@ -7,6 +7,8 @@ float text_box_open_speed = 4;
 PortraitSet[] portrait_db;
 PImage[] avatar_list;
 
+textblob[] all_texts;
+
 void textbox_setup()
 {
   var_width_array = new int[256];
@@ -127,9 +129,89 @@ void textbox_setup()
   portrait_db[10] = new PortraitSet("tannoy","14,15",0, "talk4");
   
   
+  all_texts = new textblob[100];
   
+  int textsofar = 0;
+  
+  String lines[] = loadStrings("MIT/gametext.txt");
+  int read_assist = -1;
+  int size_array = 0;
+  String new_name = "";
+  for (String l : lines)
+  {
+      if (l.equals("text"))
+      {
+          size_array = 1;        
+      }
+      else if (size_array == 1)
+      {
+        new_name = l;
+        size_array = 2; 
+      }
+      else if (size_array == 2)
+      {
+        read_assist = int(l);
+        all_texts[textsofar] = new textblob(new_name,read_assist);
+        
+        size_array = 0;
+      }
+      else if (all_texts[textsofar] != null && read_assist > 0)
+      {
+        all_texts[textsofar].AddLine(l);
+        read_assist--;
+        
+        if (read_assist == 0)
+        {
+          textsofar++;
+        }
+        // end side reading
+      }
+  }
   
 }
+
+
+String[] find_text(String name)
+{
+  for (textblob t : all_texts)
+  {
+    if (t != null)
+    {
+      if (t.name.equals(name))
+        return t.line_list;
+    }
+  }
+  return null;
+}
+
+
+class textblob
+{
+  String name;
+  int lines;
+  String[] line_list;
+   textblob(String pName, int pLines)
+   {
+     name = pName;
+     lines = pLines;
+     line_list = new String[lines];    
+   }
+   
+   int lines_so_far = 0;
+   void AddLine(String s)
+   {
+     if (lines_so_far >= lines)
+     {
+       println("trying to load too many lines for " + name);
+       println(s);
+        return;
+     }
+     
+     line_list[lines_so_far] = s;
+     lines_so_far++;
+   }
+}
+
 
 class textbox
 {
@@ -187,26 +269,39 @@ class textbox
     }
     else
     {
-      String[] breakup = split(texts[current_text],"^");
-      total_portraits = 0;
-      
-      if (breakup[0].equals("none"))
+      String next_line = texts[current_text];
+      if (!next_line.equals(""))
       {
-        NoPortrait = true;
+        String[] breakup = split(next_line,"^");
+        total_portraits = 0;
+        
+        if (breakup[0].equals("none") || breakup[0].equals("jack"))
+        {
+          NoPortrait = true;
+        }
+        else
+        {
+          NoPortrait = false;
+          pSet = get_portrait_set(breakup[0]);
+        }
+        
+        if (pSet == null)
+        {
+          NoPortrait = true;
+        }
+  
+        this_text = breakup[1] + " ";
+        string_length = this_text.length();
+        charry = int( this_text.toCharArray() );
+        
+        init();
+      
+        current_text++;
       }
       else
       {
-        NoPortrait = false;
-        pSet = get_portrait_set(breakup[0]);
+         isOpening = 0; 
       }
-
-      this_text = breakup[1] + " ";
-      string_length = this_text.length();
-      charry = int( this_text.toCharArray() );
-      
-      init();
-    
-      current_text++;
     }
   }
   
@@ -450,7 +545,6 @@ PortraitSet get_portrait_set(String av_name)
   {
     return portrait_db[10];    
   }
-
   
   return null;
 }

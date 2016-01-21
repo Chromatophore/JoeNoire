@@ -64,8 +64,12 @@ void setup()
   tbtext[0] = "tannoy^Hi #SAGameDev. I am trying to make a game but will probably fail BOO HOO ME :(.";
   tbtext[1] = "goon2^Here is a second line of text to test with";
   tbtext[2] = "superboss^Look at my beautiful rings!";
+  
+  String[] tbtext2 = find_text("chap2_1");
+  
+  println(tbtext2[0]);
               
-  tbtest = new textbox(loadImage("data/MIT/textbox.png"),loadImage("data/MIT/textbox_nox.png"),tbtext);
+  tbtest = new textbox(loadImage("data/MIT/textbox.png"),loadImage("data/MIT/textbox_nox.png"),tbtext2);
   
   lv1 = new level1();
   lv2 = new level2();
@@ -121,6 +125,7 @@ void draw()
   
   //titlescreen.draw();
   
+  tbtest.TakeInput(inp);
   
   lv1.TakeInput(inp);
   lv1.draw();
@@ -146,7 +151,7 @@ void draw()
   }
   
   tbtest.draw();
-  tbtest.TakeInput(inp);
+  
 
   // Inform the input class to clear the down states because we're at the end of the frame:
   inp.input_has_been_read();

@@ -1,0 +1,83 @@
+gametext
+
+text
+intro_1
+5
+none^I was never anybody. Never wanted to be.
+none^Never wanted to stand out. Kept my head down.
+none^Just wanted to be, you know, happy. But no.
+none^Not worth dwelling on the past though, is it. Won't change nothing.
+tannoy^Hey, Jack! Are you sleeping down there?! I don't pay you to sleep!
+
+text
+intro_2
+6
+tannoy^Well welcome back to the land of the living!
+tannoy^Sleep when your shift is over, not when it's starting!
+jack^I wasn't sleeping, I was just... thinking.
+tannoy^Well I don't pay you to THINK, although it'd certainly be cheaper.
+none^IF you were paying me any less I'd be going home each night in debt.
+tannoy^Well, let's get a move on then, you've got shipping boxes to label!
+
+text
+intro_3
+1
+tannoy^Just slap that label on!
+
+text
+intro_4
+1
+none^What a charmed life. Placing labels on crates.
+
+text
+intro_5
+1
+tannoy^C'mon! Are you even paying attention to shipping regulations?
+
+text
+intro_6
+2
+none^Lousy arbitrary government nonsense.
+none^Labels must be no more than 2 inches from nearest yadda yadda...
+
+text
+intro_7_good
+1
+tannoy^Good enough to avoid a fine.
+
+text
+intro_7_bad
+1
+tannoy^Those fines come out of my wallet!
+
+text
+intro_8
+1
+Don't forget you have to check every side!
+
+
+
+text
+chap2_1
+19
+superboss^Welcome, Jack. I hope the boys have been treating you well.
+jack^Better than their parents treated them, I'm sure.
+superboss^Ha! Quite firey for someone in such dire straights.
+goon1^Maybe if you had used some of that wit to win at cards you wouldn't be here now.
+superboss^Yes, Jack, you are quite deep in debt to the house. Too deep.
+superboss^I've heard the sad news about your recent unemployment as well.
+superboss^It really does seem like you've run out of options.
+superboss^And I've run out of patience.
+superboss^Boys, I think it's time you take Jack here on one last ride.
+lady^Hiiiii boys!
+goon2^Heya Miss!
+superboss^Darling, what have I said about needing my privacy during business meetings?
+lady^Aw, but, I was getting so lonely! You never pay me any mind.
+superboss^I pay much more than that! Gifts don't grow on trees, my dear.
+lady^But, but it's so cold in the house, alone. My poor hands!
+ladyh1^Especially this finger...
+superboss^Well then... It's a good thing that I was just sending the boys out... with Jack here... to pick you up something nice!
+lady^Aw, you were doing that for me?
+superboss^Of course. Boys, you know what to do. Show Jack where I like to get gifts from.
+
+
