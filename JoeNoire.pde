@@ -1,10 +1,14 @@
 import ddf.minim.*; //<>// //<>//
 
+float global_volume = 0.3;
+float global_gain = -10;
+
 int game_width = 128;
 int game_height = 128;
 PFont font;
 PFont font_ui;
 level1 lv1;
+level2 lv2;
 jitterbug jitter;
 
 UI theUI;
@@ -20,6 +24,11 @@ scoremaster scorer;
 textbox tbtest;
 
 boolean show_ui = true;
+
+int shake_descaler = 0;
+int shake_frames = 0;
+float shake_scale;
+float shake_start_scale;
 
 void setup()
 {
@@ -50,15 +59,53 @@ void setup()
   tbtext[0] = "workboss^Hi #SAGameDev. I am trying to make a game but will probably fail BOO HOO ME :(.";
   tbtext[1] = "workboss^Here is a second line of text to test with";
   
-  tbtest = new textbox(loadImage("data/MIT/textbox.png"),tbtext);
+  tbtest = new textbox(loadImage("data/MIT/textbox.png"),loadImage("data/MIT/textbox_nox.png"),tbtext);
   
   lv1 = new level1();
+  lv2 = new level2();
+}
+
+void shake_screen(float mag, int how_many_frames, int how_to_scale)
+{
+  shake_frames = how_many_frames;
+  shake_scale = mag;
+  shake_start_scale = mag;
+  shake_descaler = how_to_scale;
 }
 
 void draw()
 {
+  boolean shake_ui = true;
   // Set up our initial scale:
   scale(4.0,4.0);
+  
+  fill(0,0,0);
+  rect(-10,-10,148,148);
+  fill(255,255,255);
+  
+
+  if (!shake_ui)
+  {
+    pushMatrix();
+  }
+  
+  if (shake_frames > 0)
+  {
+    if (shake_descaler != 0)
+    {
+      float ratio = shake_frames;
+      ratio /= shake_descaler;
+      ratio = constrain(ratio,0,1);
+      shake_scale = shake_start_scale * ratio;
+    }
+    
+    float shake_x = random(2 * shake_scale) - shake_scale;
+    float shake_y = random(2 * shake_scale) - shake_scale;
+    translate(shake_x,shake_y);
+    shake_frames--;
+  }
+  
+  
   
   // we can do screen shake too lol
   //translate(random(2) - 1.0, random(2) - 1.0);
@@ -68,23 +115,32 @@ void draw()
   //titlescreen.draw();
   
   
-  lv1.TakeInput(inp);
-  lv1.draw();
+  //lv1.TakeInput(inp);
+  //lv1.draw();
+  
+
+  
+  lv2.TakeInput(inp);
+  lv2.draw();
   
   if (show_ui)
   {
     jitter.TakeInput(inp);
     theUI.TakeInput(inp);
+    if (!shake_ui)
+    {
+      popMatrix();
+    }
     theUI.draw();
     scorer.draw();
   }
   
-  
-  tbtest.draw();
-  tbtest.TakeInput(inp);
+  //tbtest.draw();
+  //tbtest.TakeInput(inp);
 
   // Inform the input class to clear the down states because we're at the end of the frame:
   inp.input_has_been_read();
+  
   
   //println(frameRate);
 }
@@ -122,7 +178,7 @@ class basic_image
   {
     rotation = rot;
   }
-  void rotate(float rot)
+  void modRotate(float rot)
   {
     rotation += rot;
   }
@@ -130,9 +186,14 @@ class basic_image
   void draw()
   {
     pushMatrix();
+    
     translate(x_float,y_float);
+
     if (rotation != 0.0)
+    {
       rotate(rotation);
+    }
+    
     if (w != 0 || h != 0)
     {
       image(imageRef,0,0,w,h);
@@ -141,6 +202,7 @@ class basic_image
     {
       image(imageRef,0,0);
     }
+    
     popMatrix();
   }
   
@@ -164,80 +226,6 @@ void keyReleased(KeyEvent e)
 void stop()
 {
   make_sound.end_program();  
-}
-
-
-class inputblob
-{
-  int z_state;
-  int x_state;
-  int c_state;
-  
-  boolean z_down;
-  boolean x_down;
-  boolean c_down;
-  
-  int up_state;
-  int down_state;
-  int left_state;
-  int right_state;
-  
-  float x_axis;
-  float y_axis;
-  
-  inputblob()
-  {
-    
-  }
-  
-  void input_has_been_read()
-  {
-    z_down = false;
-    x_down = false;
-    c_down = false;
-  }
-  
-  void do_input(char c, int down)
-  {
-    if (key == CODED)
-    {
-      if (keyCode == UP)
-        up_state = down;
-      if (keyCode == DOWN)
-        down_state = down;
-      if (keyCode == LEFT)
-        left_state = down;
-      if (keyCode == RIGHT)
-        right_state = down;
-    }
-    else
-    {
-       if (c == 'z')
-       {
-         z_state = down;
-         if (down == 1)
-           z_down = true;
-       }
-       if (c == 'x')
-       {
-         x_state = down;
-         if (down == 1)
-           x_down = true;
-       }
-       if (c == 'c')
-       {
-         c_state = down;
-         if (down == 1)
-           c_down = true;
-       }
-    }
-    
-    x_axis = -1 * left_state + 1 * right_state;
-    y_axis = -1 * up_state + 1 * down_state; 
-    
-    //print(x_axis + " " + y_axis + "\n");
-
-  }
 }
 
 boolean box_test(float x, float y, float box_x, float box_y, float w, float h)

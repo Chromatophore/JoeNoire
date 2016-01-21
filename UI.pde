@@ -19,7 +19,7 @@ class UI
   float effective_cursor_x = 64;
   float effective_cursor_y = 64;
   
-  float cursor_speed = 1.0;
+  float cursor_speed = 1.5;
   float panic_buildup = 0.0;
   
   boolean chill = false;
@@ -59,6 +59,17 @@ class UI
   void pulse(boolean state)
   {
     marker_pulse = state;
+    
+    if (marker_pulse)
+    {
+      make_sound.play("pulse2");
+      make_sound.halt("pulse1");
+    }
+    else
+    {
+      make_sound.play("pulse1");
+      make_sound.halt("pulse2");
+    }
   }
   
   void SetMarker(float ratio)
@@ -97,9 +108,13 @@ class UI
     text(number,118,125);
     
     if (marker_pulse)
+    {
       marker2.draw();
+    }
     else
+    {
       marker.draw();
+    }
       
     jitter.calc_jitter();
     effective_cursor_x = jitter.apply_jitter_x(cursor_x);

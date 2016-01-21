@@ -4,7 +4,7 @@ int minimum_cycle = 250;
 
 class jitterbug
 {
-  boolean player_must_pump = false;
+  boolean player_must_pump = true;
   
   jitterbug()
   {
@@ -107,12 +107,22 @@ class jitterbug
 
     // we need to work out how even the breathe was
     // and we need to work out how close it is to the correct cycle of time
+    float wrong_delta = (0.5 - (hold_total / total_delta)) / 0.5;
+    // wrong delta now stores how wrong we were for the delta from -1 to 1
     
-    float score = 2.0 - map(total_delta,0,2 * ideal_beat_total,0.0,1.0);
+    float score = 1 - map(total_delta,0,2 * ideal_beat_total,0.0,1.0);
+    float score2 = wrong_delta;
+    
+    println(score2);
+    
+    if (abs(score2) > abs(score))
+      score = score2;
+    
+    // TODO to integrage % held here somehow
     
     // numbers below 1 will indicate that the beat was too fast, and numbers above 1 will indicate that the beat was too slow
     // we want hyper ventilating to go up, so, we do this:
-    marker_position = 50 * (constrain(score,0.0,2.0));
+    marker_position = 50 * (constrain(1 + score,0.0,2.0));
     
     pump_bar();
   }
@@ -120,6 +130,7 @@ class jitterbug
   void pump_bar()
   {
     // this is called every time we pump c or fail to pump c
+    make_sound.breath_loudness(overall_state);
   }
   
   void apply_bar_math()

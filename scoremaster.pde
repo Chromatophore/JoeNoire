@@ -22,11 +22,14 @@ class scoremaster
     {
       // this is awful but I have to get this done so bad...
       if (score_rise_effects[j] == null)
+      {
         score_rise_effects[j] = s;
+        break;
+      }
     }
   }
   
-  int lifemax = 500;
+  int lifemax = 60;
   
   void draw()
   {
@@ -36,7 +39,7 @@ class scoremaster
       score_riser s = score_rise_effects[j];
       if (s != null)
       {
-        s.y -= 0.01;
+        s.y -= 0.1;
         s.life += 1;
         
         if (s.life > lifemax)

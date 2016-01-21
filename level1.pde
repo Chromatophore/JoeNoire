@@ -140,7 +140,7 @@ class level1
         size_crate_array = false;
         crate_array_size = int(l) + 5;
         crate_locations = new crate[crate_array_size];
-        println(crate_array_size);
+        //println(crate_array_size);
       }
       
       if (crate_locations != null)
@@ -157,7 +157,7 @@ class level1
         else if (crate_datas > 0)
         {
           String[] subs = split(l,",");
-          println(l);
+          //println(l);
           crate_locations[cratesofar].ApplySide(int(subs[0]),side_db[int(subs[1])]);
           crate_datas--;
           if (crate_datas == 0)

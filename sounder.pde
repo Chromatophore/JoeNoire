@@ -19,6 +19,19 @@ void load_sounds()
   sounds[4] = minim.loadFile("data/MIT/talk1.wav");
   sounds[5] = minim.loadFile("data/MIT/talk2.wav");
   sounds[6] = minim.loadFile("data/MIT/talk3.wav");
+  sounds[7] = minim.loadFile("data/MIT/pulse_real1.wav");
+  sounds[8] = minim.loadFile("data/MIT/pulse_real2.wav");
+    
+  for (AudioPlayer thing : sounds)
+  {
+    if (thing != null)
+    {
+      //println("Gain before: " + thing.getGain());
+      thing.setGain(global_gain);
+      //println("Gain after: " + thing.getGain());      
+    }
+  }
+  
   loaded = true;
 }
 
@@ -38,9 +51,10 @@ class sounder
   sounder()
   {
     load_sounds();
+    breath_loudness(1.0);
   }
   
-  void play(String name)
+  int IDfromName(String name)
   {
     int id = -1;
     
@@ -58,7 +72,17 @@ class sounder
       id = 5;
     else if (name.equals("talk3"))
       id = 6;
-    
+    else if (name.equals("pulse1"))
+      id = 7;
+    else if (name.equals("pulse2"))
+      id = 8;
+      
+    return id;
+  }
+  
+  void play(String name)
+  {
+    int id = IDfromName(name);
     
     if (id >= 0)
     {
@@ -67,8 +91,35 @@ class sounder
     }
   }
   
+  void halt(String name)
+  {
+    int id = IDfromName(name);
+    
+    if (id >= 0)
+    {
+      sounds[id].pause();
+    }
+  }
+  
   void end_program()
   {
     unload_sounds();    
+  }
+  
+  void breath_loudness(float factor)
+  {
+    // as is our calmness, 1.0 is fully calm
+    // we need to reverse this:
+    factor = 1 - factor;
+    
+    float up_gain = global_gain + (20 * factor) - 15;
+    float down_gain = global_gain - (10 * factor);
+    
+    // make breathing louder
+    sounds[7].setGain(up_gain);
+    sounds[8].setGain(up_gain);
+    
+    // reduce music files by down_gain:
+    
   }
 }

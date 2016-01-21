@@ -117,6 +117,7 @@ class textbox
   
   float text_box_height;
   PImage textbox_background;
+  PImage textbox_background_nox;
   
   int isOpening;
   
@@ -128,7 +129,7 @@ class textbox
   int total_portraits;
   int finished_portrait;
   
-  textbox(PImage pBG, String[] pTexts)
+  textbox(PImage pBG, PImage pBGnox, String[] pTexts)
   {
     texts = pTexts;
     for (String sub : texts)
@@ -137,6 +138,7 @@ class textbox
     }
     
     textbox_background = pBG;
+    textbox_background_nox = pBGnox;
     
     isOpening = 1;
     SetupLine();
@@ -201,11 +203,14 @@ class textbox
       if (text_box_height < 40)
       {
         text_box_height += text_box_open_speed;
-        image(textbox_background,0,0,128,text_box_height);
+        image(textbox_background_nox,0,0,128,text_box_height);
       }
       else
       {
-        image(textbox_background,0,0);
+        if (!FinishedLine)
+          image(textbox_background_nox,0,0);
+        else
+          image(textbox_background,0,0);
         translate(-44,0);
         
         int frame = pSet.GetFrame(int(progress_so_far) == string_length);
@@ -325,7 +330,7 @@ class textbox
       {
         translate(64,128 - 20);
         text_box_height -= text_box_open_speed;
-        image(textbox_background,0,0,128,text_box_height);
+        image(textbox_background_nox,0,0,128,text_box_height);
       }
     }
     
