@@ -57,9 +57,9 @@ void setup()
   
   String[] tbtext = new String[3];
   tbtext[0] = "workboss^Hi #SAGameDev. I am trying to make a game but will probably fail BOO HOO ME :(.";
-  tbtext[1] = "workboss^Here is a second line of text to test with";
-  tbtext[2] = "lady_hand_rings^Look at my beautiful rings!";
-  
+  tbtext[1] = "goon2^Here is a second line of text to test with";
+  tbtext[2] = "superboss^Look at my beautiful rings!";
+              
   tbtest = new textbox(loadImage("data/MIT/textbox.png"),loadImage("data/MIT/textbox_nox.png"),tbtext);
   
   lv1 = new level1();

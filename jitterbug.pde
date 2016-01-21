@@ -4,7 +4,7 @@ int minimum_cycle = 250;
 
 class jitterbug
 {
-  boolean player_must_pump = true;
+  boolean player_must_pump = false;
   
   jitterbug()
   {

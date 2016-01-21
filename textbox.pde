@@ -98,13 +98,30 @@ void textbox_setup()
   avatar_list = new PImage[100];
   avatar_list[0] = loadImage("data/MIT/boss1.png");
   avatar_list[1] = loadImage("data/MIT/boss2.png");
-  
-  
-  avatar_list[10] = loadImage("data/MIT/lady_hand_rings.png");
+  avatar_list[2] = loadImage("data/MIT/goon1.png");
+  avatar_list[3] = loadImage("data/MIT/goon2.png");
+  avatar_list[4] = loadImage("data/MIT/goonB1.png");
+  avatar_list[5] = loadImage("data/MIT/goonB2.png");
+  avatar_list[6] = loadImage("data/MIT/superboss.png");
+  avatar_list[7] = loadImage("data/MIT/lady.png");
+  avatar_list[8] = loadImage("data/MIT/lady_hand_rings.png");
+  avatar_list[9] = loadImage("data/MIT/lady_hand_rings2i.png");
+  avatar_list[10] = loadImage("data/MIT/lady_hand_rings2.png");
+  avatar_list[11] = loadImage("data/MIT/lady_hand_brace.png");
   
   portrait_db[0] = new PortraitSet("workboss","0,1",0, "talk1");
+  portrait_db[1] = new PortraitSet("goon1","2,3",0, "talk1");
+  portrait_db[2] = new PortraitSet("goon2","4,5",0, "talk1");
+  portrait_db[3] = new PortraitSet("superboss","6",0, "talk2");
+  portrait_db[4] = new PortraitSet("lady","7",0, "talk2");
+  portrait_db[5] = new PortraitSet("lady_h1","8",0, "talk2");
+  portrait_db[6] = new PortraitSet("lady_h2","9",0, "talk2");
+  portrait_db[7] = new PortraitSet("lady_h3","10",0, "talk2");
+  portrait_db[8] = new PortraitSet("lady_h4","11",0, "talk2");
   
-  portrait_db[1] = new PortraitSet("lady_hand_rings","10",0, "talk3");
+  
+  
+  
 }
 
 class textbox
@@ -365,10 +382,39 @@ PortraitSet get_portrait_set(String av_name)
   {
     return portrait_db[0];
   }
-  else if (av_name.equals("lady_hand_rings"))
+  else if (av_name.equals("goon1"))
   {
     return portrait_db[1];    
   }
+  else if (av_name.equals("goon2"))
+  {
+    return portrait_db[2];    
+  }
+  else if (av_name.equals("superboss"))
+  {
+    return portrait_db[3];    
+  }
+  else if (av_name.equals("lady"))
+  {
+    return portrait_db[4];    
+  }
+  else if (av_name.equals("ladyh1"))
+  {
+    return portrait_db[5];    
+  }
+  else if (av_name.equals("ladyh2"))
+  {
+    return portrait_db[6];    
+  }
+  else if (av_name.equals("ladyh3"))
+  {
+    return portrait_db[7];    
+  }
+  else if (av_name.equals("ladyh4"))
+  {
+    return portrait_db[8];    
+  }
+
   
   return null;
 }
