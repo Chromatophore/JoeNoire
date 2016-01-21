@@ -306,6 +306,7 @@ class level1
   {
     sads++;
     theUI.SetSads(sads);
+    jitter.get_rekt(0.1);
   }
   
   int crate_center_offset_x = -5;

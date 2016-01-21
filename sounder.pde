@@ -10,7 +10,7 @@ void load_sounds()
     
    minim = new Minim(this);
     
-  sounds = new AudioPlayer[10];
+  sounds = new AudioPlayer[30];
 
   sounds[0] = minim.loadFile("data/test.mp3");
   sounds[1] = minim.loadFile("data/sound/242501__gabrielaraujo__powerup-success.wav");
@@ -22,6 +22,7 @@ void load_sounds()
   sounds[7] = minim.loadFile("data/MIT/pulse_real1.wav");
   sounds[8] = minim.loadFile("data/MIT/pulse_real2.wav");
   sounds[9] = minim.loadFile("data/sound/snow_shriek.wav");
+  sounds[10] = minim.loadFile("data/MIT/talk4.wav");
     
   for (AudioPlayer thing : sounds)
   {
@@ -79,6 +80,8 @@ class sounder
       id = 8;
     else if (name.equals("bat"))
       id = 9;
+    else if (name.equals("talk4"))
+      id = 10;
       
     return id;
   }

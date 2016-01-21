@@ -62,7 +62,7 @@ class level2_street
         bat_vy = -1 * cos(angle) * velmag;
         make_sound.play("bat");
         shake_screen(2,60,60); 
-        jitter.get_rekt(0.4);
+        jitter.get_rekt(0.5);
       }
       else if (bat_frames > 30)
       {

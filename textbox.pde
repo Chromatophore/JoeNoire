@@ -92,7 +92,7 @@ void textbox_setup()
   var_width_array[41] = 3;
   
   
-  portrait_db = new PortraitSet[30];
+  
   
   
   avatar_list = new PImage[100];
@@ -108,16 +108,23 @@ void textbox_setup()
   avatar_list[9] = loadImage("data/MIT/lady_hand_rings2i.png");
   avatar_list[10] = loadImage("data/MIT/lady_hand_rings2.png");
   avatar_list[11] = loadImage("data/MIT/lady_hand_brace.png");
+  avatar_list[12] = loadImage("data/MIT/man_end0.png");
+  avatar_list[13] = loadImage("data/MIT/man_end1.png");
+  avatar_list[14] = loadImage("data/MIT/tannoy1.png");
+  avatar_list[15] = loadImage("data/MIT/tannoy2.png");
   
+  portrait_db = new PortraitSet[30];
   portrait_db[0] = new PortraitSet("workboss","0,1",0, "talk1");
   portrait_db[1] = new PortraitSet("goon1","2,3",0, "talk1");
   portrait_db[2] = new PortraitSet("goon2","4,5",0, "talk1");
   portrait_db[3] = new PortraitSet("superboss","6",0, "talk2");
-  portrait_db[4] = new PortraitSet("lady","7",0, "talk2");
-  portrait_db[5] = new PortraitSet("lady_h1","8",0, "talk2");
-  portrait_db[6] = new PortraitSet("lady_h2","9",0, "talk2");
-  portrait_db[7] = new PortraitSet("lady_h3","10",0, "talk2");
-  portrait_db[8] = new PortraitSet("lady_h4","11",0, "talk2");
+  portrait_db[4] = new PortraitSet("lady","7",0, "talk3");
+  portrait_db[5] = new PortraitSet("lady_h1","8",0, "talk3");
+  portrait_db[6] = new PortraitSet("lady_h2","9",0, "talk3");
+  portrait_db[7] = new PortraitSet("lady_h3","10",0, "talk3");
+  portrait_db[8] = new PortraitSet("lady_h4","11",0, "talk3");
+  portrait_db[9] = new PortraitSet("manend","12,13",0, "talk4");
+  portrait_db[10] = new PortraitSet("tannoy","14,15",0, "talk4");
   
   
   
@@ -434,6 +441,14 @@ PortraitSet get_portrait_set(String av_name)
   else if (av_name.equals("ladyh4"))
   {
     return portrait_db[8];    
+  }
+  else if (av_name.equals("man"))
+  {
+    return portrait_db[9];    
+  }
+  else if (av_name.equals("tannoy"))
+  {
+    return portrait_db[10];    
   }
 
   

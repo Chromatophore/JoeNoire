@@ -61,7 +61,7 @@ void setup()
   guncursor = new basic_image(loadImage("data/MIT/crosshair.png"),64,64);
   
   String[] tbtext = new String[3];
-  tbtext[0] = "none^Hi #SAGameDev. I am trying to make a game but will probably fail BOO HOO ME :(.";
+  tbtext[0] = "tannoy^Hi #SAGameDev. I am trying to make a game but will probably fail BOO HOO ME :(.";
   tbtext[1] = "goon2^Here is a second line of text to test with";
   tbtext[2] = "superboss^Look at my beautiful rings!";
               
@@ -122,16 +122,16 @@ void draw()
   //titlescreen.draw();
   
   
-  //lv1.TakeInput(inp);
-  //lv1.draw();
+  lv1.TakeInput(inp);
+  lv1.draw();
   
 
   
   //lv2.TakeInput(inp);
   //lv2.draw();
   
-  lv2_b.TakeInput(inp);
-  lv2_b.draw();
+  //lv2_b.TakeInput(inp);
+  //lv2_b.draw();
   
   if (show_ui)
   {
