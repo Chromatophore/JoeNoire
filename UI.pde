@@ -22,9 +22,6 @@ class UI
   float cursor_speed = 1.0;
   float panic_buildup = 0.0;
   
-  int smiles = 0;
-  int sads = 0;
-  
   boolean chill = false;
   
   float marker_jitter = 0;
@@ -87,8 +84,17 @@ class UI
       ui_base1.draw();
     
     fill(color(255,255,255));
-    text("00",118,119);
-    text("00",118,125);
+    
+    String number = str(smiles);
+    if (number.length() == 1)
+      number = "0" + number;
+
+
+    text(number,118,119);
+    number = str(sads);
+    if (number.length() == 1)
+      number = "0" + number;
+    text(number,118,125);
     
     if (marker_pulse)
       marker2.draw();
@@ -139,5 +145,16 @@ class UI
   {
     cursor_x = constrain( cursor_x + cursor_speed * i.x_axis, 0, 127);
     cursor_y = constrain( cursor_y + cursor_speed * i.y_axis, 0, 127);
+  }
+  
+  int smiles = 0;
+  int sads = 0;
+  void SetSmiles(int pSmiles)
+  {
+    smiles = pSmiles;
+  }
+  void SetSads(int pSads)
+  {
+    sads = pSads;
   }
 }

@@ -16,6 +16,9 @@ void load_sounds()
   sounds[1] = minim.loadFile("data/sound/242501__gabrielaraujo__powerup-success.wav");
   sounds[2] = minim.loadFile("data/sound/242503__gabrielaraujo__failure-wrong-action.wav");
   sounds[3] = minim.loadFile("data/sound/171521__fins__button.wav");
+  sounds[4] = minim.loadFile("data/MIT/talk1.wav");
+  sounds[5] = minim.loadFile("data/MIT/talk2.wav");
+  sounds[6] = minim.loadFile("data/MIT/talk3.wav");
   loaded = true;
 }
 
@@ -49,6 +52,12 @@ class sounder
       id = 2;
     else if (name.equals("ehhh"))
       id = 3;
+    else if (name.equals("talk1"))
+      id = 4;
+    else if (name.equals("talk2"))
+      id = 5;
+    else if (name.equals("talk3"))
+      id = 6;
     
     
     if (id >= 0)

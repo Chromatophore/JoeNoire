@@ -262,12 +262,14 @@ class level1
               int type = 1;
               if (score > 80)
               {
-                make_sound.play("good");        
+                make_sound.play("good");     
+                AddSmile();
                 type = 2;
               }
               else if (score < 50)
               {
                  make_sound.play("bad");
+                 AddSad();
                  type = 3;
               }
               else
@@ -290,6 +292,20 @@ class level1
         make_sound.play("beep"); 
       }
     }
+  }
+  
+  int smiles = 0;
+  int sads = 0;
+  
+  void AddSmile()
+  {
+    smiles++;
+    theUI.SetSmiles(smiles);
+  }
+  void AddSad()
+  {
+    sads++;
+    theUI.SetSads(sads);
   }
   
   int crate_center_offset_x = -5;
@@ -491,6 +507,7 @@ class level1
     if (!thiscrate.IsFinished())
     {
       make_sound.play("bad");
+      AddSad();
       int type = 3;
       scorer.add_riser(new score_riser(64 - 20, 20, "unfinished", type));
     }

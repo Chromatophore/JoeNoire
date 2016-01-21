@@ -4,6 +4,7 @@ int[] var_width_array;
 
 float text_box_open_speed = 4;
 
+PortraitSet[] portrait_db;
 PImage[] avatar_list;
 
 void textbox_setup()
@@ -91,9 +92,14 @@ void textbox_setup()
   var_width_array[41] = 3;
   
   
+  portrait_db = new PortraitSet[30];
+  
+  
   avatar_list = new PImage[100];
   avatar_list[0] = loadImage("data/MIT/boss1.png");
   avatar_list[1] = loadImage("data/MIT/boss2.png");
+  
+  portrait_db[0] = new PortraitSet("workboss","0,1",0, "talk1");
 }
 
 class textbox
@@ -122,22 +128,8 @@ class textbox
   int total_portraits;
   int finished_portrait;
   
-  textbox(PImage pBG, String pPortraits, int pFinished, String[] pTexts)
+  textbox(PImage pBG, String[] pTexts)
   {
-    total_portraits = 0;
-    String[] s = split(pPortraits,",");
-    for (String sub : s)
-    {
-       total_portraits++;
-    }
-    portrait = new PImage[total_portraits];
-    for (int j = 0;j < total_portraits;j++)
-    {
-      portrait[j] = avatar_list[int(s[j])];
-    }
-    
-    finished_portrait = pFinished;
-    
     texts = pTexts;
     for (String sub : texts)
     {
@@ -151,6 +143,7 @@ class textbox
   }
   
   boolean FinishedLine = false;
+  PortraitSet pSet;
   
   void SetupLine()
   {
@@ -161,7 +154,12 @@ class textbox
     }
     else
     {
-      this_text = texts[current_text] + " ";
+      String[] breakup = split(texts[current_text],"^");
+      total_portraits = 0;
+      
+      pSet = get_portrait_set(breakup[0]);
+
+      this_text = breakup[1] + " ";
       string_length = this_text.length();
       charry = int( this_text.toCharArray() );
       
@@ -210,11 +208,9 @@ class textbox
         image(textbox_background,0,0);
         translate(-44,0);
         
-        int frame = int(progress_so_far) % total_portraits;
-        if (int(progress_so_far) == string_length)
-          frame = finished_portrait;
-          
-        image(portrait[frame], 0,0);
+        int frame = pSet.GetFrame(int(progress_so_far) == string_length);
+        
+        image(avatar_list[pSet.framelist[frame]], 0,0);
         
         if (progress_so_far < string_length)
         {
@@ -350,5 +346,61 @@ class textbox
     else
       WriteFast = false;
   }
+}
+
+PortraitSet get_portrait_set(String av_name)
+{
+  if (av_name.equals("workboss"))
+  {
+    return portrait_db[0];
+  }
   
+  return null;
+}
+
+class PortraitSet
+{
+  String name;
+  String soundlookup;
+   PortraitSet(String pName, String frameset, int idle, String pSoundLookup)
+   {
+     name = pName;
+     String[] s = split(frameset,",");
+     framecount = 0;
+     for (String sub : s)
+     {
+       framecount++;
+     }
+     
+     framelist = new int[framecount];
+     
+     for (int j=0;j<framecount;j++)
+     {
+        framelist[j] = int(s[j]);       
+     }
+     
+     idleframe = idle;
+     soundlookup = pSoundLookup;
+   }
+   int framecount;
+   int[] framelist;
+   int idleframe;
+   
+   int cycles = 0;
+   int rate = 5;
+   int return_index = 0;
+   int GetFrame(boolean idle)
+   {
+     if (idle)
+       return idleframe;
+       
+     cycles++;
+     if (cycles > rate)
+     {
+       return_index = (return_index + 1) % framecount;
+       cycles = 0;
+       make_sound.play(soundlookup);
+     }
+     return return_index;
+   }
 }

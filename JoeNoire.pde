@@ -47,10 +47,10 @@ void setup()
   background(255);
   
   String[] tbtext = new String[2];
-  tbtext[0] = "Hi #SAGameDev. I am trying to make a game but will probably fail BOO HOO ME :(.";
-  tbtext[1] = "Here is a second line of text to test with";
+  tbtext[0] = "workboss^Hi #SAGameDev. I am trying to make a game but will probably fail BOO HOO ME :(.";
+  tbtext[1] = "workboss^Here is a second line of text to test with";
   
-  tbtest = new textbox(loadImage("data/MIT/textbox.png"),"0,1",0,tbtext);
+  tbtest = new textbox(loadImage("data/MIT/textbox.png"),tbtext);
   
   lv1 = new level1();
 }
