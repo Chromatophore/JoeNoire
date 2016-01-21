@@ -69,7 +69,7 @@ void setup()
   
   println(tbtext2[0]);
               
-  tbtest = new textbox(loadImage("data/MIT/textbox.png"),loadImage("data/MIT/textbox_nox.png"),tbtext2);
+  tbtest = new textbox("chap2_1");
   
   lv1 = new level1();
   lv2 = new level2();

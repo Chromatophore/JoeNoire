@@ -1,5 +1,20 @@
 gametext
 
+avatars:
+none - no talking noise, wide text box
+workboss - the creepy glasses boss
+goon1 - goon #1
+goon2 - goon #1
+superboss - the gang boss
+lady - his wife
+ladyh1 - hand sans ring
+ladyh2 - hand with ring
+ladyh3 - hand pointing to bracelet space
+ladyh4 - hand with bracelet
+man - last level man
+tannoy - the tannoy system in the work
+jack - wide text box WITH talking noise
+
 text
 intro_1
 5

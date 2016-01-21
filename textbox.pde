@@ -7,10 +7,17 @@ float text_box_open_speed = 4;
 PortraitSet[] portrait_db;
 PImage[] avatar_list;
 
+PImage textbox_a;
+PImage textbox_b;
+
+
 textblob[] all_texts;
 
 void textbox_setup()
 {
+   textbox_a = loadImage("data/MIT/textbox.png");
+   textbox_b = loadImage("data/MIT/textbox_nox.png");
+  
   var_width_array = new int[256];
   for(int j = 0; j < 256; j++)
   {
@@ -121,12 +128,13 @@ void textbox_setup()
   portrait_db[2] = new PortraitSet("goon2","4,5",0, "talk1");
   portrait_db[3] = new PortraitSet("superboss","6",0, "talk2");
   portrait_db[4] = new PortraitSet("lady","7",0, "talk3");
-  portrait_db[5] = new PortraitSet("lady_h1","8",0, "talk3");
-  portrait_db[6] = new PortraitSet("lady_h2","9",0, "talk3");
-  portrait_db[7] = new PortraitSet("lady_h3","10",0, "talk3");
-  portrait_db[8] = new PortraitSet("lady_h4","11",0, "talk3");
+  portrait_db[5] = new PortraitSet("ladyh1","8",0, "talk3");
+  portrait_db[6] = new PortraitSet("ladyh2","9",0, "talk3");
+  portrait_db[7] = new PortraitSet("ladyh3","10",0, "talk3");
+  portrait_db[8] = new PortraitSet("ladyh4","11",0, "talk3");
   portrait_db[9] = new PortraitSet("manend","12,13",0, "talk4");
   portrait_db[10] = new PortraitSet("tannoy","14,15",0, "talk4");
+  portrait_db[11] = new PortraitSet("jack","-1",-1, "talk1");
   
   
   all_texts = new textblob[100];
@@ -240,17 +248,20 @@ class textbox
   int total_portraits;
   int finished_portrait;
   
-  textbox(PImage pBG, PImage pBGnox, String[] pTexts)
+  String name_of_sequence;
+  
+  textbox(String name)
   {
-    texts = pTexts;
+    textbox_background = textbox_a;
+    textbox_background_nox = textbox_b;
+    
+    texts = find_text(name);
+    name_of_sequence = name;
     for (String sub : texts)
     {
        text_total++; 
     }
-    
-    textbox_background = pBG;
-    textbox_background_nox = pBGnox;
-    
+
     isOpening = 1;
     SetupLine();
   }
@@ -275,7 +286,7 @@ class textbox
         String[] breakup = split(next_line,"^");
         total_portraits = 0;
         
-        if (breakup[0].equals("none") || breakup[0].equals("jack"))
+        if (breakup[0].equals("none"))
         {
           NoPortrait = true;
         }
@@ -350,12 +361,14 @@ class textbox
           image(textbox_background,0,0);
         translate(-44,0);
         
-        if (!NoPortrait)
+        boolean UseBig = NoPortrait;
+        if (!NoPortrait && pSet != null)
         {
           int frame = pSet.GetFrame(int(progress_so_far) == string_length);
-          
-          // to do fix this crash:
-          image(avatar_list[pSet.framelist[frame]], 0,0);
+          if (frame != -1)
+            image(avatar_list[pSet.framelist[frame]], 0,0);
+          else
+            UseBig = true;
         }
         
         if (progress_so_far < string_length)
@@ -371,7 +384,7 @@ class textbox
         }
         
         translate(16,-5);
-        if (NoPortrait)
+        if (UseBig)
         {
            translate(-31,0); 
         }
@@ -545,6 +558,10 @@ PortraitSet get_portrait_set(String av_name)
   {
     return portrait_db[10];    
   }
+  else if (av_name.equals("jack"))
+  {
+    return portrait_db[11];    
+  }
   
   return null;
 }
@@ -582,6 +599,20 @@ class PortraitSet
    int return_index = 0;
    int GetFrame(boolean idle)
    {
+     if (idleframe == -1)
+     {
+       if (!idle)
+       {
+          cycles++;
+          if (cycles > rate)
+          {
+            cycles = 0;
+            make_sound.play(soundlookup);
+          }
+       }
+        return -1;
+     }
+       
      if (idle)
        return idleframe;
        
