@@ -21,6 +21,7 @@ void load_sounds()
   sounds[6] = minim.loadFile("data/MIT/talk3.wav");
   sounds[7] = minim.loadFile("data/MIT/pulse_real1.wav");
   sounds[8] = minim.loadFile("data/MIT/pulse_real2.wav");
+  sounds[9] = minim.loadFile("data/sound/snow_shriek.wav");
     
   for (AudioPlayer thing : sounds)
   {
@@ -76,6 +77,8 @@ class sounder
       id = 7;
     else if (name.equals("pulse2"))
       id = 8;
+    else if (name.equals("bat"))
+      id = 9;
       
     return id;
   }

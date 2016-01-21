@@ -80,6 +80,9 @@ class UI
   
   void draw()
   {
+    fill(color(0,0,0));
+    rect(0,128-16,128,16);
+    
     textFont(font_ui, 14);
     
     fill(color(170,170,170));

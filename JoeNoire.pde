@@ -9,7 +9,10 @@ PFont font;
 PFont font_ui;
 level1 lv1;
 level2 lv2;
+level2_street lv2_b;
 jitterbug jitter;
+
+basic_image guncursor;
 
 UI theUI;
 
@@ -55,8 +58,10 @@ void setup()
   noStroke();
   background(255);
   
+  guncursor = new basic_image(loadImage("data/MIT/crosshair.png"),64,64);
+  
   String[] tbtext = new String[3];
-  tbtext[0] = "workboss^Hi #SAGameDev. I am trying to make a game but will probably fail BOO HOO ME :(.";
+  tbtext[0] = "none^Hi #SAGameDev. I am trying to make a game but will probably fail BOO HOO ME :(.";
   tbtext[1] = "goon2^Here is a second line of text to test with";
   tbtext[2] = "superboss^Look at my beautiful rings!";
               
@@ -64,6 +69,7 @@ void setup()
   
   lv1 = new level1();
   lv2 = new level2();
+  lv2_b = new level2_street();
 }
 
 void shake_screen(float mag, int how_many_frames, int how_to_scale)
@@ -121,8 +127,11 @@ void draw()
   
 
   
-  lv2.TakeInput(inp);
-  lv2.draw();
+  //lv2.TakeInput(inp);
+  //lv2.draw();
+  
+  lv2_b.TakeInput(inp);
+  lv2_b.draw();
   
   if (show_ui)
   {

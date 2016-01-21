@@ -20,3 +20,10 @@ Button sound by fins, sourced from
 http://freesound.org/people/fins/sounds/171521/
 License:
 CC0 1.0 Universal (CC0 1.0)
+
+Snowy owl sound by soundmary, sourced from:
+http://freesound.org/people/soundmary/sounds/194945/
+Modified into a single shriek as snow_shriek.wav
+License:
+Creative Commons Attribution (CC BY 3.0)
+http://creativecommons.org/licenses/by/3.0/

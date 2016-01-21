@@ -28,6 +28,11 @@ class jitterbug
   float overall_state = 1.0;
   float state_pregradient = 1.0;
   
+  void get_rekt(float amount)
+  {
+    state_pregradient = constrain(state_pregradient - amount, 0, 1.0);
+  }
+  
   void calc_jitter()
   {
     if (jitter_current == jitter_steps)
@@ -113,7 +118,7 @@ class jitterbug
     float score = 1 - map(total_delta,0,2 * ideal_beat_total,0.0,1.0);
     float score2 = wrong_delta;
     
-    println(score2);
+    //println(score2);
     
     if (abs(score2) > abs(score))
       score = score2;
@@ -192,7 +197,6 @@ class jitterbug
   
   void check_did_anything()
   {
-    println(things_done);
     if (things_done > 1)
     {
       // we're ok this turn

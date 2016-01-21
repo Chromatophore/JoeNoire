@@ -169,6 +169,8 @@ class textbox
   boolean FinishedLine = false;
   PortraitSet pSet;
   
+  boolean NoPortrait = false;
+  
   void SetupLine()
   {
     if (current_text >= text_total)
@@ -181,7 +183,15 @@ class textbox
       String[] breakup = split(texts[current_text],"^");
       total_portraits = 0;
       
-      pSet = get_portrait_set(breakup[0]);
+      if (breakup[0].equals("none"))
+      {
+        NoPortrait = true;
+      }
+      else
+      {
+        NoPortrait = false;
+        pSet = get_portrait_set(breakup[0]);
+      }
 
       this_text = breakup[1] + " ";
       string_length = this_text.length();
@@ -207,6 +217,9 @@ class textbox
   void draw()
   {
     int wrapsize = 86;
+    
+    if (NoPortrait)
+      wrapsize = 120;
     
     textFont(font, 20);
     fill(color(255,255,255));
@@ -235,10 +248,13 @@ class textbox
           image(textbox_background,0,0);
         translate(-44,0);
         
-        int frame = pSet.GetFrame(int(progress_so_far) == string_length);
-        
-        // to do fix this crash:
-        image(avatar_list[pSet.framelist[frame]], 0,0);
+        if (!NoPortrait)
+        {
+          int frame = pSet.GetFrame(int(progress_so_far) == string_length);
+          
+          // to do fix this crash:
+          image(avatar_list[pSet.framelist[frame]], 0,0);
+        }
         
         if (progress_so_far < string_length)
         {
@@ -253,6 +269,11 @@ class textbox
         }
         
         translate(16,-5);
+        if (NoPortrait)
+        {
+           translate(-31,0); 
+        }
+        
         int x_offset = 0;
         String textwrite = this_text;
         int linedrops = 0;
