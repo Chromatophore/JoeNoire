@@ -11,10 +11,105 @@ PImage textbox_a;
 PImage textbox_b;
 
 
+PortraitSet get_portrait_set(String av_name)
+{
+  if (av_name.equals("workboss"))
+  {
+    return portrait_db[0];
+  }
+  else if (av_name.equals("goon1"))
+  {
+    return portrait_db[1];    
+  }
+  else if (av_name.equals("goon2"))
+  {
+    return portrait_db[2];    
+  }
+  else if (av_name.equals("superboss"))
+  {
+    return portrait_db[3];    
+  }
+  else if (av_name.equals("lady"))
+  {
+    return portrait_db[4];    
+  }
+  else if (av_name.equals("ladyh1"))
+  {
+    return portrait_db[5];    
+  }
+  else if (av_name.equals("ladyh2"))
+  {
+    return portrait_db[6];    
+  }
+  else if (av_name.equals("ladyh3"))
+  {
+    return portrait_db[7];    
+  }
+  else if (av_name.equals("ladyh4"))
+  {
+    return portrait_db[8];    
+  }
+  else if (av_name.equals("man"))
+  {
+    return portrait_db[9];    
+  }
+  else if (av_name.equals("tannoy"))
+  {
+    return portrait_db[10];    
+  }
+  else if (av_name.equals("jack"))
+  {
+    return portrait_db[11];    
+  }
+  else if (av_name.equals("marco"))
+  {
+    return portrait_db[12];    
+  }
+  
+  return null;
+}
+
+
 textblob[] all_texts;
 
 void textbox_setup()
 {
+  avatar_list = new PImage[100];
+  avatar_list[0] = loadImage("data/MIT/boss1.png");
+  avatar_list[1] = loadImage("data/MIT/boss2.png");
+  avatar_list[2] = loadImage("data/MIT/goon1.png");
+  avatar_list[3] = loadImage("data/MIT/goon2.png");
+  avatar_list[4] = loadImage("data/MIT/goonB1.png");
+  avatar_list[5] = loadImage("data/MIT/goonB2.png");
+  avatar_list[6] = loadImage("data/MIT/superboss.png");
+  avatar_list[7] = loadImage("data/MIT/lady.png");
+  avatar_list[8] = loadImage("data/MIT/lady_hand_rings.png");
+  avatar_list[9] = loadImage("data/MIT/lady_hand_rings2i.png");
+  avatar_list[10] = loadImage("data/MIT/lady_hand_rings2.png");
+  avatar_list[11] = loadImage("data/MIT/lady_hand_brace.png");
+  avatar_list[12] = loadImage("data/MIT/man_end0.png");
+  avatar_list[13] = loadImage("data/MIT/man_end1.png");
+  avatar_list[14] = loadImage("data/MIT/tannoy1.png");
+  avatar_list[15] = loadImage("data/MIT/tannoy2.png");
+  avatar_list[16] = loadImage("data/MIT/marco.png");
+  
+  portrait_db = new PortraitSet[30];
+  portrait_db[0] = new PortraitSet("workboss","0,1",0, "talk1");
+  portrait_db[1] = new PortraitSet("goon1","2,3",0, "talk1");
+  portrait_db[2] = new PortraitSet("goon2","4,5",0, "talk1");
+  portrait_db[3] = new PortraitSet("superboss","6",0, "talk2");
+  portrait_db[4] = new PortraitSet("lady","7",0, "talk3");
+  portrait_db[5] = new PortraitSet("ladyh1","8",0, "talk3");
+  portrait_db[6] = new PortraitSet("ladyh2","9",0, "talk3");
+  portrait_db[7] = new PortraitSet("ladyh3","10",0, "talk3");
+  portrait_db[8] = new PortraitSet("ladyh4","11",0, "talk3");
+  portrait_db[9] = new PortraitSet("man","12,13",0, "talk4");
+  portrait_db[10] = new PortraitSet("tannoy","14,15",0, "talk4");
+  portrait_db[11] = new PortraitSet("jack","-1",-1, "talk1");
+  portrait_db[12] = new PortraitSet("marco","16",-1, "talk1");
+  portrait_db[13] = new PortraitSet("joe","-1",-1, "talk6");
+  portrait_db[14] = new PortraitSet("joee","-1",-1, "talk5");
+  
    textbox_a = loadImage("data/MIT/textbox.png");
    textbox_b = loadImage("data/MIT/textbox_nox.png");
   
@@ -103,38 +198,6 @@ void textbox_setup()
   
   
   
-  
-  avatar_list = new PImage[100];
-  avatar_list[0] = loadImage("data/MIT/boss1.png");
-  avatar_list[1] = loadImage("data/MIT/boss2.png");
-  avatar_list[2] = loadImage("data/MIT/goon1.png");
-  avatar_list[3] = loadImage("data/MIT/goon2.png");
-  avatar_list[4] = loadImage("data/MIT/goonB1.png");
-  avatar_list[5] = loadImage("data/MIT/goonB2.png");
-  avatar_list[6] = loadImage("data/MIT/superboss.png");
-  avatar_list[7] = loadImage("data/MIT/lady.png");
-  avatar_list[8] = loadImage("data/MIT/lady_hand_rings.png");
-  avatar_list[9] = loadImage("data/MIT/lady_hand_rings2i.png");
-  avatar_list[10] = loadImage("data/MIT/lady_hand_rings2.png");
-  avatar_list[11] = loadImage("data/MIT/lady_hand_brace.png");
-  avatar_list[12] = loadImage("data/MIT/man_end0.png");
-  avatar_list[13] = loadImage("data/MIT/man_end1.png");
-  avatar_list[14] = loadImage("data/MIT/tannoy1.png");
-  avatar_list[15] = loadImage("data/MIT/tannoy2.png");
-  
-  portrait_db = new PortraitSet[30];
-  portrait_db[0] = new PortraitSet("workboss","0,1",0, "talk1");
-  portrait_db[1] = new PortraitSet("goon1","2,3",0, "talk1");
-  portrait_db[2] = new PortraitSet("goon2","4,5",0, "talk1");
-  portrait_db[3] = new PortraitSet("superboss","6",0, "talk2");
-  portrait_db[4] = new PortraitSet("lady","7",0, "talk3");
-  portrait_db[5] = new PortraitSet("ladyh1","8",0, "talk3");
-  portrait_db[6] = new PortraitSet("ladyh2","9",0, "talk3");
-  portrait_db[7] = new PortraitSet("ladyh3","10",0, "talk3");
-  portrait_db[8] = new PortraitSet("ladyh4","11",0, "talk3");
-  portrait_db[9] = new PortraitSet("manend","12,13",0, "talk4");
-  portrait_db[10] = new PortraitSet("tannoy","14,15",0, "talk4");
-  portrait_db[11] = new PortraitSet("jack","-1",-1, "talk1");
   
   
   all_texts = new textblob[100];
@@ -529,60 +592,6 @@ class textbox
     else
       return true;
   }
-}
-
-PortraitSet get_portrait_set(String av_name)
-{
-  if (av_name.equals("workboss"))
-  {
-    return portrait_db[0];
-  }
-  else if (av_name.equals("goon1"))
-  {
-    return portrait_db[1];    
-  }
-  else if (av_name.equals("goon2"))
-  {
-    return portrait_db[2];    
-  }
-  else if (av_name.equals("superboss"))
-  {
-    return portrait_db[3];    
-  }
-  else if (av_name.equals("lady"))
-  {
-    return portrait_db[4];    
-  }
-  else if (av_name.equals("ladyh1"))
-  {
-    return portrait_db[5];    
-  }
-  else if (av_name.equals("ladyh2"))
-  {
-    return portrait_db[6];    
-  }
-  else if (av_name.equals("ladyh3"))
-  {
-    return portrait_db[7];    
-  }
-  else if (av_name.equals("ladyh4"))
-  {
-    return portrait_db[8];    
-  }
-  else if (av_name.equals("man"))
-  {
-    return portrait_db[9];    
-  }
-  else if (av_name.equals("tannoy"))
-  {
-    return portrait_db[10];    
-  }
-  else if (av_name.equals("jack"))
-  {
-    return portrait_db[11];    
-  }
-  
-  return null;
 }
 
 class PortraitSet

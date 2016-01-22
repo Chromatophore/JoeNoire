@@ -27,6 +27,10 @@ void load_sounds()
   sounds[11] = minim.loadFile("data/I Knew a Guy.mp3");
   sounds[12] = minim.loadFile("data/Fast Talkin.mp3");
   
+  
+  sounds[13] = minim.loadFile("data/MIT/talk5.wav");
+  sounds[14] = minim.loadFile("data/MIT/talk6.wav");
+  
   for (AudioPlayer thing : sounds)
   {
     if (thing != null)
@@ -87,6 +91,13 @@ class sounder
       id = 9;
     else if (name.equals("talk4"))
       id = 10;
+    else if (name.equals("talk5"))
+      id = 13;
+    else if (name.equals("talk6"))
+      id = 14;
+      
+      
+      
     else if (name.equals("music1"))
       id = 11;
     else if (name.equals("music2"))

@@ -4,7 +4,11 @@ int minimum_cycle = 250;
 
 class jitterbug
 {
+  
   boolean player_must_pump = false;
+  
+
+  
   
   jitterbug()
   {
@@ -212,8 +216,29 @@ class jitterbug
     else if (things_done == 1)
     {
       // weve skipped a beat, but, we could easily get stiffed on this so we have this one beat window each time.
-      things_done = 0;
+      if (punish_inaction)
+        things_done = 0;
     }
+  }
+  
+  boolean punish_inaction = false;
+  void inaction_on()
+  {
+   punish_inaction = true;
+  }
+  void inaction_off()
+  {
+   punish_inaction = false; 
+  }
+  
+  boolean system_state = false;
+  void anxiety_on()
+  {
+     system_state = true;    
+  }
+  void anxiety_off()
+  {
+     system_state = false; 
   }
   
   void TakeInput(inputblob i)
@@ -221,32 +246,36 @@ class jitterbug
     // This is also called every frame so we should make use of it
     // Take input first so we give them the benefit of an extra frame to see it coming I guess
 
-    if (i.c_down)
+    if (system_state)
     {
-      release_total = millis() - release_start;      
-      if (release_start > 0)
+
+      if (i.c_down)
       {
-        //println("Released time: " + hold_total);
-        assess_input_score();
+        release_total = millis() - release_start;      
+        if (release_start > 0)
+        {
+          //println("Released time: " + hold_total);
+          assess_input_score();
+        }
+        
+        calm_start = millis();
+        //println("Calm start: " + calm_start);
       }
       
-      calm_start = millis();
-      //println("Calm start: " + calm_start);
-    }
-    
-    if (i.c_state > 0)
-    {
-      hold_timer = millis();
-    }
-    else if (calm_start > 0)
-    {
-      //println("Held end: " + hold_timer);
-      hold_total = hold_timer - calm_start;
-      //println("Held time: " + hold_total);
-      
-      calm_start = -1;
-      
-      release_start = millis();
+      if (i.c_state > 0)
+      {
+        hold_timer = millis();
+      }
+      else if (calm_start > 0)
+      {
+        //println("Held end: " + hold_timer);
+        hold_total = hold_timer - calm_start;
+        //println("Held time: " + hold_total);
+        
+        calm_start = -1;
+        
+        release_start = millis();
+      }
     }
     
     apply_bar_math();

@@ -3,6 +3,22 @@ sideref[] side_db = null;
 
 class level1
 {
+  int level_stage_progress = 0;
+  
+  
+  
+  void level_state(int state)
+  {
+    
+     level_stage_progress = state;
+
+  }
+  
+  boolean auto_crate = false;
+  
+  
+  
+  
   basic_image WareHouseBG;
   basic_image WareHouseSky;
   basic_image Crate1;
@@ -18,7 +34,7 @@ class level1
   
   basic_image[] label_zones;
   
-  int labels_unlocked = 2;
+  int labels_unlocked = 0;
   int selected_label = 0;
 
   int cog_steps = 5;
@@ -178,8 +194,7 @@ class level1
       }
     }
     
-    new_box();
-    
+    //new_box();
     start_milli = -1;
   }
   
@@ -322,7 +337,7 @@ class level1
       lastcrate = start_milli;
     }
       
-    if (millis() > lastcrate + time_between_crates)
+    if (auto_crate && millis() > lastcrate + time_between_crates)
     {
       new_box();
       lastcrate = millis();

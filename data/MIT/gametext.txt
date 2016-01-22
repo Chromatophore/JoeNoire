@@ -15,6 +15,22 @@ man - last level man
 tannoy - the tannoy system in the work
 jack - wide text box WITH talking noise
 
+
+need:
+joe - wide text box with joe talking noise? <-- this is internal "joe"
+joee - wide text box with joe talking noise <-- this is external "joe"
+martha - martha wayne
+bruce - bruce wayne
+bruceY - young bruce wayne
+bruceC - commish bruce
+harvey - detective harvey
+alfred - alfred
+
+
+
+
+
+
 text
 intro_1
 5
@@ -70,6 +86,144 @@ intro_8
 1
 Don't forget you have to check every side!
 
+text
+intro_9
+1
+none^I wish I could forget. I'm turning boxes in my damn dreams.
+
+text
+intro_anxious
+2
+tannoy^Hey Jack, you look like you could use a break! Not that you'll get one, ha!
+none^Can't drop these damned shakes! Just gotta [x]relax. Focus on breathing.
+
+text
+intro_10_good
+1
+tannoy^Nice to see you workin' sober for once!
+
+text
+intro_10_bad
+1
+tannoy^Holy hell, you workin' drunk again?
+
+text
+intro_11
+2
+none^Marco: Hey Bossman, I need a few minutes to head outside for... a smoke.
+tannoy^No worries, Marco. Jack will cover you!
+
+text
+intro_12
+2
+none^Can't remember the last time I got a paid break. Damned brown noser.
+none^Gotta do both labels now. Just put one on then [x]swap to the other.
+
+text
+intro_13_good
+1
+tannoy^Alright, alright, let's move on to international crates now.
+
+text
+intro_13_bad
+1
+tannoy^Stop, you've screwed up enough domestic crates. Move on to internationals.
+
+text
+intro_14
+1
+none^I hate international crates. Damned regulations putting labels on different sides.
+
+text
+intro_15
+1
+none^Then you have the ones that need duplicate labels!
+
+text
+intro_16
+1
+none^No sense doing any more thinking. Just work.
+
+text
+intro_abuse_1
+1
+tannoy^That's rubbish! I could do better sleeping!
+
+text
+intro_abuse_2
+1
+tannoy^That's coming out of your salary!
+
+text
+intro_abuse_3
+1
+tannoy^What am I even paying you for?
+
+text
+intro_abuse_4
+1
+tannoy^I could train a monkey to do this!
+
+text
+intro_abuse_5
+1
+tannoy^You're really trying my patience!
+
+text
+intro_abuse_6
+1
+tannoy^Quit foolin' around!
+
+text
+intro_17_good
+3
+jack^That's it! I've had enough of this! Give me what I'm owed, and I'm out of here. I quit!
+workboss^Well, that hurts. I give you an honest wage and an honest job, and all I get is abuse!
+workboss^Take your $X and get out of here. Don't come crawling back to me when you can't find anything better!
+
+text
+intro_17_bad
+1
+tannoy^That's it! I've had enough of this! Here's the $X you're owed for today, but don't come back. You're fired!
+
+
+text
+chap1_2_1
+4
+none^Well, here I am again. A dive bar.
+none^Never fails, swear off booze, then back the next day.
+none^No point resisting, is there?
+jack^Yeah, I'll take a bottle of your finest $X swill.
+
+text
+chap1_2_2
+1
+jack^Bottoms up!
+
+text
+chap1_2_3
+13
+goon1^Hey Jack! Fancy seeing you here!
+goon2^Yeah, odd place for a drunk.
+goon1^Heard the bad news.
+goon2^Awful news.
+goon1^No job, in this economy?
+jack^Hey boys. Funny how fast news travels.
+goon1^Oh, is it funny?
+jack^Well, in the same way life's funny.
+goon2^Your life seems a bit more sad than funny.
+goon1^Nevermind that. Jack, you got a little debt that's come due.
+goon2^Yeah, and lucky you, we've arranged transportation!
+goon1^Got the van parked right outside.
+goon2^Hold on, I need one for the road.
+
+text
+chap1_2_4
+2
+goon2^You got good taste Jack! But we need you sober.
+goon1^Just call this... reposession.
+
+
 
 
 text
@@ -95,4 +249,398 @@ superboss^Well then... It's a good thing that I was just sending the boys out...
 lady^Aw, you were doing that for me?
 superboss^Of course. Boys, you know what to do. Show Jack where I like to get gifts from.
 
+text
+chap2_1_2
+4
+goon1^Wow, Jack, you should make sure to thank the lady next time you see her.
+goon2^Yeah she really saved your bacon.
+jack^Yeah, now I get to spend more time with you guys.
+goon2^Exactly! Let's head to the jewelry store.
 
+text
+chap2_2_1
+11
+goon2^Alright Jack,
+goon1^Hey, idiot, don't use his real name.
+goon2^Oh, yeah. Because of cops!
+goon1^Yes, very good, you've cracked the case.
+goon1^So, since he's such a joker, let's call him Joe.
+goon2^Okay, Joe, you may have noticed we've broken in.
+goon1^In light of this, we've seen fit to furnish you with a gun.
+goon2^For protection.
+goon1^But don't get any bright ideas... Maybe we only put in one bullet.
+goon2^And there's two of us!
+goon1^Now, let's clean out these cases!
+
+text
+chap2_2_2
+5
+none^What the hell have I gotten myself into?
+goon1^Just smash that case open and grab what drops out!
+none^Breaking into stores with those charmers...
+none^And now I've got a gun?
+none^I guess this is all better than the alternative...
+
+text
+chap2_2_3_1
+1
+goon1^Hey you almost missed this!"
+
+text
+chap2_2_3_2
+1
+goon2^I think this one might be fake.
+
+text
+chap2_2_3_3
+1
+goon2^This one is hideous!
+
+text
+chap2_2_4
+1
+goon1^Alright, I think we've got enough, let's get out of here.
+
+text
+chap2_3_1
+3
+goon1^We've returned with quite an assortment!
+goon2^I think they're all pretty.
+goon1^Show her what you've got, Joe.
+
+text
+chap2_3_2
+13
+lady^No, no, no, these are all just wrong.
+lady^No style! No... I don't know, No je ne sais quoi!
+jack^I thought that first one was quite fetching, actually.
+lady^That's because you're uncouth! What did you boys get?
+ladyh2^Oooh, now this one I like! It has a burning passion!
+ladyh3^But, still, my poor barren arm...
+superboss^Good job, boys. "Joe", you need to pick up the bracelet I have on order.
+superboss^Make sure you get the right one, now. It's very important.
+goon1^C'mon Joe, we're off to the best jewelry shop in town!
+jack^Why didn't we go to the best one the first time?
+goon1^...
+goon2^It's the best for bracelets, he means.
+goon1^It's the best chance you have now, I mean. Let's go.
+
+text
+chap2_4_1
+4
+goon1^Alright Joe, now you can see this place just has the one case.
+goon2^So we'll have to work together. Get eachother's backs.
+goon1^With that said, we need you to take lookout.
+goon1^See, this case is locked, and it's hard to get into. So cover us.
+
+text
+chap2_4_2
+1
+none^I don't trust those two, but what choice do I have?
+
+text
+chap2_4_cat
+1
+none^Just a harmless alley cat.
+
+text
+chap2_4_brella
+1
+none^Ah, a broken umbrella.
+
+text
+chap2_4_bat
+2
+jack^Damnation! A damned bat!
+none^That's going to haunt me forever.
+
+text
+chap2_4_3
+5
+goon2^Did I hear you yelling about a bat?
+goon2^Who'd be scared of a bat?
+goon1^Alright Joe, nice job, we managed to clean out the case while you were keeping watch.
+goon2^Let's head back.
+none^Aw hell!
+
+text
+chap2_5_1
+12
+ladyh4^Oh, boys, this one is so gorgeous!
+ladyh4^Yes, yes, oh, I feel so beautiful!
+ladyh4^And yet...
+lady^I feel like all this gold draws attention away from, you know, my face area!
+lady^What I mean to say is, get me a necklace.
+superboss^Yes, a necklace! I have one on order.
+superboss^It's quite special, and Joe is headed to get it for you.
+superboss^RIGHT NOW.
+superboss^I don't need to express to you, Joe, how important this is to me.
+superboss^I don't need to explain how this is your big chance.
+superboss^I don't need to tell you to get this right, or else.
+superboss^So I won't.
+
+text
+chap2_5_2
+4
+goon1^Now then, this case is locked...
+goon1^No, really it's locked up tight.
+goon2^And the glass is super thick!
+goon1^Joe, shoot the glass out so we can grab these necklaces!
+
+text
+chap2_5_3
+1
+none^Here goes nothing. Just aim and fire.
+
+text
+chap2_5_4_bad
+1
+goon1^You idiot! Let me do it."
+
+text
+chap2_5_5
+1
+goon1^It's alarmed! We need to hurry!
+
+text
+chap2_5_6
+1
+goon1^Let's get the hell out of here!
+
+text
+chap2_6_1
+17
+lady^No! They're all bad! What kind of hussy do I look like?
+lady^These are something you'd see a call-girl wearing!
+lady^Is that how you think of me?
+superboss^No, no, of course not, my dear. There must have been a mix up.
+superboss^Joe, you collosal screwup.
+superboss^I ask you to do one simple thing.
+superboss^Just one. A simple thing.
+superboss^Just make my lady happy, and all would be forgiven!
+superboss^But you couldn't even do that, could you.
+superboss^So now, from the kindness of my heart, I give you a week.
+superboss^Just one.
+superboss^To make things right. Pay back when you owe.
+superboss^Or the interest will be... quite steep.
+lady^Aw, you're so kind and caring!
+superboss^I know, darling. Now let's head off for the night.
+superboss^I believe we have a meeting tomorrow, boys? About the vault?
+goon1^You bet boss.
+
+text
+chap2_6_2
+6
+goon1^Well you really screwed things up, Joe.
+goon2^Yeah, really.
+goon1^Better get out of here and work on some kind of repayment plan.
+goon1^And you can keep the gun. I noticed you didn't grab your bullet from the last place.
+goon2^Oh, yeah, that gun will be your problem now!
+goon1^So long, Joe.
+
+text
+chap3_1
+8
+none^Well, this is it then. There's no way I can make back what I owe in a week.
+none^With no job.
+none^I should have pocketed some of that damn loot! At least then I could have pawned it for cash.
+none^Where the hell can I get some fast cash? I can't just walk into a bank and ask.
+joe^Or can I?
+none^Sure, I can just walk into a bank, head to the teller, flash the gun. Nobody has to get hurt.
+none^What other options do I have? None.
+none^And a bank right ahead on the corner. It's a sign.
+
+text
+chap3_2_1
+4
+none^Okay, I just need put a handkerchief over my face, walk up, take out the gun, ask for the money.
+none^Just flash the gun, say nobody needs to get hurt, just hand it over.
+none^You can handle this, grab the money and dash like a madman.
+none^Alright, here we go.
+
+text
+chap3_2_2
+13
+goon1^Well hey, Joe! Fancy seeing you here.
+goon2^Wow, you look awful!
+goon1^Yeah, you seem a little nervous, man.
+goon1^You weren't thinking of... pulling anything here, were you?
+goon2^I think he may have been!
+goon1^Wow, I knew you were an idiot, but this, I never imagined!
+goon1^Look here, this is our city, understand?
+goon1^We run this place. Hitting a bank here, that'd be like giving the Boss a black eye!
+goon2^You're so lucky we happened to be here to stop you!
+goon1^Hey, he's right! Imagine the trouble you'd be in."
+goon2^We're like your guardian angels!
+goon1^Ha ha ha, yeah! Angels!
+goon1^Now get the hell out of here.
+
+text
+chap3_2_3
+1
+goon1^Everybody hit the deck! You there, open that vault!
+
+text
+chap3_3_1
+6
+none^What the hell was I thinking?
+none^To think I could get my way out of this so easy. I'm a fool.
+none^There's only one way out. There's only ever been.
+none^Now I know what I gotta do.
+none^I'm standing here, in a dirty alley, gun in my hand.
+none^I know what I gotta do.
+
+text
+chap3_3_2
+2
+Voice: "Here, please, take my wallet, just don't do anything rash.
+none^What?"
+
+text
+chap3_3_3
+7
+man^Did you hear me? I said you can have the wallet, it's yours, just take it.
+jack^Wallet?
+man^Yes, just, just stay calm, I won't do anything funny.
+none^He thinks I'm a mugger. Am I a mugger?
+joe^Standing in an alley with a gun. Seems quite like a mugger.
+jack^Alright, yeah, gimmie that wallet.
+joe^It's cash, right? What else does he got that looks interesting?
+
+text
+chap3_4_1
+3
+joe^Woah, now things are looking up!
+none^He looks pretty well off, everything he's wearing screams quality.
+joe^It'd pawn for a pretty penny!
+
+text
+chap3_4_2_1
+1
+jack^Give me that tie pin.
+
+text
+chap3_4_2_2
+1
+jack^I'll take your watch.
+
+text
+chap3_4_3
+2
+man^Please, I've given you everything you've asked for, just leave me and my family be now.
+none^Family?
+
+text
+chap3_4_4
+1
+joe^Woah, look at that!
+
+text
+chap3_4_5
+4
+none^That necklace...
+none^It's beautiful.
+none^I bet the boss's lady would go absolutely crazy.
+joe^I need that necklace!
+
+text
+chap3_4_6_other_1
+1
+joe^That necklace will solve all my problems!
+
+text
+chap3_4_6_other_2
+1
+joe^With the necklace I'll be free!
+
+text
+chap3_4_6_other_3
+1
+joe^I'll show everyone once I have that damn necklace!
+
+text
+chap3_4_6_necklace_1
+2
+jack^Hand over the necklace!
+martha^Please, it's a family heirloom. It's irreplacable.
+
+text
+chap3_4_6_necklace_2
+2
+jack^Give me the damn necklace!
+martha^I, I can't!
+
+text
+chap3_4_6_necklace_3
+2
+jack^I'm not asking! The necklace, now!
+martha^I'm begging you, leave it with me, please.
+
+text
+chap3_4_7
+1
+joe^If they won't give me what I want, I'll have to TAKE it!
+
+text
+epi1_1_1
+1
+man^Give me that gun!
+
+text
+epi1_1_2
+1
+bruceY^Dad!
+
+text
+epi1_1_3
+1
+bruceY^Mom!
+
+text
+epi1_2
+3
+bruce^I can't help but feel like things could have been different that night.
+alfred^Will there be anything else tonight before you... head out, Master Bruce?
+bruce^No, thank you Alfred, that will be all.
+
+text
+epi2_1_1
+1
+man^Give me that gun!
+
+text
+epi2_1_2
+1
+man^You MONSTER! What have you done?!
+
+text
+epi2_2
+3
+man^I would give anything to have had things go differently that night.
+alfred^Will you be needing anything else before tonights... activities, Master Thomas?
+man^No, thank you, old friend.
+
+text
+epi3_1_1
+4
+none^No no no, they've seen my face, they can make me!
+none^What was I thinking?
+none^This is it. I'm done for. This is the end.
+none^No choices left.
+
+text
+epi3_1_2
+5
+jack^Ha
+jack^Haha
+joee^Hahaha
+joee^HaHaHaHa
+joee^HAHAHAHA
+
+text
+epi3_2
+4
+harvey^Hey, Commish?
+bruceC^I've told you Harvey, you can call me Bruce.
+harvey^Yeah, yeah. Okay. Anyway, Commish, there's been a murder.
+harvey^They found another one of these on the scene.

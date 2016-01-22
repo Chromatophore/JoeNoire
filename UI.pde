@@ -4,6 +4,8 @@ int bar_max = 42;
 
 class UI
 {
+  boolean is_on;
+  
   basic_image ui_base;
   basic_image ui_base1;
   basic_image ui_base2;
@@ -29,6 +31,17 @@ class UI
   boolean marker_pulse = false;
   
   
+  
+  boolean play_sounds = false;
+  void sounds(boolean state)
+  {
+     play_sounds = state;
+  }
+  void showhide(boolean state)
+  {
+     is_on = state; 
+  }
+
   UI()
   {
     ui_base = new basic_image(loadImage("data/MIT/UI/UI_base.png"), 64,128 - 8);
@@ -60,15 +73,18 @@ class UI
   {
     marker_pulse = state;
     
-    if (marker_pulse)
+    if (play_sounds)
     {
-      make_sound.play("pulse2");
-      make_sound.halt("pulse1");
-    }
-    else
-    {
-      make_sound.play("pulse1");
-      make_sound.halt("pulse2");
+      if (marker_pulse)
+      {
+        make_sound.play("pulse2");
+        make_sound.halt("pulse1");
+      }
+      else
+      {
+        make_sound.play("pulse1");
+        make_sound.halt("pulse2");
+      }
     }
   }
   
@@ -80,6 +96,10 @@ class UI
   
   void draw()
   {
+    if (!is_on)
+      return;
+      
+      
     fill(color(0,0,0));
     rect(0,128-16,128,16);
     
@@ -142,6 +162,7 @@ class UI
     }
   }
   
+  
   boolean cursor_override_state = false;
   
   float GetCursorX()
@@ -161,6 +182,8 @@ class UI
   
   void TakeInput(inputblob i)
   {
+    if (!is_on)
+      return;
     cursor_x = constrain( cursor_x + cursor_speed * i.x_axis, 0, 127);
     cursor_y = constrain( cursor_y + cursor_speed * i.y_axis, 0, 127);
   }

@@ -94,6 +94,14 @@ class screen_title
       pressxframes -= 120;
     }
   }
+  
+  void TakeInput(inputblob i)
+  {
+    if (i.x_down)
+    {
+      progress_game("title_start");
+    }
+  }
 }
 
 class spotlight
