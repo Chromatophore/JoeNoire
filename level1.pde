@@ -327,8 +327,9 @@ class level1
       new_box();
       lastcrate = millis();
     }
-      
-    WareHouseSky.movePos(0,-0.02);
+
+    if (WareHouseSky.y_float > -128)
+      WareHouseSky.movePos(0,-0.02);
     WareHouseSky.draw();
 
     for (crate box : crate_locations)

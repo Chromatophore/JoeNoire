@@ -67,13 +67,13 @@ void setup()
   
   String[] tbtext2 = find_text("chap2_1");
   
-  println(tbtext2[0]);
-              
   tbtest = new textbox("chap2_1");
   
   lv1 = new level1();
   lv2 = new level2();
   lv2_b = new level2_street();
+  
+  make_sound.play_music("music1");
 }
 
 void shake_screen(float mag, int how_many_frames, int how_to_scale)
@@ -94,7 +94,6 @@ void draw()
   rect(-10,-10,148,148);
   fill(255,255,255);
   
-
   if (!shake_ui)
   {
     pushMatrix();
@@ -115,9 +114,7 @@ void draw()
     translate(shake_x,shake_y);
     shake_frames--;
   }
-  
-  
-  
+
   // we can do screen shake too lol
   //translate(random(2) - 1.0, random(2) - 1.0);
   
@@ -125,12 +122,13 @@ void draw()
   
   //titlescreen.draw();
   
-  tbtest.TakeInput(inp);
+  if (tbtest.TakeInput(inp))
+  {
+    inp.input_has_been_read(false);    
+  }
   
   lv1.TakeInput(inp);
   lv1.draw();
-  
-
   
   //lv2.TakeInput(inp);
   //lv2.draw();
@@ -154,10 +152,12 @@ void draw()
   
 
   // Inform the input class to clear the down states because we're at the end of the frame:
-  inp.input_has_been_read();
+  inp.input_has_been_read(true);
   
   
   //println(frameRate);
+  
+  make_sound.service();
 }
 
 class basic_image

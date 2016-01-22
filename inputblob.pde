@@ -21,11 +21,12 @@ class inputblob
     
   }
   
-  void input_has_been_read()
+  void input_has_been_read(boolean true_wipe)
   {
     z_down = false;
     x_down = false;
-    c_down = false;
+    if (true_wipe)
+      c_down = false;
   }
   
   void do_input(char c, int down)

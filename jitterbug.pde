@@ -193,6 +193,7 @@ class jitterbug
     overall_state = sin(state_pregradient * 0.5 * PI);
     
     overall_state = constrain(overall_state,0,1.0);
+    pump_bar();
   }
   
   void check_did_anything()

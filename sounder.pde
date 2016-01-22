@@ -23,7 +23,10 @@ void load_sounds()
   sounds[8] = minim.loadFile("data/MIT/pulse_real2.wav");
   sounds[9] = minim.loadFile("data/sound/snow_shriek.wav");
   sounds[10] = minim.loadFile("data/MIT/talk4.wav");
-    
+  
+  sounds[11] = minim.loadFile("data/I Knew a Guy.mp3");
+  sounds[12] = minim.loadFile("data/Fast Talkin.mp3");
+  
   for (AudioPlayer thing : sounds)
   {
     if (thing != null)
@@ -33,6 +36,8 @@ void load_sounds()
       //println("Gain after: " + thing.getGain());      
     }
   }
+  
+  sounds[11].setGain(global_gain + 5);
   
   loaded = true;
 }
@@ -82,14 +87,21 @@ class sounder
       id = 9;
     else if (name.equals("talk4"))
       id = 10;
+    else if (name.equals("music1"))
+      id = 11;
+    else if (name.equals("music2"))
+      id = 12;
       
     return id;
   }
   
   void play(String name)
   {
-    int id = IDfromName(name);
-    
+    play(IDfromName(name));
+  }
+  
+  void play(int id)
+  {
     if (id >= 0)
     {
       sounds[id].rewind();
@@ -97,10 +109,74 @@ class sounder
     }
   }
   
+  float fade_progress = 0;
+  float fade_interval = 0.25;
+  
+  int last_music = -1;
+  int next_music = -1;
+  void play_music(String name)
+  {
+
+    next_music = IDfromName(name);
+    fade_progress = 0;
+    full_pass = 0;
+    
+    if (last_music == -1)
+    {
+      fade_progress = 30;
+      last_music = next_music;
+      play(next_music);
+      full_pass = 1;
+    }
+  }
+  
+  int full_pass = 0;
+  
+  void service()
+  {
+    if (last_music != -1)
+    {
+      if (fade_progress < 30)
+      {
+        fade_progress += fade_interval;
+        sounds[last_music].setGain(down_gain + global_gain - fade_progress);
+      }
+      else if (full_pass == 0 && fade_progress < 60)
+      {
+        full_pass = 1;
+        halt(last_music);
+        last_music = next_music;
+        play(next_music);
+        fade_progress += fade_interval;
+      }
+    }
+    
+    if (next_music != -1 & fade_progress > 30)
+    {
+      if (fade_progress < 60)
+      {
+        fade_progress += fade_interval;
+        float gain = down_gain + global_gain - (60 - fade_progress);
+        sounds[next_music].setGain(gain);
+      }
+      else if (next_music != -1)
+      {
+        next_music = -1;
+        full_pass = 2;
+      }
+    }
+    
+    
+    
+  }
+  
   void halt(String name)
   {
-    int id = IDfromName(name);
-    
+    halt(IDfromName(name));
+  }
+  
+  void halt(int id)
+  {
     if (id >= 0)
     {
       sounds[id].pause();
@@ -112,6 +188,8 @@ class sounder
     unload_sounds();    
   }
   
+  float down_gain;
+  
   void breath_loudness(float factor)
   {
     // as is our calmness, 1.0 is fully calm
@@ -119,7 +197,12 @@ class sounder
     factor = 1 - factor;
     
     float up_gain = global_gain + (20 * factor) - 15;
-    float down_gain = global_gain - (10 * factor);
+    down_gain = global_gain - (10 * factor);
+    
+    if (full_pass == 2 && last_music != -1)
+    {
+      sounds[last_music].setGain(global_gain + down_gain);
+    }
     
     // make breathing louder
     sounds[7].setGain(up_gain);

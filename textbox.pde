@@ -252,11 +252,22 @@ class textbox
   
   textbox(String name)
   {
+    texts = find_text(name);
+    regular_constructor(name);
+  }
+  
+  textbox(String name, String[] custom_text)
+  {
+    texts = custom_text;
+    regular_constructor(name);
+  }
+  
+  void regular_constructor(String name)
+  {
+    name_of_sequence = name;
     textbox_background = textbox_a;
     textbox_background_nox = textbox_b;
-    
-    texts = find_text(name);
-    name_of_sequence = name;
+
     for (String sub : texts)
     {
        text_total++; 
@@ -386,7 +397,8 @@ class textbox
         translate(16,-5);
         if (UseBig)
         {
-           translate(-31,0); 
+          wrapsize = 120;
+          translate(-31,0); 
         }
         
         int x_offset = 0;
@@ -496,7 +508,7 @@ class textbox
     popMatrix();
   }
   
-  void TakeInput(inputblob i)
+  boolean TakeInput(inputblob i)
   {
     if (i.x_down && FinishedLine)
     {
@@ -509,6 +521,13 @@ class textbox
     }
     else
       WriteFast = false;
+      
+    if (isOpening == 0 && text_box_height <= 0)
+    {
+      return false;
+    }
+    else
+      return true;
   }
 }
 
