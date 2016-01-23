@@ -646,7 +646,7 @@ text
 epi3_2
 5
 none^Many years later...
-harvey^Hey, Commish?
-bruceC^I've told you, 'Bullock', you can call me Bruce.
-harvey^Yeah, yeah. Okay. Anyway, Commish, there's been another murder.
-harvey^They found another one of those cards on the scene.
+jack^Hey, Commish?
+internaldeep^I've told you, 'Bullock', you can call me Bruce.
+jack^Yeah, yeah. Okay. Anyway, Commish, there's been another murder.
+jack^They found another one of those cards on the scene.
