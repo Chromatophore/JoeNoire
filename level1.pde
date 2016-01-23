@@ -888,7 +888,7 @@ class level1
       level_state(spro + 1); 
     }
     
-    if (crates_complete == 30)
+    if (crates_complete == 25)
     {
       level_state(100);
     }
