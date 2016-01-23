@@ -462,15 +462,14 @@ class level1
         
         if (next_button.do_box_test(effective_cursor_x, effective_cursor_y))
         {
-          pushed_button = true;
-          nextCrate();
+          if (spro != 11)
+          {
+            pushed_button = true;
+            nextCrate();
+          }
           
           if (spro == 3)
             level_state(4);
-          if (spro == 11)
-          {
-            level_state(12);
-          }
         }
         
         if (crate_locations[focus_crate] != null)

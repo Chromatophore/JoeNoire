@@ -390,7 +390,7 @@ goon1^Joe, shoot the glass out so we can grab these necklaces!
 text
 chap2_5_3
 1
-none^Ugh, I can't do it... maybe... maybe if I work myself up a bit?
+none^Ugh, I can't do it... maybe... maybe if I work myself up a bit? Breathe quickly?
 
 text
 chap2_5_4_bad

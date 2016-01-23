@@ -294,6 +294,8 @@ class cutscene
       
       if (progress == 0)
       {
+        jitter.MoveMarker(50);
+        jitter.get_rekt(-1.0);
         make_sound.play_music("music7");
         texter = new textbox("chap3_1");
         progress++;
