@@ -401,12 +401,12 @@ text
 chap2_5_5
 2
 goon1^It's alarmed! Get to the loot, quickly!
-none^Ugh, got to... collect these coins to move... closer??
+none^Ugh! Gotta stay calm and grab more loot than these two bozos.
 
 text
 chap2_5_6_win
 2
-jack^Yes! I got the necklaces!
+jack^Yes! I got all three necklaces!
 goon1^Let's get the hell out of here!
 
 text
