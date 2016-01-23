@@ -766,7 +766,7 @@ class level1
     }
     
     textFont(font_ui, 14);
-    text("Remaining: " + str(30 - crates_complete),5,5);
+    text("Remaining: " + str(25 - crates_complete),5,5);
     
     // Draw the black box at the bottom:
     fill(color(0,0,0));
