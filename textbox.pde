@@ -547,7 +547,7 @@ class textbox
                     // break the loop;
                     k = string_length;
                     // Check the x position isn't outside of our wrapping size
-                    if (tempoffset > wrapsize)
+                    if (tempoffset > wrapsize && (k != string_length - 1))
                     {
                       // if it is, we need to wrap at this space, because we won't be able to fit the rest of the characters
                       // on the line

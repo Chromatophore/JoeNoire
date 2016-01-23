@@ -344,7 +344,7 @@ void progress_game(String info)
     SUPER_GAME_STATE = 222;
     cutscene_engine.blip();
   }
-  else if (SUPER_GAME_STATE == 222 && info.equals("end_chapter2"))
+  else if (SUPER_GAME_STATE == 222 && info.equals("end_chapter_2"))
   {
     SUPER_GAME_STATE = 300;
     theUI.showhide(true);
@@ -364,18 +364,22 @@ void progress_game(String info)
   
   else if (info.equals("skip1"))
   {
-    
+    SUPER_GAME_STATE = 100;
+    progress_game("level1_end");
   }
   else if (info.equals("skip2"))
   {
-    SUPER_GAME_STATE = 100;
-    progress_game("level1_end");
+    theUI.showhide(true);
+    make_sound.play_music("music4");
+    eye_c.open = false;
+    SUPER_GAME_STATE = 202;
+    progress_game("eyes_close_cutscene_10");
   }
   else if (info.equals("skip3"))
   {
     eye_c.open = false;
     SUPER_GAME_STATE = 222;
-    progress_game("end_chapter2");
+    progress_game("end_chapter_2");
   }
   else if (info.equals("skip4"))
   {

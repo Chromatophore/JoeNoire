@@ -143,6 +143,13 @@ class level1
       auto_crate = false;
       frames_to_convey = 0;
       make_sound.stop_music();
+      
+      theUI.sounds(false);
+      
+      jitter.anxiety(false);
+      jitter.inaction_off();
+      jitter.player_must_pump = false;
+      
       if (sads < 5)
       {
         texter = new textbox("intro_17_good");
@@ -488,14 +495,14 @@ class level1
             else
             {
               int type = 1;
-              if (score > 80 || spro == 2)
+              if (score > 80)
               {
                 make_sound.play("good");     
                 AddSmile();
                 type = 2;
                 
               }
-              else if (score < 50)
+              else if (score < 50 && spro != 2)
               {
                  make_sound.play("bad");
                  AddSad();
@@ -611,7 +618,7 @@ class level1
       frames_to_convey--;
     else if (frames_to_convey == 0)
     {
-      if (spro == 1)
+      if (spro == 1 && texter == null)
       {
         level_state(2);
       }

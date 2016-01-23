@@ -15,18 +15,7 @@ man - last level man
 tannoy - the tannoy system in the work
 jack - wide text box WITH talking noise
 marco - your work mate
-
-need:
-joe - wide text box with joe talking noise? <-- this is internal "joe"
-joee - wide text box with joe talking noise <-- this is external "joe"
-otherlady - otherlady wayne
-bruce - bruce wayne
-bruceY - young bruce wayne
-bruceC - commish bruce
-harvey - detective harvey
-alfred - alfred
-
-
+SOME OTHERS I FORGOT
 
 text
 intro_1
@@ -45,7 +34,7 @@ tannoy^Sleep when your shift is over, not when it's starting!
 jack^I wasn't sleeping, I was just... thinking.
 tannoy^I don't pay you to THINK, although it'd certainly be cheaper.
 none^If you were paying me any less... I'm barely breaking even as it is.
-tannoy^Let's get a move, you've got shipping boxes to label!
+tannoy^Let's get a move on, you've got shipping boxes to label!
 
 text
 intro_3
@@ -113,12 +102,12 @@ none^Gotta put one on then use Z to swap to the other.
 text
 intro_13_good
 1
-tannoy^Alright, alright, let's move on to international crates after this one.
+tannoy^Alright, alright, finish up with those and move on to the international crates.
 
 text
 intro_13_bad
 1
-tannoy^Stop, you've screwed up enough domestic crates. Move on to internationals after this.
+tannoy^This is the last domestic crate, try not to screw it up! International shipping is next.
 
 text
 intro_14
@@ -192,7 +181,7 @@ workboss^Take your money and get out of here. Don't come crawling back to me whe
 text
 intro_17_bad
 1
-tannoy^That's it! I've had seen enough! Here's the money you're owed for today, but don't come back. You're fired!
+tannoy^That's it! I've seen enough! Here's the money you're owed for today, but don't come back. You're fired!
 
 text
 chap1_2_1
@@ -206,7 +195,7 @@ text
 chap1_2_2
 15
 jack^Bottoms up!
-none^......................... ...........................
+none^...
 goon1^Hey Jack! Fancy seeing you here!
 goon2^Yeah, odd place for a drunk.
 goon1^Heard the bad news.
@@ -343,8 +332,9 @@ goon1^See, this case is locked, and it's hard to get into. So cover us.
 
 text
 chap2_4_2
-1
+2
 none^I don't trust those two, but what choice do I have?
+none^Guess I should investigate those... things?
 
 text
 chap2_4_cat
@@ -581,10 +571,11 @@ otherlady^It's a family heirloom, it's irreplacable.
 
 text
 chap3_4_5_3
-5
+6
 jack^Hand over the necklace!
 otherlady^I... I can't!
 joe^I'm not asking! The necklace, now!
+shake^1,60^man^Just, look in that wallet, everything you need is in there.
 none^If they won't give me what I want...
 joe^I'll TAKE it!
 
@@ -605,15 +596,15 @@ text
 epi4_1
 4
 none^Many years later...
-internaldeep^I can't help but feel like things could have been different that night.
-jack^Will there be anything else tonight before you... head out, Master Bruce?
-internaldeep^No, thank you Alfred, that will be all.
+internaldeep^Some day, I will find the man who did this...
+jack^Sir, I believe your... attention may be required at Ace Chemicals.
+internaldeep^Thank you Alfred, I'm on my way.
 
 text
 epi2_1_1
 2
 man^Give me that gun!
-man^You MONSTER! What have you done?!
+shake^4,180^man^You MONSTER! What have you done?!
 
 text
 epi2_2

@@ -31,10 +31,10 @@ class cutscene
     
     gunshot = new basic_image(loadImage("data/MIT/lv3/gunshot.png"),64,64);
     
-    ep1 = new basic_image(loadImage("data/MIT/epilogue/epilogue_1.png"),64,64);
-    ep2 = new basic_image(loadImage("data/MIT/epilogue/epilogue_2.png"),64,64);
-    ep3 = new basic_image(loadImage("data/MIT/epilogue/epilogue_3.png"),64,64);
-    ep4 = new basic_image(loadImage("data/MIT/epilogue/epilogue_4.png"),64,64);
+    ep1 = new basic_image(loadImage("data/MIT/epilogue/epilogue_1.png"),64,48);
+    ep2 = new basic_image(loadImage("data/MIT/epilogue/epilogue_2.png"),64,48);
+    ep3 = new basic_image(loadImage("data/MIT/epilogue/epilogue_3.png"),64,48);
+    ep4 = new basic_image(loadImage("data/MIT/epilogue/epilogue_4.png"),64,48);
     
     cred = new basic_image(loadImage("data/MIT/epilogue/credits.png"),64,256+128);
   }
@@ -266,9 +266,10 @@ class cutscene
         texter = new textbox("chap2_6_2");
         progress++;
       }
-      else if (progress == 6)
+      else if (progress >= 6)
       {
-        make_sound.stop_music();
+         make_sound.stop_music();
+         progress++;
          progress_game("end_chapter_2"); 
       }
     }
@@ -394,7 +395,7 @@ class cutscene
       
       if (progress == 300)
       {
-        texter = new textbox("epi4_1");
+        texter = new textbox("epi1_2");
         progress++;
       }
       else if (progress == 302)

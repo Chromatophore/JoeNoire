@@ -140,17 +140,20 @@ class level2
   {
     if (text_box_finished)
     {
-      if (text_box_finish_name.equals("chap2_1_2"))
+      if (spro < 50)
       {
-         level_state(2); 
-      }
-      if (text_box_finish_name.equals("chap2_2_1"))
-      {
-         level_state(3); 
-      }
-      if (text_box_finish_name.equals("chap2_2_4"))
-      {
-        eye_c.change(false,"level_2_cutscene_1");
+        if (text_box_finish_name.equals("chap2_1_2"))
+        {
+           level_state(2); 
+        }
+        if (text_box_finish_name.equals("chap2_2_1"))
+        {
+           level_state(3); 
+        }
+        if (text_box_finish_name.equals("chap2_2_4"))
+        {
+          eye_c.change(false,"level_2_cutscene_1");
+        }
       }
       
       if (text_box_finish_name.equals("chap2_5_2"))
@@ -270,7 +273,7 @@ class level2
   
   int next_t;
   
-  int rings = 70;
+  int rings = 50;
   
   void draw()
   {
@@ -317,7 +320,7 @@ class level2
     
     
     c_timer++;
-    if (c_timer % 10 == 0 && rings > 1)
+    if (c_timer % 10 == 0 && (rings > 1 || spro == 60))
     {
       coinpile[next_coin % 100] = new coin(64,20,coin_speed);
       next_coin++;
@@ -423,7 +426,7 @@ class level2
       
       if (spro == 60)
       {
-        float winnerheight = 100;
+        float winnerheight = 37;
         if (theUI.cursor_y <= winnerheight)
         {
           level_state(70);
@@ -461,14 +464,14 @@ class level2
            coinpile[j] = null;
            
            if (spro > 50)
-             bagcursor_L.y_float -= 0.7;
+             bagcursor_L.y_float -= 0.8;
 
         }
         else if (box_test(bagcursor_R.x_float, bagcursor_R.y_float, c.x, c.y, enemy_grab,enemy_grab))
         {
            coinpile[j] = null;
            if (spro > 50)
-             bagcursor_R.y_float -= 0.7;
+             bagcursor_R.y_float -= 0.8;
         }
         
         
@@ -537,12 +540,12 @@ class level2
             texter = new textbox("chap2_2_3_1");
             norepeats |= 1;
           }
-          else if (randchat == 1 && ((norepeats & 1) == 0))
+          else if (randchat == 1 && ((norepeats & 2) == 0))
           {
             texter = new textbox("chap2_2_3_2");
             norepeats |= 2;
           }
-          else if (randchat == 2 && ((norepeats & 1) == 0))
+          else if (randchat == 2 && ((norepeats & 4) == 0))
           {
             texter = new textbox("chap2_2_3_3");
             norepeats |= 4;

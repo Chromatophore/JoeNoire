@@ -243,11 +243,12 @@ class sounder
        full_pass = 2;
     }
     
-    
+    //println(last_music);
     if (last_music != -1)
     {
       //println(sounds[last_music].getGain());
-      if (sounds[last_music].position() == sounds[last_music].length())
+      //println(sounds[last_music].position() + " Vs " + sounds[last_music].length());
+      if (sounds[last_music].position() >= sounds[last_music].length() - 1)
       {
         sounds[last_music].rewind();
       }
