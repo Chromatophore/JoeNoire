@@ -15,10 +15,11 @@ class level2
   {
     if (state == 0)
     {
+      theUI.OverrideCursor(false, null);
       theUI.SetCursorConstraints(0,48,127,127);
       texter = new textbox("chap2_1_2");
       state = 1;
-      jitter.get_rekt(0.4);
+      jitter.get_rekt(-1);
       
       theUI.SetSmiles(0);
       theUI.SetSads(0);

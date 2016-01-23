@@ -414,7 +414,7 @@ chap2_5_6_lose
 3
 goon1^OK, I've got the loot!
 goon1^Now let's get the hell out of here!
-shake^2,120^none^dammit!
+shake^2,120^none^Dammit!
 
 text
 chap2_6_1
@@ -475,7 +475,7 @@ chap3_2_2
 13
 shake^2,120^goon1^Well hey, Joe! Fancy seeing you here.
 goon2^Wow, you look awful!
-goon1^Yeah, you seem a little nervous, man.
+goon1^Yeah, you seem a little nervous, pal.
 goon1^You weren't thinking of... pulling anything here, were you?
 goon2^I think he may have been!
 goon1^Wow, I knew you were an idiot, but this, I never imagined!

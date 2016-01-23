@@ -140,6 +140,7 @@ class level1
     }
     else if (state == 100)
     {
+      theUI.OverrideCursor(false, null);
       auto_crate = false;
       frames_to_convey = 0;
       make_sound.stop_music();
