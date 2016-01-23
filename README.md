@@ -1,3 +1,29 @@
+# Joe Noire
+
+You play Jack, an inhabitant of and dockworker in a big city.
+
+Jack's life is plagued with undiagnosed and untreated anxiety, a very real and debilitating medical condition. Can you help him try to keep it together as he tries to get his life in order? Audio cues are important in this game.
+
+### Controls:
+
+**Cursor Keys** to control cursor.
+
+**Z** to Speed up text & change cursor.
+
+**X** to Click.
+
+**C** to Relax.
+
+Code and art is MIT license, hosted at https://github.com/Chromatophore/JoeNoire (the code is really bad to try and get it done asap it's really gross)
+
+### Cheats:
+
+If level 1 makes you really sad you can skip around the game by using the numbers 1-4 on the title screen. You can also use A to skip entire text sequences but this may cause the game to go off script in a few places.
+
+We tried the web build stuff - pro tip, work with processing.js from the getgo.
+
+###Would not be nearly as good without the following 3rd party content:
+
 Retro Deco font by Pix3M, sourced from
 http://pix3m.deviantart.com/art/Bitmap-Font-Retro-Deco-432604831
 License:

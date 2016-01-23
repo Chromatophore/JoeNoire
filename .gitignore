@@ -1,3 +1,6 @@
 application.macosx
 application.windows64
 application.windows32
+application.linux-armv6hf
+application.linux32
+application.linux64
