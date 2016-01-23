@@ -24,12 +24,27 @@ void load_sounds()
   sounds[9] = minim.loadFile("data/sound/snow_shriek.wav");
   sounds[10] = minim.loadFile("data/MIT/talk4.wav");
   
-  sounds[11] = minim.loadFile("data/I Knew a Guy.mp3");
-  sounds[12] = minim.loadFile("data/Fast Talkin.mp3");
+  sounds[11] = minim.loadFile("data/music_KevinMacloud/Comfortable Mystery 4 (EP).mp3");
+  sounds[12] = minim.loadFile("data/music_KevinMacloud/Rollin at 5_edit.mp3");
+  sounds[15] = minim.loadFile("data/music_MiodragMarjanovQuintet/Miodrag_Marjanov_Quintet_-_05_-_Gamblers_Blues.mp3");
+  sounds[16] = minim.loadFile("data/music_KevinMacloud/Bass Walker.mp3");
+  sounds[17] = minim.loadFile("data/music_KevinMacloud/Kevin_MacLeod_-_Faster_Does_It.mp3");
+  sounds[20] = minim.loadFile("data/music_MiodragMarjanovQuintet/Miodrag_Marjanov_Quintet_-_02_-_Good_Old_Club_Days.mp3");
+  
+  sounds[21] = minim.loadFile("data/music_KevinMacloud/Just As Soon.mp3");
+  sounds[22] = minim.loadFile("data/music_KevinMacloud/Backed Vibes Clean.mp3");
   
   
   sounds[13] = minim.loadFile("data/MIT/talk5.wav");
   sounds[14] = minim.loadFile("data/MIT/talk6.wav");
+  sounds[18] = minim.loadFile("data/sound/gunshot.mp3");
+  sounds[19] = minim.loadFile("data/sound/alarm_short.wav");
+  
+  sounds[23] = minim.loadFile("data/sound/170272__knova__gun-click.wav");
+  
+  sounds[24] = minim.loadFile("data/MIT/talk7.wav");
+  sounds[25] = minim.loadFile("data/MIT/talk8.wav");
+  sounds[26] = minim.loadFile("data/MIT/talk9.wav");
   
   for (AudioPlayer thing : sounds)
   {
@@ -41,7 +56,7 @@ void load_sounds()
     }
   }
   
-  sounds[11].setGain(global_gain + 5);
+  //sounds[11].setGain(global_gain + 10);
   
   loaded = true;
 }
@@ -51,7 +66,10 @@ void unload_sounds()
   for (AudioPlayer thing : sounds)
   {
     if (thing != null)
+    {
+      thing.pause();
       thing.close();
+    }
   }
   
   minim.stop();
@@ -95,6 +113,11 @@ class sounder
       id = 13;
     else if (name.equals("talk6"))
       id = 14;
+    else if (name.equals("gun"))
+      id = 18;
+    else if (name.equals("alarm"))
+      id = 19;
+      
       
       
       
@@ -102,6 +125,29 @@ class sounder
       id = 11;
     else if (name.equals("music2"))
       id = 12;
+    else if (name.equals("music3"))
+      id = 15;
+    else if (name.equals("music4"))
+      id = 16;
+    else if (name.equals("music5"))
+      id = 17;
+    else if (name.equals("music6"))
+      id = 20;
+      
+    else if (name.equals("music7"))
+      id = 21;
+    else if (name.equals("music8"))
+      id = 22;
+      
+    else if (name.equals("gunclick"))
+      id = 23;
+      
+    else if (name.equals("talk7"))
+      id = 24;
+    else if (name.equals("talk8"))
+      id = 25;
+    else if (name.equals("talk9"))
+      id = 26;
       
     return id;
   }
@@ -127,8 +173,8 @@ class sounder
   int next_music = -1;
   void play_music(String name)
   {
-
     next_music = IDfromName(name);
+
     fade_progress = 0;
     full_pass = 0;
     
@@ -141,7 +187,16 @@ class sounder
     }
   }
   
+  void stop_music()
+  {
+    next_music = -1;
+    fade_progress = 0;
+    full_pass = 0;
+  }
+  
   int full_pass = 0;
+  
+  float music_boost = 15.0;
   
   void service()
   {
@@ -150,7 +205,9 @@ class sounder
       if (fade_progress < 30)
       {
         fade_progress += fade_interval;
-        sounds[last_music].setGain(down_gain + global_gain - fade_progress);
+        float gain = music_boost + down_gain + global_gain - fade_progress;
+        //println("fade out gain: " + str(gain));
+        sounds[last_music].setGain(gain);
       }
       else if (full_pass == 0 && fade_progress < 60)
       {
@@ -162,23 +219,42 @@ class sounder
       }
     }
     
-    if (next_music != -1 & fade_progress > 30)
+    
+    if (next_music != -1 & fade_progress >= 30 && full_pass == 1)
     {
+      
       if (fade_progress < 60)
       {
         fade_progress += fade_interval;
-        float gain = down_gain + global_gain - (60 - fade_progress);
+        float gain = music_boost + down_gain + global_gain - (60 - fade_progress);
+        //println("calc gain: " + gain);
         sounds[next_music].setGain(gain);
       }
       else if (next_music != -1)
       {
+        last_music = next_music;
         next_music = -1;
         full_pass = 2;
       }
     }
+    else if (full_pass == 1)
+    {
+       //println(next_music + " " + fade_progress + " " + full_pass);
+       full_pass = 2;
+    }
     
     
-    
+    if (last_music != -1)
+    {
+      //println(sounds[last_music].getGain());
+      if (sounds[last_music].position() == sounds[last_music].length())
+      {
+        sounds[last_music].rewind();
+      }
+        
+      //println(sounds[last_music].getGain());
+    }
+
   }
   
   void halt(String name)
@@ -212,7 +288,7 @@ class sounder
     
     if (full_pass == 2 && last_music != -1)
     {
-      sounds[last_music].setGain(global_gain + down_gain);
+      sounds[last_music].setGain(music_boost + global_gain + down_gain);
     }
     
     // make breathing louder

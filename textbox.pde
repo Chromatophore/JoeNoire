@@ -66,6 +66,26 @@ PortraitSet get_portrait_set(String av_name)
     return portrait_db[12];    
   }
   
+  else if (av_name.equals("joe"))
+  {
+    return portrait_db[13];    
+  }
+  else if (av_name.equals("joee"))
+  {
+    return portrait_db[14];    
+  }
+  else if (av_name.equals("mysteryman"))
+  {
+    return portrait_db[15];    
+  }
+  else if (av_name.equals("otherlady"))
+    return portrait_db[16];
+  else if (av_name.equals("internaldeep"))
+    return portrait_db[17];
+  else if (av_name.equals("morph"))
+    return portrait_db[18];
+
+  
   return null;
 }
 
@@ -92,23 +112,29 @@ void textbox_setup()
   avatar_list[14] = loadImage("data/MIT/tannoy1.png");
   avatar_list[15] = loadImage("data/MIT/tannoy2.png");
   avatar_list[16] = loadImage("data/MIT/marco.png");
+  avatar_list[17] = loadImage("data/MIT/mystery_man.png");
+  avatar_list[18] = loadImage("data/MIT/other_lady.png");
   
   portrait_db = new PortraitSet[30];
   portrait_db[0] = new PortraitSet("workboss","0,1",0, "talk1");
-  portrait_db[1] = new PortraitSet("goon1","2,3",0, "talk1");
-  portrait_db[2] = new PortraitSet("goon2","4,5",0, "talk1");
+  portrait_db[1] = new PortraitSet("goon1","2,3",0, "talk9");
+  portrait_db[2] = new PortraitSet("goon2","4,5",0, "talk8");
   portrait_db[3] = new PortraitSet("superboss","6",0, "talk2");
   portrait_db[4] = new PortraitSet("lady","7",0, "talk3");
   portrait_db[5] = new PortraitSet("ladyh1","8",0, "talk3");
   portrait_db[6] = new PortraitSet("ladyh2","9",0, "talk3");
   portrait_db[7] = new PortraitSet("ladyh3","10",0, "talk3");
   portrait_db[8] = new PortraitSet("ladyh4","11",0, "talk3");
-  portrait_db[9] = new PortraitSet("man","12,13",0, "talk4");
+  portrait_db[9] = new PortraitSet("man","12,13",0, "talk2");
   portrait_db[10] = new PortraitSet("tannoy","14,15",0, "talk4");
   portrait_db[11] = new PortraitSet("jack","-1",-1, "talk1");
-  portrait_db[12] = new PortraitSet("marco","16",-1, "talk1");
+  portrait_db[12] = new PortraitSet("marco","16",0, "talk1");
   portrait_db[13] = new PortraitSet("joe","-1",-1, "talk6");
   portrait_db[14] = new PortraitSet("joee","-1",-1, "talk5");
+  portrait_db[15] = new PortraitSet("mysteryman","17",0,"talk2");
+  portrait_db[16] = new PortraitSet("otherlady","18",0, "talk3");
+  portrait_db[17] = new PortraitSet("internal_deep","-1",-1, "talk2");
+  portrait_db[18] = new PortraitSet("morph","-1",-1, "talk7");
   
    textbox_a = loadImage("data/MIT/textbox.png");
    textbox_b = loadImage("data/MIT/textbox_nox.png");
@@ -360,14 +386,22 @@ class textbox
         String[] breakup = split(next_line,"^");
         total_portraits = 0;
         
-        if (breakup[0].equals("none"))
+        int s_in = 0;
+        if (breakup[0].equals("shake"))
+        {
+          String[] s_info = split(breakup[1],",");
+          shake_screen(float(s_info[0]),int(s_info[1]),int(s_info[1]));
+           s_in += 2; 
+        }
+        
+        if (breakup[s_in].equals("none"))
         {
           NoPortrait = true;
         }
         else
         {
           NoPortrait = false;
-          pSet = get_portrait_set(breakup[0]);
+          pSet = get_portrait_set(breakup[s_in]);
         }
         
         if (pSet == null)
@@ -375,7 +409,7 @@ class textbox
           NoPortrait = true;
         }
   
-        this_text = breakup[1] + " ";
+        this_text = breakup[s_in+1] + " ";
         string_length = this_text.length();
         charry = int( this_text.toCharArray() );
         
@@ -450,7 +484,7 @@ class textbox
           if (WriteFast)
             progress_so_far += 1;
           else
-            progress_so_far += 0.20;
+            progress_so_far += 0.25;
         }
         else
         {
@@ -584,6 +618,11 @@ class textbox
     }
     else
       WriteFast = false;
+      
+    if (i.a_down)
+    {
+      isOpening = 0; 
+    }
       
     if (isOpening == 0 && text_box_height <= 0)
     {

@@ -3,20 +3,214 @@ sideref[] side_db = null;
 
 class level1
 {
-  int level_stage_progress = 0;
-  
-  
-  
+  int spro = 0;
+
   void level_state(int state)
   {
+    if (state == 0)
+    {
+      theUI.ResetCursor();
+      texter = new textbox("intro_1");
+    }
+    else if (state == 1)
+    {
+      eye_c.change(true,"");
+      texter = new textbox("intro_2");
+      frames_to_convey = 1000;
+      new_box();
+      
+      make_sound.play_music("music2");
+      
+      jitter.get_rekt(0.1);
+    }
+    else if (state == 2)
+    {
+      texter = new textbox("intro_3");
+    }
+    else if (state == 3)
+    {
+      texter = new textbox("intro_4");
+    }
+    else if (state == 4)
+    {
+      texter = new textbox("intro_5");
+      new_box();
+      frames_to_convey = 1000;
+      
+      jitter.get_rekt(0.1);
+    }
+    // state == 5 means waiting for player to attach a label
     
-     level_stage_progress = state;
-
+    else if (state == 6)
+    {
+      texter = new textbox("intro_7_good");
+      new_box();
+      frames_to_convey = 1000;
+      state = 10;
+      
+      jitter.get_rekt(0.1);
+    }
+    else if (state == 7)
+    {
+      texter = new textbox("intro_7_bad");
+      new_box();
+      frames_to_convey = 1000;
+      state = 10;
+      
+      jitter.get_rekt(0.2);
+    }
+    
+    else if (state == 11)
+    {
+      texter = new textbox("intro_8");
+      show_rot_ui = true;
+      
+      jitter.get_rekt(0.1);
+    }
+    else if (state == 12)
+    {
+      texter = new textbox("intro_anxious");
+      new_box();
+      frames_to_convey = 1000;
+      theUI.sounds(true);
+    }
+    else if (state == 13)
+    {
+      
+    }
+    // 14, 15 16 are based on how well you do
+    else if (state == 14)
+    {
+      new_box();
+      frames_to_convey = 1000;
+      texter = new textbox("intro_10_good");
+      state = 20;
+    }
+    else if (state == 15)
+    {
+      new_box();
+      frames_to_convey = 1000;
+      texter = new textbox("intro_10_bad");
+      state = 20;
+    }
+    else if (state == 21)
+    {
+      texter = new textbox("intro_11");
+      new_box();
+      frames_to_convey = 1000;
+      labels_unlocked = 2;
+    }
+    else if (state == 22)
+    {
+      texter = new textbox("intro_13_good");
+      state = 25;
+      new_box();
+      frames_to_convey = 1000;
+    }
+    else if (state == 23)
+    {
+      texter = new textbox("intro_13_bad");
+      state = 25;
+      new_box();
+      frames_to_convey = 1000;
+    }
+    else if (state == 26)
+    {
+      texter = new textbox("intro_14");
+      new_box();
+      frames_to_convey = 1000;
+    }
+    else if (state == 27)
+    {
+      texter = new textbox("intro_15");
+      new_box();
+      frames_to_convey = 1000;
+    }
+    else if (state == 28)
+    {
+      texter = new textbox("intro_16");
+      new_box();
+      
+      state = 30;
+      
+      auto_crate = true;
+      frames_to_convey = -1;
+      start_milli = -1;
+      time_between_crates = 10000;
+    }
+    else if (state == 100)
+    {
+      auto_crate = false;
+      frames_to_convey = 0;
+      make_sound.stop_music();
+      if (sads < 5)
+      {
+        texter = new textbox("intro_17_good");
+      }
+      else
+      {
+        texter = new textbox("intro_17_bad");
+      }
+    }
+    
+    spro = state;
+  }
+  
+  void sequence_hook()
+  {
+    if (text_box_finished)
+    {
+      if (text_box_finish_name.equals("intro_1"))
+      {
+         level_state(1); 
+      }
+      else if (text_box_finish_name.equals("intro_2"))
+      {
+        frames_to_convey = 0;
+        if (crate_locations[0].x > 512 - 64)
+          crate_locations[0].x = 256;
+        level_state(2);
+      }
+      else if (text_box_finish_name.equals("intro_5"))
+      {
+        level_state(5);
+      }
+      else if (text_box_finish_name.equals("intro_anxious"))
+      {
+         jitter.anxiety(true);
+         jitter.inaction_on();
+         jitter.player_must_pump = true;
+      }
+      else if (text_box_finish_name.equals("intro_11"))
+      {
+        //new_box();
+        //frames_to_convey = 1000;
+        /*
+        auto_crate = true;
+        start_milli = -1;
+      
+        new_box();
+        frames_to_convey = 1000;
+        time_between_crates = 10000;*/
+      }
+      else if (text_box_finish_name.equals("intro_17_good") ||
+              text_box_finish_name.equals("intro_17_bad"))
+      {
+        
+         jitter.anxiety(false);
+         jitter.inaction_off();
+         jitter.player_must_pump = false;
+         
+        eye_c.change(false,"level1_end");
+      }
+    }
   }
   
   boolean auto_crate = false;
   
+  int frames_to_convey = 0;
   
+  boolean show_rot_ui = false;
   
   
   basic_image WareHouseBG;
@@ -185,6 +379,7 @@ class level1
       }
     }
     
+    /*
     for (int j = 0; j < crate_array_size; j++)
     {
       if (crate_locations[j] == null)
@@ -193,15 +388,26 @@ class level1
         crate_locations[j].SetRandom(level_difficulty);
       }
     }
+    */
+    
     
     //new_box();
     start_milli = -1;
+    
+    level_state(0);
   }
   
   void TakeInput(inputblob i)
   {
-    if (i.z_down)  // treat as swap?
+    if (i.k1_down && spro != 100)
     {
+       level_state(100); 
+    }
+    
+    
+    if (i.z_down && spro >= 2)  // treat as swap?
+    {
+      
       selected_label++;
       
       if (selected_label > labels_unlocked)
@@ -231,22 +437,29 @@ class level1
         
         boolean pushed_button = false;
         // test current cursor:
-        if (arrow_left.do_box_test(effective_cursor_x, effective_cursor_y))
+        if (show_rot_ui)
         {
-          pushed_button = true;
-          crate_locations[focus_crate].showside += 3;
-          make_sound.play("ehhh");
+          if (arrow_left.do_box_test(effective_cursor_x, effective_cursor_y))
+          {
+            pushed_button = true;
+            crate_locations[focus_crate].showside += 3;
+            make_sound.play("ehhh");
+          }
+          else if (arrow_right.do_box_test(effective_cursor_x, effective_cursor_y))
+          {
+            pushed_button = true;
+            crate_locations[focus_crate].showside += 1;
+            make_sound.play("ehhh");
+          }
         }
-        else if (arrow_right.do_box_test(effective_cursor_x, effective_cursor_y))
-        {
-          pushed_button = true;
-          crate_locations[focus_crate].showside += 1;
-          make_sound.play("ehhh");
-        }
-        else if (next_button.do_box_test(effective_cursor_x, effective_cursor_y))
+        
+        if (next_button.do_box_test(effective_cursor_x, effective_cursor_y))
         {
           pushed_button = true;
           nextCrate();
+          
+          if (spro == 3)
+            level_state(4);
         }
         
         crate_locations[focus_crate].showside = crate_locations[focus_crate].showside % 4;
@@ -275,11 +488,12 @@ class level1
             else
             {
               int type = 1;
-              if (score > 80)
+              if (score > 80 || spro == 2)
               {
                 make_sound.play("good");     
                 AddSmile();
                 type = 2;
+                
               }
               else if (score < 50)
               {
@@ -290,7 +504,13 @@ class level1
               else
               {
                 make_sound.play("ehhh");
+                AddMeh();
               }
+              
+              if (spro == 2)
+                 level_state(3);
+              else if (spro == 11)
+                  level_state(12);
               
               scorer.add_riser(new score_riser(effective_cursor_x, effective_cursor_y, str(int(score)), type));
             }
@@ -316,12 +536,31 @@ class level1
   {
     smiles++;
     theUI.SetSmiles(smiles);
+    
+    if (spro == 5)
+    {
+      level_state(6);
+    }
   }
   void AddSad()
   {
     sads++;
     theUI.SetSads(sads);
     jitter.get_rekt(0.1);
+    shake_screen(0.25,30,30);
+    if (spro == 5)
+    {
+      level_state(7);
+    }
+    
+  }
+  void AddMeh()
+  {
+    jitter.get_rekt(0.05);
+    if (spro == 5)
+    {
+      level_state(6);
+    }
   }
   
   int crate_center_offset_x = -5;
@@ -331,13 +570,15 @@ class level1
   
   void draw()
   {
+    sequence_hook();
+    
     if (start_milli < 0)
     {
       start_milli = millis();
       lastcrate = start_milli;
     }
       
-    if (auto_crate && millis() > lastcrate + time_between_crates)
+    if (auto_crate && (millis() > lastcrate + time_between_crates))
     {
       new_box();
       lastcrate = millis();
@@ -349,19 +590,37 @@ class level1
 
     for (crate box : crate_locations)
     {
-      box_current_x = box.x;
-      if (box_current_x > -1000)
+      if (box != null)
       {
-        box_current_x -= crate_speed;
-        box.x = box_current_x; 
+        box_current_x = box.x;
+        if (box_current_x > -1000 && frames_to_convey != 0)
+        {
+          box_current_x -= crate_speed;
+          box.x = box_current_x; 
+        }
+        else
+        {
+           break;
+        }
       }
       else
+        break;
+    }
+    
+    if (frames_to_convey > 0)
+      frames_to_convey--;
+    else if (frames_to_convey == 0)
+    {
+      if (spro == 1)
       {
-         break;
+        level_state(2);
       }
     }
 
-    box_current_x = crate_locations[focus_crate].x + camera_crate_offset;
+    if (crate_locations[focus_crate] != null)
+      box_current_x = crate_locations[focus_crate].x + camera_crate_offset;
+    else
+      box_current_x = -9999;
     
     // If there is no box, go to the far right
     if (box_current_x < -1000)
@@ -385,7 +644,7 @@ class level1
     
     // if we are close to the crate we should draw the crate UI:
     drawui = false;
-    if (abs(current_camera_x - box_current_x) < 5 || box_current_x < 64)
+    if ((abs(current_camera_x - box_current_x) < 5 || box_current_x < 64))
     {
         drawui = true;
     }
@@ -395,14 +654,17 @@ class level1
     WareHouseBG.setPos(BGpos,64);
     WareHouseBG.draw();
     
-    if (cog_current > cog_steps)
+    if (frames_to_convey != 0)
     {
-      cog_current = 0;
-      cogspin = 9 - cogspin;
-    }
-    else
-    {
-      cog_current++;
+      if (cog_current > cog_steps)
+      {
+        cog_current = 0;
+        cogspin = 9 - cogspin;
+      }
+      else
+      {
+        cog_current++;
+      }
     }
     
     float nearest_cog = BGpos + cogspin;
@@ -415,7 +677,9 @@ class level1
 
     for( int j = 0; j < crate_array_size; j++)
     {
-      float crate_x = crate_locations[j].x;
+      float crate_x = -9999;
+      if (crate_locations[j] != null)
+        crate_x = crate_locations[j].x;
       // end of the list:
       if (crate_x < -1000)
       {
@@ -487,32 +751,52 @@ class level1
       }
     }
     
+    textFont(font_ui, 14);
+    text("Remaining: " + str(30 - crates_complete),5,5);
+    
     // Draw the black box at the bottom:
     fill(color(0,0,0));
     rect(0,128-16,128,16);
 
     if (drawui)
     {
-      arrow_left.draw();
-      arrow_right.draw();
-      next_button.draw();
+      if (show_rot_ui)
+      {
+        arrow_left.draw();
+        arrow_right.draw();
+      }
+      if (spro >= 3)
+        next_button.draw();
     }
+    
+
   }
   
   void new_box()
   {
     //if (crate_locations == null)
       //return;
+      
     for (int j = 0; j < crate_array_size ; j++)
     {
       //print("trying box " + j + " : " + crate_locations[j] + "\n");
+      
+      // if we find an empty crate:
+      if (crate_locations[j] == null)
+      {
+        if (crate_locations[j] == null)
+        {
+          crate_locations[j] = new crate();
+          crate_locations[j].SetRandom(level_difficulty);
+        }
+      }
       
       if (crate_locations[j].x < -1000)
       {
         crate_locations[j].x = 512 + 64;
         current_crates++;
         //print("making new box at: " + j + "\n");
-        j = 9999;
+        break;
       }
     }
   }
@@ -520,31 +804,93 @@ class level1
   void nextCrate()
   {
     // check current crate is finished
+    boolean was_good = true;
     crate thiscrate = crate_locations[focus_crate];
     if (!thiscrate.IsFinished())
     {
+      was_good = false;
       make_sound.play("bad");
       AddSad();
       int type = 3;
       scorer.add_riser(new score_riser(64 - 20, 20, "unfinished", type));
     }
+    
+    
     if (focus_crate < (crate_array_size - 1))
       focus_crate += 1;
     
+    
     crates_complete++;
-    if (crates_complete % 4 == 3)
+    println("completed: " + crates_complete);
+    if (crates_complete % 4 == 3 && crates_complete > 8)
     {
       level_difficulty++;
+      println("difficulty: " + level_difficulty);
+      if (level_difficulty == 2)
+        texter = new textbox("intro_diff_up_1");
+      else if (level_difficulty == 3)
+        texter = new textbox("intro_diff_up_2");
+      else if (level_difficulty == 4)
+        texter = new textbox("intro_diff_up_3");
     }
+    else
+    {
+       if (spro > 30 && !was_good)
+       {
+         int r_str = int(random(6)) + 1;
+         texter = new textbox("intro_abuse_" + str(r_str));
+       }
+    }
+    
+    if (spro == 10)
+    {
+      level_state(11);
+    }
+    else if (spro == 13 && was_good)
+    {
+      level_state(spro + 1);
+    }
+    else if (spro == 13 && !was_good)
+    {
+      level_state(spro + 2);
+    }
+    else if (spro == 12)
+    {
+      level_state(spro + 1);
+    }
+    else if (spro == 20)
+    {
+      level_state(spro + 1); 
+    }
+    else if (spro == 21)
+    {
+       if (was_good)
+         level_state(spro + 1); 
+       else
+         level_state(spro + 2); 
+    }
+    
+    else if (spro == 25 || spro == 26 || spro == 27)
+    {
+      level_state(spro + 1); 
+    }
+    
+    if (crates_complete == 30)
+    {
+      level_state(100);
+    }
+    
   }
+  
   void shift_crate_list()
   {    
       for (int j = 0;j < crate_array_size - 1;j++)
       {
         crate_locations[j] = crate_locations[j+1];
       }
-      crate_locations[crate_array_size - 1] = new crate();
-      crate_locations[crate_array_size - 1].SetRandom(level_difficulty);
+      
+      crate_locations[crate_array_size - 1] = null;//new crate();
+      //crate_locations[crate_array_size - 1].SetRandom(level_difficulty);
       
       current_crates--;
       
@@ -565,7 +911,7 @@ class crate
   int[] labelmask;
   int[] labelneeds;
   
-  crate()//int labels_to_be_added, boolean enable_rotation, int hardness, int positional)
+  crate()
   {
     labels_applied = new labelgame[4][2];
     labels_needed = new labelgame[4][2];
@@ -661,6 +1007,8 @@ class crate
   {
     if (side_db == null)
       return;
+      
+     println("Making crate with diffiuclty: " + str(general_difficulty_level));
     
     int sides_to_write = 2;
     if (general_difficulty_level >= 1)
@@ -686,7 +1034,7 @@ class crate
       
       
       int side_id = 1;
-      if (general_difficulty_level > 4 && random(100) > 90)
+      if (general_difficulty_level >= 4 && random(100) > 70)
       {
         side_id = 8 + int(random(4));
         if (side_id >= 12)

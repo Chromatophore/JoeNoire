@@ -8,6 +8,14 @@ class inputblob
   boolean x_down;
   boolean c_down;
   
+  boolean a_down;
+  
+  
+  boolean k1_down;
+  boolean k2_down;
+  boolean k3_down;
+  boolean k4_down;
+  
   int up_state;
   int down_state;
   int left_state;
@@ -25,8 +33,17 @@ class inputblob
   {
     z_down = false;
     x_down = false;
+    
     if (true_wipe)
+    {
       c_down = false;
+      a_down = false;
+      k1_down = false;
+      k2_down = false;
+      k3_down = false;
+      k4_down = false;
+    }
+    
   }
   
   void do_input(char c, int down)
@@ -61,6 +78,32 @@ class inputblob
          c_state = down;
          if (down == 1)
            c_down = true;
+       }
+       if (c == 'a')
+       {
+         if (down == 1)
+           a_down = true;
+       }
+       
+       if (c == '1')
+       {
+         if (down == 1)
+           k1_down = true;
+       }
+       if (c == '2')
+       {
+         if (down == 1)
+           k2_down = true;
+       }
+       if (c == '3')
+       {
+         if (down == 1)
+           k3_down = true;
+       }
+       if (c == '4')
+       {
+         if (down == 1)
+           k4_down = true;
        }
     }
     

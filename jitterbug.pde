@@ -7,9 +7,6 @@ class jitterbug
   
   boolean player_must_pump = false;
   
-
-  
-  
   jitterbug()
   {
     pulse_milli = millis() + map(overall_state, 0,1.0,minimum_cycle,maximum_cycle);
@@ -120,12 +117,15 @@ class jitterbug
     // wrong delta now stores how wrong we were for the delta from -1 to 1
     
     float score = 1 - map(total_delta,0,2 * ideal_beat_total,0.0,1.0);
-    float score2 = wrong_delta;
+    float score2 = wrong_delta * wrong_delta;
     
     //println(score2);
     
+    // delta needs to be more forgiving
     if (abs(score2) > abs(score))
+    {
       score = score2;
+    }
     
     // TODO to integrage % held here somehow
     
@@ -142,56 +142,68 @@ class jitterbug
     make_sound.breath_loudness(overall_state);
   }
   
+  float get_state()
+  {
+    return overall_state;
+  }
+  
   void apply_bar_math()
   {
-    // this is called every frame
-    float difference = abs(marker_position - 50) / 50;
-    // difference will be a value from 0 to 1 based on how wrong we are
-    // we want to get better if we're within 0.1
     
-    float tick = 1.0/60;
-    //println(difference);
+    if (system_state)
+    {
     
-    float modifier = 0;
-    if (difference < 0.2)
-    {
-        modifier = 0.1 * tick * constrain(difference,0.3,1.0);
-    }
-    else if (difference < 0.4)
-    {
-      // we want to get worse but with a cap
-      if (overall_state > 0.8)
+      // this is called every frame
+      float difference = abs(marker_position - 50) / 50;
+      // difference will be a value from 0 to 1 based on how wrong we are
+      // we want to get better if we're within 0.1
+      
+      float tick = 1.0/60;
+      //println(difference);
+      
+      float modifier = 0;
+      if (difference < 0.2)
       {
-        modifier = - 0.1 * tick;
+          modifier = 0.1 * tick * constrain(difference,0.3,1.0);
       }
-      else if (overall_state < 0.4)
+      else if (difference < 0.4)
       {
-        modifier = 0.05 * tick;
+        // we want to get worse but with a cap
+        if (overall_state > 0.8)
+        {
+          modifier = - 0.1 * tick;
+        }
+        else if (overall_state < 0.4)
+        {
+          modifier = 0.05 * tick;
+        }
       }
-    }
-    else if (difference < 0.6)
-    {
-       if (overall_state > 0.4)
-       {
-         modifier = -0.06 * tick;
-       }
-       else
-       {
-         modifier = 0.05 * tick;
-       }
-    }
-    else if (difference < 0.8)
-    {
-      modifier = -0.1 * tick;
-    }
-    else
-    {
-      modifier = -0.2 * tick;
+      else if (difference < 0.6)
+      {
+         if (overall_state > 0.4)
+         {
+           modifier = -0.06 * tick;
+         }
+         else
+         {
+           modifier = 0.05 * tick;
+         }
+      }
+      else if (difference < 0.8)
+      {
+        modifier = -0.1 * tick;
+      }
+      else
+      {
+        modifier = -0.2 * tick;
+      }
+      
+      // gradient effect where we move along a curve
+      
+      state_pregradient += modifier;
     }
     
-    // gradient effect where we move along a curve
     
-    state_pregradient += modifier;
     state_pregradient = constrain(state_pregradient,0.0,1.0);
     
     overall_state = sin(state_pregradient * 0.5 * PI);
@@ -213,7 +225,7 @@ class jitterbug
       marker_position = 0;
       pump_bar();
     }
-    else if (things_done == 1)
+    else if (things_done != 0)
     {
       // weve skipped a beat, but, we could easily get stiffed on this so we have this one beat window each time.
       if (punish_inaction)
@@ -232,13 +244,14 @@ class jitterbug
   }
   
   boolean system_state = false;
-  void anxiety_on()
+  void anxiety(boolean state)
   {
-     system_state = true;    
+     system_state = state;
   }
-  void anxiety_off()
+  
+  void MoveMarker(int value)
   {
-     system_state = false; 
+    marker_position = value;
   }
   
   void TakeInput(inputblob i)
@@ -248,9 +261,9 @@ class jitterbug
 
     if (system_state)
     {
-
       if (i.c_down)
       {
+        player_must_pump = true;
         release_total = millis() - release_start;      
         if (release_start > 0)
         {
@@ -286,13 +299,23 @@ class jitterbug
     
     theUI.SetMarker(map(displayed_marker,0,100,0.0,2.0));
 
+    boolean text_box_forgive = player_must_pump;
+    //println("player must pump? " + str(player_must_pump));
+    if (texter != null)
+    {
+      text_box_forgive = false; 
+      //println("but forgiven!");
+    }
+    
+    
+
     if (millis() > pulse_milli)
     {
       reset_pulse();
       pulse = !pulse;
       theUI.pulse(pulse);
       
-      if (pulse == false && player_must_pump)
+      if (pulse == false && text_box_forgive)
       {
         check_did_anything();
       }

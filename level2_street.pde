@@ -12,6 +12,59 @@ class level2_street
   basic_image morescary3;
   basic_image bat;
   
+  int spro = 0;
+  void level_state(int state)
+  {
+    if (state == 0)
+    {
+      theUI.ResetCursor();
+      texter = new textbox("chap2_4_1");
+    }
+    else if (state == 2)
+    {
+      eye_c.change(true,"");
+      texter = new textbox("chap2_4_2");
+      
+       theUI.sounds(true);
+       jitter.anxiety(true);
+       jitter.inaction_on();
+       jitter.player_must_pump = true;
+    }
+    else if (state == 50)
+    {
+       theUI.sounds(false);
+       jitter.anxiety(false);
+       jitter.inaction_off();
+       jitter.player_must_pump = false;
+       
+       eye_c.change(false,"");
+       texter = new textbox("chap2_4_3");
+    }
+    
+    spro = state;
+  }
+  
+  void sequence_hook()
+  {
+    if (text_box_finished)
+    {
+      if (text_box_finish_name.equals("chap2_4_1"))
+      {
+         level_state(2); 
+      }
+      if (text_box_finish_name.equals("chap2_4_bat"))
+      {
+         level_state(50); 
+      }
+      if (text_box_finish_name.equals("chap2_4_3"))
+      {
+        progress_game("level2b_end");
+      }
+      
+    }
+    
+  }
+  
   level2_street()
   {
     streetBG = new basic_image(loadImage("data/MIT/lv2/streetview.png"),64,64);
@@ -25,6 +78,8 @@ class level2_street
     scary3 = new basic_image(loadImage("data/MIT/lv2/streetview_c.png"),64,64);
     
     bat = new basic_image(loadImage("data/MIT/lv2/bat.png"),64,64);
+    
+    level_state(0);
   }
   
   int bat_frames = 0;
@@ -35,6 +90,8 @@ class level2_street
   
   void draw()
   {
+    sequence_hook();
+    
     theUI.OverrideCursor(true, guncursor);
     
     streetBG.draw();
@@ -103,6 +160,7 @@ class level2_street
         if (!murder_man)
         {
           murder_man = true;
+          texter = new textbox("chap2_4_cat");
         }
       }
       if (box_test(effective_cursor_x, effective_cursor_y, 25, 93, 7,7))
@@ -110,12 +168,14 @@ class level2_street
         if (!monster)
         {
           monster = true;
+          texter = new textbox("chap2_4_brella");
         }
       }
       if (box_test(effective_cursor_x, effective_cursor_y, 53, 10, 7,7))
       {
         if (bat_show && !bat_attack)
         {
+          texter = new textbox("chap2_4_bat");
           bat_attack = true;
           bat_show = false;
         }

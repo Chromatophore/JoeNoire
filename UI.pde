@@ -51,6 +51,8 @@ class UI
     marker2 = new basic_image(loadImage("data/MIT/UI/calm_marker2.png"), 64,128 - 10);
     
     Cursor = new basic_image(loadImage("data/MIT/cursor1.png"),64,64);
+    
+    chillimg = new basic_image(loadImage("data/MIT/panic.png"),97,128 - 16 + 12);
   }
   
   void reset_score()
@@ -88,8 +90,10 @@ class UI
     }
   }
   
+  float markerpos;
   void SetMarker(float ratio)
   {
+    markerpos = ratio / 2;
     marker.setPos((64 - marker_max) + marker_max * ratio + marker_jitter, 128 - 10);
     marker2.setPos((64 - marker_max) + marker_max * ratio + marker_jitter, 128 - 10);
   }
@@ -106,6 +110,20 @@ class UI
     textFont(font_ui, 14);
     
     fill(color(170,170,170));
+ 
+     
+     if (chill && markerpos > 0.6 && panic_buildup < 0.5)
+     {
+       float pb = 1.0 - (panic_buildup / 0.5);
+       // pb will be 0 when we are only just beginning
+       float mark = (markerpos - 0.6) / 0.4;
+       // mark will be 0 when we are only just beginning
+       float res = mark * pb;
+       
+       float v1 = 170 + (res) * (255-170);
+       float v2 = (1 - res) * 170;
+       fill(v1,v2,v2);
+     }
  
     float panic_bar = map(panic_buildup,0,1.0,bar_max,0);
     rect(64 - panic_bar, 128 - 14, 2 * panic_bar, 12);
@@ -160,6 +178,13 @@ class UI
       Cursor.setPos(effective_cursor_x,effective_cursor_y);
       Cursor.draw();
     }
+    
+    if (chiller != null)
+    {
+      if (chiller.draw())
+        chiller = null;
+    }
+    
   }
   
   
@@ -180,12 +205,65 @@ class UI
     Cursor_Replace = pReplace;    
   }
   
+  float cursor_minx = 0;
+  float cursor_miny = 0;
+  float cursor_maxx = 127;
+  float cursor_maxy = 127;
+  
+  void ResetCursor()
+  {
+    cursor_minx = 0;
+    cursor_miny = 0;
+    cursor_maxx = 127;
+    cursor_maxy = 127;
+  }
+  
+  void SetCursorConstraints(float x1, float y1, float x2, float y2)
+  {
+    cursor_minx = x1;
+    cursor_miny = y1;
+    cursor_maxx = x2;
+    cursor_maxy = y2;
+  }
+  
+  boolean no_up = false;
+  void special_race_mode(boolean state)
+  {
+    no_up = state;
+    
+  }
+  void mod_up(float amount)
+  {
+    cursor_y = constrain( cursor_y + amount, cursor_miny, cursor_maxy);
+  }
+  
+  basic_image chillimg;
+  shard chiller;
+  void go_chill()
+  {
+     chiller = new shard(chillimg,97,128 - 16 + 12);
+     chill = true;
+  }
+  
+  
+  boolean hijack_quit = false;
+  
   void TakeInput(inputblob i)
   {
     if (!is_on)
       return;
-    cursor_x = constrain( cursor_x + cursor_speed * i.x_axis, 0, 127);
-    cursor_y = constrain( cursor_y + cursor_speed * i.y_axis, 0, 127);
+    cursor_x = constrain( cursor_x + cursor_speed * i.x_axis, cursor_minx, cursor_maxx);
+    if (!no_up)
+      cursor_y = constrain( cursor_y + cursor_speed * i.y_axis, cursor_miny, cursor_maxy);
+      
+    if (i.x_down)
+    {
+      if (cursor_x <= 15 && cursor_y >= 128 - 9)
+      {
+        if (!hijack_quit)
+          progress_game("game_reset");
+      }
+    }
   }
   
   int smiles = 0;

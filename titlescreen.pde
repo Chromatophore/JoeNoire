@@ -57,6 +57,7 @@ class screen_title
     }
     
     pressXtoStart = new basic_image(loadImage("data/MIT/pressXtoStart.png"),64,115);
+    
   }
   
   void draw()
@@ -101,6 +102,23 @@ class screen_title
     {
       progress_game("title_start");
     }
+    
+    if (i.k1_down)
+    {
+      progress_game("skip1");
+    }
+    if (i.k2_down)
+    {
+      progress_game("skip2");
+    }
+    if (i.k3_down)
+    {
+      progress_game("skip3");
+    }
+    if (i.k4_down)
+    {
+      progress_game("skip4");
+    }
   }
 }
 
@@ -143,6 +161,8 @@ class spotlight
   
   void draw()
   {
+    textFont(font, 20);
+    fill(255,255,255);
     pushMatrix();
 
     translate(x,y);
