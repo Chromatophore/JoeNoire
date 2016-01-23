@@ -612,14 +612,14 @@ epi2_2
 4
 none^Many years later...
 man^I would give anything to have had things go differently that night.
-alfred^Will you be needing anything else before tonights... activities, Master Thomas?
+jack^Will you be needing anything else before tonights... activities, Master Thomas?
 man^No, thank you, old friend.
 
 text
 epi_secret_quit
 2
 none^Maybe... maybe this is enough?
-none^Maybe... it's time to quit?
+none^Maybe... it's time to... quit?
 
 text
 epi3_1_1
