@@ -399,8 +399,9 @@ goon1^You idiot! Let me do it.
 
 text
 chap2_5_5
-1
+2
 goon1^It's alarmed! Get to the loot, quickly!
+none^Ugh, got to... collect these coins to move... closer??
 
 text
 chap2_5_6_win
@@ -429,7 +430,7 @@ superboss^Just make my lady happy, and all would be forgiven!
 superboss^But you couldn't even do that, could you.
 superboss^So now, from the kindness of my heart, I give you a week.
 shake^2,120^superboss^Just one.
-superboss^To make things right. Pay back when you owe.
+superboss^To make things right. Pay back what you owe.
 superboss^Or the interest will be...
 shake^2,120^superboss^quite steep.
 lady^Aw, you're so kind and caring!
@@ -464,7 +465,7 @@ none^And a bank right ahead on the corner. It's a sign.
 text
 chap3_2_1
 4
-none^Okay, I just need put a handkerchief over my face, walk up, take out the gun, ask for the money.
+none^Okay, I just need to put a handkerchief over my face, walk up, take out the gun, ask for the money.
 none^Just flash the gun, say nobody needs to get hurt, just hand it over.
 none^You can handle this, grab the money and dash like a madman.
 none^Alright, here we go.

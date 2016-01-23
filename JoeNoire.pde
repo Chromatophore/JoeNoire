@@ -49,6 +49,8 @@ void setup()
   size(512,512, P2D);
   ((PGraphicsOpenGL)g).textureSampling(3);
   
+  surface.setResizable(false);
+  
   inp = new inputblob();
   jitter = new jitterbug();
   

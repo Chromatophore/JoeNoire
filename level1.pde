@@ -467,9 +467,16 @@ class level1
           
           if (spro == 3)
             level_state(4);
+          if (spro == 11)
+          {
+            level_state(12);
+          }
         }
         
-        crate_locations[focus_crate].showside = crate_locations[focus_crate].showside % 4;
+        if (crate_locations[focus_crate] != null)
+        {
+          crate_locations[focus_crate].showside = crate_locations[focus_crate].showside % 4;
+        }
         
         if (selected_label >= 1 && selected_label <= 2)
         {
@@ -828,7 +835,7 @@ class level1
     
     
     crates_complete++;
-    println("completed: " + crates_complete);
+    //println("completed: " + crates_complete);
     if (crates_complete % 4 == 3 && crates_complete > 8)
     {
       level_difficulty++;

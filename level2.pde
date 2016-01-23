@@ -109,7 +109,7 @@ class level2
         enemybag1_vx = 1;
         enemybag2_vx = 3;
         
-        theUI.SetCursorConstraints(43,0,85,127);
+        theUI.SetCursorConstraints(20,0,108,127);
     }
     else if (state == 70 || state == 71)
     {
