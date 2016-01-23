@@ -1,4 +1,6 @@
-import ddf.minim.*; //<>// //<>//
+/* @pjs preload="data/MIT/bank.png,data/MIT/bar.png,data/MIT/booze.png,data/MIT/boss1.png,data/MIT/boss2.png,data/MIT/city.png,data/MIT/coin0.png,data/MIT/coin1.png,data/MIT/coin2.png,data/MIT/coin3.png,data/MIT/coin4.png,data/MIT/coin5.png,data/MIT/coin6.png,data/MIT/coin7.png,data/MIT/coin8.png,data/MIT/coin9.png,data/MIT/conveyor.png,data/MIT/crosshair.png,data/MIT/cursor1.png,data/MIT/ehhh.png,data/MIT/epilogue/credits.png,data/MIT/epilogue/epilogue_1.png,data/MIT/epilogue/epilogue_2.png,data/MIT/epilogue/epilogue_3.png,data/MIT/epilogue/epilogue_4.png,data/MIT/goon1.png,data/MIT/goon2.png,data/MIT/goonB1.png,data/MIT/goonB2.png,data/MIT/lady.png,data/MIT/lady_hand.png,data/MIT/lady_hand_brace.png,data/MIT/lady_hand_rings.png,data/MIT/lady_hand_rings2.png,data/MIT/lady_hand_rings2i.png,data/MIT/lv1/conveyorwheels.png,data/MIT/lv1/crate1.png,data/MIT/lv1/crate2.png,data/MIT/lv1/l1.png,data/MIT/lv1/l1z1.png,data/MIT/lv1/l1z2.png,data/MIT/lv1/l1z3.png,data/MIT/lv1/l2.png,data/MIT/lv1/l2z1.png,data/MIT/lv1/l2z2.png,data/MIT/lv1/l2z3.png,data/MIT/lv1/leftside_arrow.png,data/MIT/lv1/next.png,data/MIT/lv1/rightside_arrow.png,data/MIT/lv2/bagcursor.png,data/MIT/lv2/bat.png,data/MIT/lv2/glass_shatter.png,data/MIT/lv2/goonbag1.png,data/MIT/lv2/goonbag2.png,data/MIT/lv2/heist.png,data/MIT/lv2/heist_2.png,data/MIT/lv2/heist_2_break.png,data/MIT/lv2/ring_blue.png,data/MIT/lv2/ring_green.png,data/MIT/lv2/ring_pink.png,data/MIT/lv2/ring_red.png,data/MIT/lv2/streetview.png,data/MIT/lv2/streetview_a.png,data/MIT/lv2/streetview_ar.png,data/MIT/lv2/streetview_b.png,data/MIT/lv2/streetview_br.png,data/MIT/lv2/streetview_c.png,data/MIT/lv3/arm_down.png,data/MIT/lv3/arm_up.png,data/MIT/lv3/family.png,data/MIT/lv3/gunshot.png,data/MIT/lv3/man_base.png,data/MIT/lv3/necklace.png,data/MIT/lv3/tiepin.png,data/MIT/lv3/watch.png,data/MIT/man_end0.png,data/MIT/man_end1.png,data/MIT/marco.png,data/MIT/mystery_man.png,data/MIT/other_lady.png,data/MIT/panic.png,data/MIT/portraitbase.png,data/MIT/pressXtoStart.png,data/MIT/sad.png,data/MIT/smile.png,data/MIT/spotlight.png,data/MIT/superboss.png,data/MIT/superboss_cutscene.png,data/MIT/superboss_cutscene_2.png,data/MIT/tannoy1.png,data/MIT/tannoy2.png,data/MIT/textbox.png,data/MIT/textbox_nox.png,data/MIT/title_grey.png,data/MIT/title_grey_noav.png,data/MIT/UI/calm_marker.png,data/MIT/UI/calm_marker2.png,data/MIT/UI/UI_base.png,data/MIT/UI/UI_base_a.png,data/MIT/UI/UI_base_b.png,data/MIT/warehouse.png,data/MIT/warehouse_sky.png"; font="Minimal4.ttf,Retro Deco by pix3m.ttf"; */  //<>//
+
+import ddf.minim.*; //<>//
 
 float global_volume = 0.3;
 float global_gain = -10;
@@ -47,17 +49,20 @@ curtains eye_c;
 void setup()
 {
   size(512,512, P2D);
-  ((PGraphicsOpenGL)g).textureSampling(3);
   
-  surface.setResizable(false);
+  // Pre JS compatability stuff for scaling and disabling resize
+  //((PGraphicsOpenGL)g).textureSampling(3);
+  //surface.setResizable(false);
   
   inp = new inputblob();
   jitter = new jitterbug();
   
   theUI = new UI();
   
-  font = loadFont("RetroDeco-20.vlw");
-  font_ui = loadFont("Minimal4-14.vlw");
+  font = loadFont("RetroDeco-80.vlw");
+  font_ui = loadFont("Minimal4-56.vlw");
+  //font = createFont("Retro Deco by pix3m.ttf",20 * 8, false);
+  //font_ui = createFont("Minimal4.ttf",14 * 8, false);
   textFont(font, 20);
   textbox_setup();
 
@@ -433,11 +438,9 @@ class basic_image
   int fader = -1;
   int fademod = 1;
   
-  void fade(boolean in)
+  void fade(boolean fadein)
   {
-    
-    
-    if (in)
+    if (fadein)
     {
       fademod = 3;
       fader = 0;
@@ -478,7 +481,9 @@ class basic_image
     }
     else
     {
-      image(imageRef,0,0);
+      float w_t = imageRef.width / 4;
+      float h_t = imageRef.height / 4;
+      image(imageRef,0,0,w_t,h_t);
     }
     
     tint(255, 255);

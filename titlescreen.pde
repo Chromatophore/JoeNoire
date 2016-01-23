@@ -169,7 +169,7 @@ class spotlight
     rotate(base + scalar_varience * sin(direction));
     
     //rect(-(w/2), 0, w, h);
-    image(myImage,0,0);//,w,2 * h);
+    image(myImage,0,0,myImage.width / 4,myImage.height / 4);//,w,2 * h);
     
     direction += rate;
     if (direction > TWO_PI)

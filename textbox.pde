@@ -464,9 +464,9 @@ class textbox
       else
       {
         if (!FinishedLine)
-          image(textbox_background_nox,0,0);
+          image(textbox_background_nox,0,0, textbox_background_nox.width / 4.0, textbox_background_nox.height / 4.0);
         else
-          image(textbox_background,0,0);
+          image(textbox_background,0,0, textbox_background.width / 4.0, textbox_background.height / 4.0);
         translate(-44,0);
         
         boolean UseBig = NoPortrait;
@@ -474,7 +474,7 @@ class textbox
         {
           int frame = pSet.GetFrame(int(progress_so_far) == string_length);
           if (frame != -1)
-            image(avatar_list[pSet.framelist[frame]], 0,0);
+            image(avatar_list[pSet.framelist[frame]], 0,0, 30, 30);
           else
             UseBig = true;
         }
