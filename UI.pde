@@ -1,6 +1,6 @@
 
 int marker_max = 36;
-int bar_max = 42;
+float bar_max = 42;
 
 class UI
 {
@@ -125,8 +125,11 @@ class UI
        fill(v1,v2,v2);
      }
  
-    float panic_bar = map(panic_buildup,0,1.0,bar_max,0);
-    rect(64 - panic_bar, 128 - 14, 2 * panic_bar, 12);
+     pushMatrix();
+     scale(0.25,0.25);
+    float panic_bar = map(panic_buildup,0,1.0,bar_max,0.0);
+    rect(4 * (64 - panic_bar), 4 * (128 - 14), 4.0 * (2 * panic_bar), 4 * (12));
+    popMatrix();
     
     ui_base.draw();
     

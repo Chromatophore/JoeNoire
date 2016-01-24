@@ -10,6 +10,11 @@ class inputblob
   
   boolean a_down;
   
+  // JS is not detecting our key down event state the same way that processing does so we need to edge detect manually.
+  int z_edge;
+  int x_edge;
+  int c_edge;
+  
   
   boolean k1_down;
   boolean k2_down;
@@ -64,20 +69,57 @@ class inputblob
        if (c == 'z')
        {
          z_state = down;
-         if (down == 1)
+         
+         if (z_edge == 0 && down == 1)
+         {
            z_down = true;
+           z_edge = 1;
+         }
+         else if (z_edge == 1 && down == 1)
+         {
+           z_down = false; 
+         }
+         else
+         {
+           z_edge = 0;
+         }
+         //println(z_down);
        }
        if (c == 'x')
        {
          x_state = down;
-         if (down == 1)
+
+         if (x_edge == 0 && down == 1)
+         {
            x_down = true;
+           x_edge = 1;
+         }
+         else if (x_edge == 1 && down == 1)
+         {
+           x_down = false; 
+         }
+         else
+         {
+           x_edge = 0;
+         }
        }
        if (c == 'c')
        {
          c_state = down;
-         if (down == 1)
+
+         if (c_edge == 0 && down == 1)
+         {
            c_down = true;
+           c_edge = 1;
+         }
+         else if (c_edge == 1 && down == 1)
+         {
+           c_down = false; 
+         }
+         else
+         {
+           c_edge = 0;
+         }
        }
        if (c == 'a')
        {

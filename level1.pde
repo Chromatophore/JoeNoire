@@ -295,7 +295,7 @@ class level1
 
     current_camera_x = 512 - 128;
     
-    String lines[] = loadStrings("MIT/level1.txt");
+    String lines[] = loadStrings("data/MIT/level1.txt");
     //crate_locations = new crate[10];
     //for (int j = 0;j < 10;j ++)
     //{

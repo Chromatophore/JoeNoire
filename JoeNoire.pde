@@ -59,10 +59,15 @@ void setup()
   
   theUI = new UI();
   
-  font = loadFont("RetroDeco-80.vlw");
-  font_ui = loadFont("Minimal4-56.vlw");
-  //font = createFont("Retro Deco by pix3m.ttf",20 * 8, false);
-  //font_ui = createFont("Minimal4.ttf",14 * 8, false);
+  //font = loadFont("RetroDeco-80.vlw");
+  //font_ui = loadFont("Minimal4-56.vlw");
+  /*
+  font = createFont("Retro Deco by pix3m.ttf",20 * 8, false);
+  font_ui = createFont("Minimal4.ttf",14 * 8, false);
+  */
+  font = createFont("RetroDeco",20);
+  font_ui = createFont("Minimal4",14);
+  
   textFont(font, 20);
   textbox_setup();
 
@@ -78,25 +83,9 @@ void setup()
   
   guncursor = new basic_image(loadImage("data/MIT/crosshair.png"),64,64);
   
-  /*
-  String[] tbtext = new String[3];
-  tbtext[0] = "tannoy^Hi #SAGameDev. I am trying to make a game but will probably fail BOO HOO ME :(.";
-  tbtext[1] = "goon2^Here is a second line of text to test with";
-  tbtext[2] = "superboss^Look at my beautiful rings!";
-  
-  String[] tbtext2 = find_text("chap2_1");
-  */
-  //lv1 = new level1();
-  //lv2 = new level2();
-  //lv2_b = new level2_street();
-  
-  //make_sound.play_music("music1");
-  
   cutscene_engine = new cutscene();
   
   progress_game("game_reset");
-  
-  //eye_c.change(true,"");
   
 }
 
@@ -186,22 +175,6 @@ void draw()
     lv3.TakeInput(inp);
     lv3.draw();
   }
-  
-  
-  // we can do screen shake too lol
-  //translate(random(2) - 1.0, random(2) - 1.0);
-  
-  // Draw whatever scene we're on
-  
-  //
-  
-
-  
-  //lv2.TakeInput(inp);
-  //lv2.draw();
-  
-  //lv2_b.TakeInput(inp);
-  //lv2_b.draw();
   
   if (show_ui)
   {
@@ -465,8 +438,10 @@ class basic_image
       rotate(rotation);
     }
     
+    boolean changed_tint = false;
     if (fader >= 0)
     {
+      changed_tint = true;
       tint(255, fader);
       fader = constrain(fader + fademod,0,256);
       if (fader == 0 || fader == 256)
@@ -486,7 +461,12 @@ class basic_image
       image(imageRef,0,0,w_t,h_t);
     }
     
-    tint(255, 255);
+    if (changed_tint)
+    {
+      //tint(255, 255);
+      noTint();
+    }
+      
     popMatrix();
   }
   

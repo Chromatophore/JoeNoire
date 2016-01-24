@@ -154,10 +154,10 @@ class sounder
   
   void play(String name)
   {
-    play(IDfromName(name));
+    play_by_id(IDfromName(name));
   }
   
-  void play(int id)
+  void play_by_id(int id)
   {
     if (id >= 0)
     {
@@ -182,7 +182,7 @@ class sounder
     {
       fade_progress = 30;
       last_music = next_music;
-      play(next_music);
+      loop_by_id(next_music);
       full_pass = 1;
     }
   }
@@ -198,6 +198,12 @@ class sounder
   
   float music_boost = 15.0;
   
+  void loop_by_id(int id)
+  {
+    if (id != -1 && sounds[id] != null)
+      sounds[id].loop();
+  }
+  
   void service()
   {
     if (last_music != -1)
@@ -212,9 +218,9 @@ class sounder
       else if (full_pass == 0 && fade_progress < 60)
       {
         full_pass = 1;
-        halt(last_music);
+        halt_by_id(last_music);
         last_music = next_music;
-        play(next_music);
+        loop_by_id(next_music);
         fade_progress += fade_interval;
       }
     }
@@ -250,7 +256,8 @@ class sounder
       //println(sounds[last_music].position() + " Vs " + sounds[last_music].length());
       if (sounds[last_music].position() >= sounds[last_music].length() - 1)
       {
-        sounds[last_music].rewind();
+        // solved by using .loop omg why did I search for 'repeat' lol
+        //sounds[last_music].rewind();
       }
         
       //println(sounds[last_music].getGain());
@@ -260,10 +267,10 @@ class sounder
   
   void halt(String name)
   {
-    halt(IDfromName(name));
+    halt_by_id(IDfromName(name));
   }
   
-  void halt(int id)
+  void halt_by_id(int id)
   {
     if (id >= 0)
     {

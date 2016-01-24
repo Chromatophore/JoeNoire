@@ -230,7 +230,7 @@ void textbox_setup()
   
   int textsofar = 0;
   
-  String lines[] = loadStrings("MIT/gametext.txt");
+  String lines[] = loadStrings("data/MIT/gametext.txt");
   int read_assist = -1;
   int size_array = 0;
   String new_name = "";
@@ -312,6 +312,8 @@ class textblob
 
 class textbox
 {
+  
+  
   int test_progress;
   
   int current_text;
@@ -459,7 +461,8 @@ class textbox
       if (text_box_height < 40)
       {
         text_box_height += text_box_open_speed;
-        image(textbox_background_nox,0,0,128,text_box_height);
+        if (text_box_height > 0)
+          image(textbox_background_nox,0,0,128,text_box_height);
       }
       else
       {
@@ -514,6 +517,7 @@ class textbox
           if (!(chars_on_line == 0 && charry[j] == 32))
           {
             // Draw this character
+            
             text(substring,x_offset,0);
             // And extend our offset by its width
             x_offset += var_width_array[charry[j]] + 1;
@@ -598,7 +602,8 @@ class textbox
       {
         translate(64,128 - 20);
         text_box_height -= text_box_open_speed;
-        image(textbox_background_nox,0,0,128,text_box_height);
+        if (text_box_height > 0)
+          image(textbox_background_nox,0,0,128,text_box_height);
       }
     }
     
