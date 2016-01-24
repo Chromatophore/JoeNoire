@@ -472,7 +472,7 @@ class basic_image
   
   boolean do_box_test(float x, float y)
   {
-    return box_test(x,y, x_float, y_float, imageRef.width / 2, imageRef.height / 2);    
+    return box_test(x,y, x_float, y_float, imageRef.width / 8, imageRef.height / 8);    
   }
 }
 
