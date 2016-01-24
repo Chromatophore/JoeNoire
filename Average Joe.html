@@ -1,9 +1,9 @@
 
-<!-- saved from url=(0045)http://192.168.0.9/AverageJoe/AverageJoe.html -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<html>
+<head>
 <title>Average Joe</title>
-<script src="./Average Joe_files/minim.js"></script>
-<script src="./Average Joe_files/processing.js"></script>
+<script src="minim.js"></script>
+<script src="processing.js"></script>
 <style>
 @font-face {
     font-family: Minimal4;
@@ -15,38 +15,49 @@
 }
 div {
     font-family: RetroDeco;
+  font-size: 32px;
+  color: #FFFFFF;
+}
+canvas {
+  border: 2px solid white;
+}
+#flexbox {
+  width: 100%;
+  height: 100%;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row; /* works with row or column */
+  flex-direction: row;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
 }
 </style>
-<style type="text/css">@font-face {
-  font-family: "PjsEmptyFont";
-  src: url('data:application/x-font-ttf;base64,AAEAAAAKAIAAAwAgT1MvMgAAAAAAAAEoAAAAVmNtYXAAAAAAAAABiAAAACxnbHlmAAAAAAAAAbwAAAAkaGVhZAAAAAAAAACsAAAAOGhoZWEAAAAAAAAA5AAAACRobXR4AAAAAAAAAYAAAAAGbG9jYQAAAAAAAAG0AAAABm1heHAAAAAAAAABCAAAACBuYW1lAAAAAAAAAeAAAAAgcG9zdAAAAAAAAAIAAAAAEAABAAAAAQAAAkgTY18PPPUACwAgAAAAALSRooAAAAAAyld0xgAAAAAAAQABAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEAAAACAAIAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACMAIwAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAMAAQAAAAwABAAgAAAABAAEAAEAAABB//8AAABB////wAABAAAAAAAAAAgAEgAAAAEAAAAAAAAAAAAAAAAxAAABAAAAAAABAAEAAQAAMTcBAQAAAAAAAgAeAAMAAQQJAAEAAAAAAAMAAQQJAAIAAgAAAAAAAQAAAAAAAAAAAAAAAAAA')
-       format('truetype');
-}</style><style type="text/css">@font-face{
-  font-family: 'Minimal4.ttf';
-  src:  url('Minimal4.ttf');
-}
-</style><style type="text/css">@font-face{
-  font-family: 'Retro Deco by pix3m.ttf';
-  src:  url('Retro Deco by pix3m.ttf');
-}
-</style></head>
-<body>
-<div>This is a test! Boo!</div>
-<canvas id="canvas1" data-processing-sources="curtains.pde cutscene.pde inputblob.pde jitterbug.pde JoeNoire.pde level1.pde level2.pde level2_street.pde level3.pde scoremaster.pde sounder.pde textbox.pde titlescreen.pde UI.pde" tabindex="0" width="512" height="512" style="image-rendering: -webkit-optimize-contrast !important;"></canvas>
+</head>
+<body bgcolor="#000000">
+<div id="flexbox">
+<div>
+<center>
+<canvas id="canvas1" data-processing-sources="curtains.pde cutscene.pde inputblob.pde jitterbug.pde JoeNoire.pde level1.pde level2.pde level2_street.pde level3.pde scoremaster.pde sounder.pde textbox.pde titlescreen.pde UI.pde"></canvas>
+<div>Please click on the game if<br />your key inputs aren't being recognized.</div>
+</center>
+</div>
+</div>
 <script id="script1" type="text/javascript">
 function bindJavascript()
 {
-	var bound = false;
-	var p = Processing.getInstanceById('canvas1');
-	if(p != null) {
-		p.print = function(str) { console.log(str); };
-		p.println = function(str) { p.print(str + '\n'); };
-		bound = true;
-	}
-	if(!bound) setTimeout(bindJavascript, 250);
+  var bound = false;
+  var p = Processing.getInstanceById('canvas1');
+  if(p != null) {
+    p.print = function(str) { console.log(str); };
+    p.println = function(str) { p.print(str + '\n'); };
+    bound = true;
+  }
+  if(!bound) setTimeout(bindJavascript, 250);
 }
 
 bindJavascript();
 </script>
-
-<span style="position: absolute; top: -1000px; left: 0px; opacity: 0; font-family: PjsEmptyFont, fantasy;">AAAAAAAA</span></body></html>
+</body>
+</html>

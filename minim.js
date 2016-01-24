@@ -52,7 +52,7 @@ function AudioPlayer(str, auto) {
       return;
     }
   	//if (vol < -20) { vol = -20; }
-    var result = pow(10,(vol / 100));
+    var result = Math.pow(10,(vol / 20));
   	audio.volume = result;
   };
   this.play = function () {

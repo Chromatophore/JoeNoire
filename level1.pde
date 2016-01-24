@@ -839,7 +839,7 @@ class level1
     if (crates_complete % 4 == 3 && crates_complete > 8)
     {
       level_difficulty++;
-      println("difficulty: " + level_difficulty);
+      //println("difficulty: " + level_difficulty);
       if (level_difficulty == 2)
         texter = new textbox("intro_diff_up_1");
       else if (level_difficulty == 3)
