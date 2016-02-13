@@ -11,9 +11,9 @@ class scoremaster
   {
     score_rise_effects = new score_riser[risermax];
     
-    good = new basic_image(loadImage("data/MIT/smile.png"),0,0);
-    ehhh = new basic_image(loadImage("data/MIT/ehhh.png"),0,0);
-    bad  = new basic_image(loadImage("data/MIT/sad.png"),0,0);
+    good = new basic_image(loadImage("data/MIT/UI/smile.png"),0,0);
+    ehhh = new basic_image(loadImage("data/MIT/UI/ehhh.png"),0,0);
+    bad  = new basic_image(loadImage("data/MIT/UI/sad.png"),0,0);
   }
   
   void add_riser(score_riser s)

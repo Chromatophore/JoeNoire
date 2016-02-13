@@ -22,12 +22,12 @@ class cutscene
   
   cutscene()
   {
-    bar = new basic_image(loadImage("data/MIT/bar.png"),64,64);
-    booze = new basic_image(loadImage("data/MIT/booze.png"),64,64);
-    bank = new basic_image(loadImage("data/MIT/bank.png"),64,64);
+    bar = new basic_image(loadImage("data/MIT/cutscenes/bar.png"),64,64);
+    booze = new basic_image(loadImage("data/MIT/cutscenes/booze.png"),64,64);
+    bank = new basic_image(loadImage("data/MIT/cutscenes/bank.png"),64,64);
     
-    superboss_cut1 = new basic_image(loadImage("data/MIT/superboss_cutscene.png"),64,64);
-    superboss_cut2 = new basic_image(loadImage("data/MIT/superboss_cutscene_2.png"),64,64);
+    superboss_cut1 = new basic_image(loadImage("data/MIT/cutscenes/superboss_cutscene.png"),64,64);
+    superboss_cut2 = new basic_image(loadImage("data/MIT/cutscenes/superboss_cutscene_2.png"),64,64);
     
     gunshot = new basic_image(loadImage("data/MIT/lv3/gunshot.png"),64,64);
     

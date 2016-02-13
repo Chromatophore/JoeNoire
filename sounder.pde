@@ -12,17 +12,17 @@ void load_sounds()
     
   sounds = new AudioPlayer[30];
 
-  sounds[0] = minim.loadFile("data/test.mp3");
-  sounds[1] = minim.loadFile("data/sound/242501__gabrielaraujo__powerup-success.wav");
-  sounds[2] = minim.loadFile("data/sound/242503__gabrielaraujo__failure-wrong-action.wav");
-  sounds[3] = minim.loadFile("data/sound/171521__fins__button.wav");
-  sounds[4] = minim.loadFile("data/MIT/talk1.wav");
-  sounds[5] = minim.loadFile("data/MIT/talk2.wav");
-  sounds[6] = minim.loadFile("data/MIT/talk3.wav");
-  sounds[7] = minim.loadFile("data/MIT/pulse_real1.wav");
-  sounds[8] = minim.loadFile("data/MIT/pulse_real2.wav");
-  sounds[9] = minim.loadFile("data/sound/snow_shriek.wav");
-  sounds[10] = minim.loadFile("data/MIT/talk4.wav");
+  sounds[0] = minim.loadFile("data/MIT/sounds/beep.mp3");
+  sounds[1] = minim.loadFile("data/sound/242501__gabrielaraujo__powerup-success.mp3");
+  sounds[2] = minim.loadFile("data/sound/242503__gabrielaraujo__failure-wrong-action.mp3");
+  sounds[3] = minim.loadFile("data/sound/171521__fins__button.mp3");
+  sounds[4] = minim.loadFile("data/MIT/sounds/talk1.mp3");
+  sounds[5] = minim.loadFile("data/MIT/sounds/talk2.mp3");
+  sounds[6] = minim.loadFile("data/MIT/sounds/talk3.mp3");
+  sounds[7] = minim.loadFile("data/MIT/sounds/pulse_real1.mp3");
+  sounds[8] = minim.loadFile("data/MIT/sounds/pulse_real2.mp3");
+  sounds[9] = minim.loadFile("data/sound/snow_shriek.mp3");
+  sounds[10] = minim.loadFile("data/MIT/sounds/talk4.mp3");
   
   sounds[11] = minim.loadFile("data/music_KevinMacloud/Comfortable Mystery 4 (EP).mp3");
   sounds[12] = minim.loadFile("data/music_KevinMacloud/Rollin at 5_edit.mp3");
@@ -35,16 +35,16 @@ void load_sounds()
   sounds[22] = minim.loadFile("data/music_KevinMacloud/Backed Vibes Clean.mp3");
   
   
-  sounds[13] = minim.loadFile("data/MIT/talk5.wav");
-  sounds[14] = minim.loadFile("data/MIT/talk6.wav");
+  sounds[13] = minim.loadFile("data/MIT/sounds/talk5.mp3");
+  sounds[14] = minim.loadFile("data/MIT/sounds/talk6.mp3");
   sounds[18] = minim.loadFile("data/sound/gunshot.mp3");
-  sounds[19] = minim.loadFile("data/sound/alarm_short.wav");
+  sounds[19] = minim.loadFile("data/sound/alarm_short.mp3");
   
-  sounds[23] = minim.loadFile("data/sound/170272__knova__gun-click.wav");
+  sounds[23] = minim.loadFile("data/sound/170272__knova__gun-click.mp3");
   
-  sounds[24] = minim.loadFile("data/MIT/talk7.wav");
-  sounds[25] = minim.loadFile("data/MIT/talk8.wav");
-  sounds[26] = minim.loadFile("data/MIT/talk9.wav");
+  sounds[24] = minim.loadFile("data/MIT/sounds/talk7.mp3");
+  sounds[25] = minim.loadFile("data/MIT/sounds/talk8.mp3");
+  sounds[26] = minim.loadFile("data/MIT/sounds/talk9.mp3");
   
   for (AudioPlayer thing : sounds)
   {

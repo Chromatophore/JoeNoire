@@ -50,9 +50,9 @@ class UI
     marker = new basic_image(loadImage("data/MIT/UI/calm_marker.png"), 64,128 - 10);
     marker2 = new basic_image(loadImage("data/MIT/UI/calm_marker2.png"), 64,128 - 10);
     
-    Cursor = new basic_image(loadImage("data/MIT/cursor1.png"),64,64);
+    Cursor = new basic_image(loadImage("data/MIT/UI/cursor1.png"),64,64);
     
-    chillimg = new basic_image(loadImage("data/MIT/panic.png"),97,128 - 16 + 12);
+    chillimg = new basic_image(loadImage("data/MIT/UI/panic.png"),97,128 - 16 + 12);
   }
   
   void reset_score()

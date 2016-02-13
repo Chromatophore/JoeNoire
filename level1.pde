@@ -270,8 +270,8 @@ class level1
   
   level1()
   {
-    WareHouseBG = new basic_image(loadImage("data/MIT/warehouse.png"),-128,64);
-    WareHouseSky = new basic_image(loadImage("data/MIT/warehouse_sky.png"),64,256);
+    WareHouseBG = new basic_image(loadImage("data/MIT/lv1/warehouse.png"),-128,64);
+    WareHouseSky = new basic_image(loadImage("data/MIT/lv1/warehouse_sky.png"),64,256);
     Crate1 = new basic_image(loadImage("data/MIT/lv1/crate1.png"),0,0);
     Crate2 = new basic_image(loadImage("data/MIT/lv1/crate2.png"),0,0);
     
@@ -295,7 +295,7 @@ class level1
 
     current_camera_x = 512 - 128;
     
-    String lines[] = loadStrings("MIT/level1.txt");
+    String lines[] = loadStrings("MIT/lv1/level1.txt");
     //crate_locations = new crate[10];
     //for (int j = 0;j < 10;j ++)
     //{

@@ -230,7 +230,7 @@ class level2
     coin_gfx = new basic_image[10];
     for (int j = 0;j < 10; j++)
     {
-      coin_gfx[j] = new basic_image(loadImage("data/MIT/coin" + str(j) + ".png"),64,64);      
+      coin_gfx[j] = new basic_image(loadImage("data/MIT/lv2/coin" + str(j) + ".png"),64,64);      
     }
     
     coinpile = new coin[100];

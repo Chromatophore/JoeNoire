@@ -71,7 +71,7 @@ void setup()
   noStroke();
   background(255);
   
-  guncursor = new basic_image(loadImage("data/MIT/crosshair.png"),64,64);
+  guncursor = new basic_image(loadImage("data/MIT/UI/crosshair.png"),64,64);
   
   /*
   String[] tbtext = new String[3];
