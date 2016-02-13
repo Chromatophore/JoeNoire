@@ -360,7 +360,7 @@ class cutscene
 			}
 			else
 			{
-				fill(0,0,0);
+				fill(black);
 				rect(0,0,128,128);
 			}
 			
@@ -425,7 +425,7 @@ class cutscene
 			}
 			else
 			{
-				fill(0,0,0);
+				fill(black);
 				rect(0,0,128,128);
 			}
 			
@@ -493,7 +493,7 @@ class cutscene
 			}
 			else
 			{
-				fill(0,0,0);
+				fill(black);
 				rect(0,0,128,128);
 			}
 			
@@ -547,7 +547,7 @@ class cutscene
 		
 		else if (current_scene == 130)
 		{
-			fill(0,0,0);
+			fill(black);
 			rect(0,0,128,128);
 			if (text_box_finished)
 			{
@@ -632,7 +632,7 @@ class cutscene
 				make_sound.play_music("music3");
 				eye_c.change(true,"");
 			}
-			fill(0,0,0);
+			fill(black);
 			rect(0,0,128,128);
 			progress++;
 			

@@ -460,7 +460,7 @@ class textbox
 			else
 			{
 				textFont(font, 20);
-				fill(color(255,255,255));
+				fill(white);
 
 				textbox_background_nox.setWH(0,0);
 
@@ -522,7 +522,7 @@ class textbox
 						// Draw this character
 						if (linedrops < 2)
 							text(substring,x_offset,0);
-						
+
 						// And extend our offset by its width
 						x_offset += var_width_array[charry[j]] + 1;
 						

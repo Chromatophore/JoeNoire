@@ -38,7 +38,7 @@ class curtains
 	
 	void draw()
 	{
-		fill(0,0,0);
+		fill(black);
 		
 		float pos1 = 0;
 		float pos2 = 64;

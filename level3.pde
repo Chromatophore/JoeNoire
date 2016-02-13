@@ -178,7 +178,7 @@ class level3
 		theUI.OverrideCursor(true, guncursor);
 		
 		
-		fill(0,0,0);
+		fill(black);
 		if (fader >= 0)
 		{
 			if (fader < 40)

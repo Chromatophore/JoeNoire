@@ -104,13 +104,12 @@ class UI
 			return;
 			
 			
-		fill(color(0,0,0));
+		fill(black);
 		rect(0,128-16,128,16);
 		
 		textFont(font_ui, 14);
 		
-		fill(color(170,170,170));
- 
+		fill(lgrey);
 		
 		if (chill && markerpos > 0.6 && panic_buildup < 0.5)
 		{
@@ -135,7 +134,7 @@ class UI
 		else
 			ui_base1.draw();
 		
-		fill(color(255,255,255));
+		fill(white);
 		
 		String number = str(smiles);
 		if (number.length() == 1)

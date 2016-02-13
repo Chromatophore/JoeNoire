@@ -40,6 +40,11 @@ int shake_frames = 0;
 float shake_scale;
 float shake_start_scale;
 
+color black;
+color dgrey;
+color lgrey;
+color white;
+
 void setup()
 {
 	// Set up window:
@@ -61,6 +66,11 @@ void setup()
 	make_sound = new sounder();
 	eye_c = new curtains();
 	cutscene_engine = new cutscene();
+
+	black = color(0,0,0);
+	dgrey = color(85,85,85);
+	lgrey = color(170,170,170);
+	white = color(255,255,255);
 	
 	// Load fonts:
 	font = loadFont("RetroDeco-20.vlw");
@@ -93,9 +103,9 @@ void draw()
 	scale(4.0,4.0);
 	
 	// Set up the screen shake black out:
-	fill(0,0,0);
+	fill(black);
 	rect(-10,-10,148,148);
-	fill(255,255,255);
+	fill(white);
 	
 	if (!shake_ui)
 	{

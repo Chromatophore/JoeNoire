@@ -387,18 +387,6 @@ class level1
 			}
 		}
 		
-		/*
-		for (int j = 0; j < crate_array_size; j++)
-		{
-			if (crate_locations[j] == null)
-			{
-				crate_locations[j] = new crate();
-				crate_locations[j].SetRandom(level_difficulty);
-			}
-		}
-		*/
-		
-		
 		//new_box();
 		start_milli = -1;
 		
@@ -769,7 +757,7 @@ class level1
 		text("Remaining: " + str(25 - crates_complete),5,5);
 		
 		// Draw the black box at the bottom:
-		fill(color(0,0,0));
+		fill(black);
 		rect(0,128-16,128,16);
 
 		if (drawui)
