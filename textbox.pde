@@ -224,6 +224,7 @@ void textbox_setup()
 	var_width_array[41] = 3;	// )
 
  	var_width_array[63] = 3;	// ?
+ 	var_width_array[45] = 6;	// -
 	
 	all_texts = new textblob[100];
 	
@@ -445,16 +446,6 @@ class textbox
 		if (NoPortrait)
 			wrapsize = 120;
 		
-		textFont(font, 20);
-		fill(color(255,255,255));
-		
-		/*
-		test_progress += 1; //<>//
-		if (test_progress > 600)
-		{
-			isOpening = 0;
-		}*/
-		
 		pushMatrix();
 		if (isOpening == 1)
 		{
@@ -468,6 +459,9 @@ class textbox
 			}
 			else
 			{
+				textFont(font, 20);
+				fill(color(255,255,255));
+
 				textbox_background_nox.setWH(0,0);
 
 				if (!FinishedLine)
@@ -500,12 +494,12 @@ class textbox
 					FinishedLine = true;
 				}
 				
-				translate(64,128 - 20);
-				translate(-44,0);
-				translate(16,-5);
+				// translate to text start position:
+				translate(36,103);
 
 				if (UseBig)
 				{
+					// translate back to wide box position:
 					wrapsize = 120;
 					translate(-31,0);
 				}
@@ -526,7 +520,9 @@ class textbox
 					if (!(chars_on_line == 0 && charry[j] == 32))
 					{
 						// Draw this character
-						text(substring,x_offset,0);
+						if (linedrops < 2)
+							text(substring,x_offset,0);
+						
 						// And extend our offset by its width
 						x_offset += var_width_array[charry[j]] + 1;
 						
@@ -577,7 +573,7 @@ class textbox
 						}
 
 						// When we wrap around we want to clip off the first line
-						if (charry[j] == 10 || x_offset > wrapsize || wrap_early == 1)
+						if ((charry[j] == 10 || x_offset > wrapsize || wrap_early == 1) && ((j + 1) != int(progress_so_far)))
 						{
 							wrap_early = 0;
 							if (linedrops != 0)
