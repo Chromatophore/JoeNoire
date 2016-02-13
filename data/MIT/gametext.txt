@@ -196,7 +196,7 @@ chap1_2_2
 15
 jack^Bottoms up!
 none^...
-goon1^Hey Jack! Fancy seeing you here!
+shake^1,60^goon1^Hey Jack! Fancy seeing you here!
 goon2^Yeah, odd place for a drunk.
 goon1^Heard the bad news.
 goon2^Awful news.
