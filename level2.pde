@@ -33,30 +33,30 @@ class level2
 		}
 		else if (state == 3)
 		{
-			 game_on = true;
-			 next_t = 300;
-			 texter = new textbox("chap2_2_2");
-			 
-			 theUI.sounds(true);
-			 jitter.anxiety(true);
-			 jitter.inaction_on();
-			 jitter.player_must_pump = true;
-			 
-			 
-			 make_sound.play_music("music5");
+			game_on = true;
+			next_t = 300;
+			texter = new textbox("chap2_2_2");
+			
+			theUI.sounds(true);
+			jitter.anxiety(true);
+			jitter.inaction_on();
+			jitter.player_must_pump = true;
+			
+			
+			make_sound.play_music("music5");
 		}
 		else if (state == 20)
 		{
-			 game_on = false;
-			 texter = new textbox("chap2_2_4");
+			game_on = false;
+			texter = new textbox("chap2_2_4");
 
-			 theUI.sounds(false);
-			 jitter.anxiety(false);
-			 jitter.inaction_off();
-			 jitter.player_must_pump = false;
-			 
-			 theUI.OverrideCursor(false, null);
-			 eye_c.change(false,"");
+			theUI.sounds(false);
+			jitter.anxiety(false);
+			jitter.inaction_off();
+			jitter.player_must_pump = false;
+			
+			theUI.OverrideCursor(false, null);
+			eye_c.change(false,"");
 		}
 		
 		else if (state == 50)
@@ -73,11 +73,11 @@ class level2
 		{
 			texter = new textbox("chap2_5_2");
 			
-			 theUI.sounds(true);
-			 jitter.anxiety(true);
-			 jitter.inaction_off();
-			 jitter.player_must_pump = false;
-			 jitter.MoveMarker(50);
+			theUI.sounds(true);
+			jitter.anxiety(true);
+			jitter.inaction_off();
+			jitter.player_must_pump = false;
+			jitter.MoveMarker(50);
 		}
 		else if (state == 60)
 		{
@@ -91,7 +91,7 @@ class level2
 				shards = new shard[5];
 				for (int j = 0;j<5;j++)
 				{
-					 shards[j] = new shard(shard_image, 64,20);
+					shards[j] = new shard(shard_image, 64,20);
 				}
 				
 				theUI.special_race_mode(true);
@@ -114,13 +114,13 @@ class level2
 		}
 		else if (state == 70 || state == 71)
 		{
-			 game_on = false;
-			 theUI.sounds(false);
-			 jitter.anxiety(false);
-			 jitter.inaction_off();
-			 jitter.player_must_pump = false;
-			 
-			 
+			game_on = false;
+			theUI.sounds(false);
+			jitter.anxiety(false);
+			jitter.inaction_off();
+			jitter.player_must_pump = false;
+			
+			
 				theUI.special_race_mode(false);
 				theUI.ResetCursor();
 				
@@ -145,11 +145,11 @@ class level2
 			{
 				if (text_box_finish_name.equals("chap2_1_2"))
 				{
-					 level_state(2);
+					level_state(2);
 				}
 				if (text_box_finish_name.equals("chap2_2_1"))
 				{
-					 level_state(3);
+					level_state(3);
 				}
 				if (text_box_finish_name.equals("chap2_2_4"))
 				{
@@ -238,7 +238,7 @@ class level2
 		
 		HeistBG = new basic_image(loadImage("data/MIT/lv2/heist.png"),64,64);
 		Heist2BG = new basic_image(loadImage("data/MIT/lv2/heist_2.png"),64,64);
-		Heist2BG_break	 = new basic_image(loadImage("data/MIT/lv2/heist_2_break.png"),64,64);
+		Heist2BG_break	= new basic_image(loadImage("data/MIT/lv2/heist_2_break.png"),64,64);
 		bagcursor = new basic_image(loadImage("data/MIT/lv2/bagcursor.png"),64,64);
 		
 		bagcursor_L = new basic_image(loadImage("data/MIT/lv2/goonbag1.png"),-64,64);
@@ -288,7 +288,7 @@ class level2
 			
 		if (spro >= 60)
 		{
-			 Heist2BG_break.draw();
+			Heist2BG_break.draw();
 		}
 		
 		if (preshoot == true)
@@ -338,39 +338,39 @@ class level2
 					t_timer = 0;
 					rings--;
 					
-					 ringpile[next_treasure % 20] = new treasure(64,20,coin_speed, ring_treasures[int(random(4))]);
-					 next_treasure++;
-					 
-					 if (random(100) > 50)
-					 {
-						 // pick a random side
-						 boolean right = (random(100) > 50);
-						 
-						 float speed = 4;
-						 float rotation = 0.3;
-						 float pos = -15;
-						 if (right)
-						 {
-							 speed = -speed;
-							 pos = 15 + 128;
-							 rotation = -rotation;
-						 }
-						 
-						 if (lastgoon == 0)
-						 {
-							 bagcursor_L.setPos(pos,20);
-							 bagcursor_L.setRotate(rotation);
-							 enemybag1_vx = speed;
-						 }
-						 else
-						 {
-							 bagcursor_R.setPos(pos,20);
-							 bagcursor_R.setRotate(rotation);
-							 enemybag2_vx = speed;
-						 }
-						 
-						 lastgoon = 1 - lastgoon;
-					 }
+					ringpile[next_treasure % 20] = new treasure(64,20,coin_speed, ring_treasures[int(random(4))]);
+					next_treasure++;
+					
+					if (random(100) > 50)
+					{
+						// pick a random side
+						boolean right = (random(100) > 50);
+						
+						float speed = 4;
+						float rotation = 0.3;
+						float pos = -15;
+						if (right)
+						{
+							speed = -speed;
+							pos = 15 + 128;
+							rotation = -rotation;
+						}
+						
+						if (lastgoon == 0)
+						{
+							bagcursor_L.setPos(pos,20);
+							bagcursor_L.setRotate(rotation);
+							enemybag1_vx = speed;
+						}
+						else
+						{
+							bagcursor_R.setPos(pos,20);
+							bagcursor_R.setRotate(rotation);
+							enemybag2_vx = speed;
+						}
+						
+						lastgoon = 1 - lastgoon;
+					}
 				}
 				else
 				{
@@ -462,17 +462,17 @@ class level2
 				
 				if (box_test(bagcursor_L.x_float, bagcursor_L.y_float, c.x, c.y, enemy_grab,enemy_grab))
 				{
-					 coinpile[j] = null;
-					 
-					 if (spro > 50)
-						 bagcursor_L.y_float -= 0.8;
+					coinpile[j] = null;
+					
+					if (spro > 50)
+						bagcursor_L.y_float -= 0.8;
 
 				}
 				else if (box_test(bagcursor_R.x_float, bagcursor_R.y_float, c.x, c.y, enemy_grab,enemy_grab))
 				{
-					 coinpile[j] = null;
-					 if (spro > 50)
-						 bagcursor_R.y_float -= 0.8;
+					coinpile[j] = null;
+					if (spro > 50)
+						bagcursor_R.y_float -= 0.8;
 				}
 				
 				
@@ -498,7 +498,7 @@ class level2
 				{
 					if (c.draw())
 					{
-						 coinpile[j] = null;
+						coinpile[j] = null;
 					}
 				}
 			}
@@ -526,7 +526,7 @@ class level2
 				
 				if (swiped)
 				{
-					 AddSad();
+					AddSad();
 						make_sound.play("bad");
 						ringpile[j] = null;
 						jitter.get_rekt(0.05);
@@ -638,21 +638,21 @@ class level2
 
 class shard
 {
-	 float x;
-	 float y;
-	 
+	float x;
+	float y;
+	
 		float vx;
 		float vy;
-	 
-	 float rotation;
-	 float rot_spd;
-	 
-	 basic_image refBI;
-	 shard(basic_image pShard, float xpos, float ypos)
-	 {
-		 refBI = pShard;
-		 x = xpos;
-		 y = ypos;
+	
+	float rotation;
+	float rot_spd;
+	
+	basic_image refBI;
+	shard(basic_image pShard, float xpos, float ypos)
+	{
+		refBI = pShard;
+		x = xpos;
+		y = ypos;
 		float angle = (random(0.8) - 0.4) * PI;
 		
 		vx = sin(angle) * 1;
@@ -663,8 +663,8 @@ class shard
 			rot_spd += 0.1;
 		else
 			rot_spd -= 0.1;
-	 }
-	 
+	}
+	
 		boolean draw()
 		{
 			rotation += rot_spd;

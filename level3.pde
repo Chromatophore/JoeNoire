@@ -14,8 +14,8 @@ class level3
 		}
 		else if (state == 3)
 		{
-			 texter = new textbox("chap3_4_1");
-			 gold_frame_delay = 0;
+			texter = new textbox("chap3_4_1");
+			gold_frame_delay = 0;
 		}
 		else if (state == 5)
 		{
@@ -29,28 +29,28 @@ class level3
 		
 		else if (state == 7)
 		{
-			 // goes for the necklace 1st time
+			// goes for the necklace 1st time
 				texter = new textbox("chap3_4_5");
 		}
 		else if (state == 8)
 		{
-			 // goes for the necklace 2nd time
+			// goes for the necklace 2nd time
 				texter = new textbox("chap3_4_5_2");
 		}
 		else if (state == 9)
 		{
-			 // goes for the necklace 3rd time
+			// goes for the necklace 3rd time
 				texter = new textbox("chap3_4_5_3");
 		}
 		else if (state == 10)
 		{
-			 // goes for the necklace the final time
+			// goes for the necklace the final time
 				texter = new textbox("epi1_1_1");
 				shake_screen(4,300,0);
 		}
 		else if (state == 50)
 		{
-			 cutscene_engine.play_scene(100);
+			cutscene_engine.play_scene(100);
 		}
 		else if (state == 60)
 		{
@@ -58,20 +58,20 @@ class level3
 		}
 		else if (state == 70)
 		{
-			 cutscene_engine.play_scene(120);
+			cutscene_engine.play_scene(120);
 		}
 		else if (state == 80)
 		{
-			 cutscene_engine.play_scene(130);
+			cutscene_engine.play_scene(130);
 		}
 		
 		if (state >= 50 && state <= 80)
 		{
-			 make_sound.stop_music();
-			 theUI.sounds(false);
-			 jitter.anxiety(false);
-			 jitter.inaction_off();
-			 jitter.player_must_pump = false;
+			make_sound.stop_music();
+			theUI.sounds(false);
+			jitter.anxiety(false);
+			jitter.inaction_off();
+			jitter.player_must_pump = false;
 		}
 		
 		spro = state;
@@ -92,13 +92,13 @@ class level3
 			}
 			if (text_box_finish_name.equals("chap3_4_2_2"))
 			{
-				 if (tiepin_get && watch_get)
-					 level_state(5);
+				if (tiepin_get && watch_get)
+					level_state(5);
 			}
 			if (text_box_finish_name.equals("chap3_4_2_1"))
 			{
-				 if (tiepin_get && watch_get)
-					 level_state(5);
+				if (tiepin_get && watch_get)
+					level_state(5);
 			}
 			if (text_box_finish_name.equals("chap3_4_3"))
 			{
@@ -121,8 +121,8 @@ class level3
 	
 	boolean out_message = false;
 	
-	 level3()
-	 {
+	level3()
+	{
 			arm_down = new basic_image(loadImage("data/MIT/lv3/arm_down.png"),64,64);
 			arm_up = new basic_image(loadImage("data/MIT/lv3/arm_up.png"),64,64);
 			family = new basic_image(loadImage("data/MIT/lv3/family.png"),64,64);
@@ -132,7 +132,7 @@ class level3
 			watch = new basic_image(loadImage("data/MIT/lv3/watch.png"),64,64);
 			
 			level_state(0);
-	 }
+	}
 	
 	float fader = -1;
 	
@@ -156,7 +156,7 @@ class level3
 
 		if (theUI.markerpos < 0.25 && jitter.get_state() < 0.3 && spro >= 3 && spro < 50 && texter == null)
 		{
-			 time_at_minimum++;
+			time_at_minimum++;
 		}
 		
 		if (time_at_minimum > 600 && !out_message && texter == null)
@@ -176,9 +176,9 @@ class level3
 		}
 		
 		theUI.OverrideCursor(true, guncursor);
-		 
-		 
-		 fill(0,0,0);
+		
+		
+		fill(0,0,0);
 		if (fader >= 0)
 		{
 			if (fader < 40)
@@ -197,26 +197,26 @@ class level3
 		else
 			arm_down.draw();
 			
-		 if (gold_frame_delay > 60)
-		 {
-			 if (!watch_get)
-				 watch.draw();
-			 if (!tiepin_get)
+		if (gold_frame_delay > 60)
+		{
+			if (!watch_get)
+				watch.draw();
+			if (!tiepin_get)
 					tiepin.draw();
 				
-			 
-		 }
-		 else if (gold_frame_delay >= 0)
-		 {
-			 gold_frame_delay++;
-		 }
-		 
-		 if (spro >= 6 && spro <= 10)
-		 {
-			 necklace.draw();
-		 }
-		 
-		 
+			
+		}
+		else if (gold_frame_delay >= 0)
+		{
+			gold_frame_delay++;
+		}
+		
+		if (spro >= 6 && spro <= 10)
+		{
+			necklace.draw();
+		}
+		
+		
 	}
 	
 	boolean watch_get;
@@ -249,24 +249,24 @@ class level3
 			else
 			{
 				// check if over the money
-			 if (box_test(effective_cursor_x, effective_cursor_y,	56,90, 13,10) && spro == 0)
-			 {
-				 level_state(3);
-			 }
-			 else if (box_test(effective_cursor_x, effective_cursor_y,	87,102, 13,10) && spro >= 3 && !watch_get)
-			 {
-				 watch_get = true;
-				 texter = new textbox("chap3_4_2_2");
-			 }
-			 else if (box_test(effective_cursor_x, effective_cursor_y,	59,88, 5,5) && spro >= 3 && !tiepin_get)
-			 {
-				 tiepin_get = true;
-				 texter = new textbox("chap3_4_2_1");
-			 }
-			 else if (box_test(effective_cursor_x, effective_cursor_y,	25,60, 10,10) && spro >= 6 && spro <= 9)
-			 {
-				 level_state(spro + 1);
-			 }
+			if (box_test(effective_cursor_x, effective_cursor_y,	56,90, 13,10) && spro == 0)
+			{
+				level_state(3);
+			}
+			else if (box_test(effective_cursor_x, effective_cursor_y,	87,102, 13,10) && spro >= 3 && !watch_get)
+			{
+				watch_get = true;
+				texter = new textbox("chap3_4_2_2");
+			}
+			else if (box_test(effective_cursor_x, effective_cursor_y,	59,88, 5,5) && spro >= 3 && !tiepin_get)
+			{
+				tiepin_get = true;
+				texter = new textbox("chap3_4_2_1");
+			}
+			else if (box_test(effective_cursor_x, effective_cursor_y,	25,60, 10,10) && spro >= 6 && spro <= 9)
+			{
+				level_state(spro + 1);
+			}
 
 			}
 			
@@ -276,7 +276,7 @@ class level3
 				level_state(80);
 					
 			}
-			 
+			
 			
 			
 		}

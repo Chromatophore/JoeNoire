@@ -35,11 +35,11 @@ class UI
 	boolean play_sounds = false;
 	void sounds(boolean state)
 	{
-		 play_sounds = state;
+		play_sounds = state;
 	}
 	void showhide(boolean state)
 	{
-		 is_on = state;
+		is_on = state;
 	}
 
 	UI()
@@ -111,19 +111,19 @@ class UI
 		
 		fill(color(170,170,170));
  
-		 
-		 if (chill && markerpos > 0.6 && panic_buildup < 0.5)
-		 {
-			 float pb = 1.0 - (panic_buildup / 0.5);
-			 // pb will be 0 when we are only just beginning
-			 float mark = (markerpos - 0.6) / 0.4;
-			 // mark will be 0 when we are only just beginning
-			 float res = mark * pb;
-			 
-			 float v1 = 170 + (res) * (255-170);
-			 float v2 = (1 - res) * 170;
-			 fill(v1,v2,v2);
-		 }
+		
+		if (chill && markerpos > 0.6 && panic_buildup < 0.5)
+		{
+			float pb = 1.0 - (panic_buildup / 0.5);
+			// pb will be 0 when we are only just beginning
+			float mark = (markerpos - 0.6) / 0.4;
+			// mark will be 0 when we are only just beginning
+			float res = mark * pb;
+			
+			float v1 = 170 + (res) * (255-170);
+			float v2 = (1 - res) * 170;
+			fill(v1,v2,v2);
+		}
  
 		float panic_bar = map(panic_buildup,0,1.0,bar_max,0);
 		rect(64 - panic_bar, 128 - 14, 2 * panic_bar, 12);
@@ -241,8 +241,8 @@ class UI
 	shard chiller;
 	void go_chill()
 	{
-		 chiller = new shard(chillimg,97,128 - 16 + 12);
-		 chill = true;
+		chiller = new shard(chillimg,97,128 - 16 + 12);
+		chill = true;
 	}
 	
 	

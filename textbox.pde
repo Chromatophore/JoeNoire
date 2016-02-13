@@ -136,8 +136,8 @@ void textbox_setup()
 	portrait_db[17] = new PortraitSet("internal_deep","-1",-1, "talk2");
 	portrait_db[18] = new PortraitSet("morph","-1",-1, "talk7");
 	
-	 textbox_a = loadImage("data/MIT/UI/textbox.png");
-	 textbox_b = loadImage("data/MIT/UI/textbox_nox.png");
+	textbox_a = loadImage("data/MIT/UI/textbox.png");
+	textbox_b = loadImage("data/MIT/UI/textbox_nox.png");
 	
 	var_width_array = new int[256];
 	for(int j = 0; j < 256; j++)
@@ -146,6 +146,7 @@ void textbox_setup()
 	}
 	
 	int val = 65;
+	// Upper case alphabet
 	var_width_array[val++] = 6;
 	var_width_array[val++] = 6;
 	var_width_array[val++] = 5;
@@ -176,8 +177,8 @@ void textbox_setup()
 	var_width_array[val++] = 5;
 	
 	val = 97;
-	
-	
+
+	// Lower case alphabet
 	var_width_array[val++] = 4;
 	var_width_array[val++] = 4;
 	var_width_array[val++] = 4;
@@ -212,25 +213,23 @@ void textbox_setup()
 		var_width_array[j] = 4;
 	}
 	
-	var_width_array[32] = 3;
-	var_width_array[33] = 1;
-	var_width_array[46] = 1;
-	var_width_array[35] = 6;
+	// Ascii symbols:
+	var_width_array[32] = 3;	// space
+	var_width_array[33] = 1;	// !
+	var_width_array[46] = 1;	// .
+	var_width_array[35] = 6;	// #
 	
-	var_width_array[58] = 4;
-	var_width_array[40] = 3;
-	var_width_array[41] = 3;
-	
-	
-	
-	
-	
+	var_width_array[58] = 4;	// :
+	var_width_array[40] = 3;	// (
+	var_width_array[41] = 3;	// )
+
+ 	var_width_array[63] = 3;	// ?
 	
 	all_texts = new textblob[100];
 	
 	int textsofar = 0;
 	
-	String lines[] = loadStrings("MIT/gametext.txt");
+	String lines[] = loadStrings("data/MIT/gametext.txt");
 	int read_assist = -1;
 	int size_array = 0;
 	String new_name = "";
@@ -287,26 +286,26 @@ class textblob
 	String name;
 	int lines;
 	String[] line_list;
-	 textblob(String pName, int pLines)
-	 {
-		 name = pName;
-		 lines = pLines;
-		 line_list = new String[lines];
-	 }
-	 
-	 int lines_so_far = 0;
-	 void AddLine(String s)
-	 {
-		 if (lines_so_far >= lines)
-		 {
-			 println("trying to load too many lines for " + name);
-			 println(s);
+	textblob(String pName, int pLines)
+	{
+		name = pName;
+		lines = pLines;
+		line_list = new String[lines];
+	}
+	
+	int lines_so_far = 0;
+	void AddLine(String s)
+	{
+		if (lines_so_far >= lines)
+		{
+			println("trying to load too many lines for " + name);
+			println(s);
 				return;
-		 }
-		 
-		 line_list[lines_so_far] = s;
-		 lines_so_far++;
-	 }
+		}
+		
+		line_list[lines_so_far] = s;
+		lines_so_far++;
+	}
 }
 
 
@@ -324,8 +323,10 @@ class textbox
 	PImage[] portrait;
 	
 	float text_box_height;
-	PImage textbox_background;
-	PImage textbox_background_nox;
+	basic_image textbox_background;
+	basic_image textbox_background_nox;
+
+	basic_image av;
 	
 	int isOpening;
 	
@@ -354,12 +355,14 @@ class textbox
 	void regular_constructor(String name)
 	{
 		name_of_sequence = name;
-		textbox_background = textbox_a;
-		textbox_background_nox = textbox_b;
+		textbox_background = new basic_image(textbox_a,64,128-20);
+		textbox_background_nox = new basic_image(textbox_b,0,0);
+
+		av = new basic_image(avatar_list[0], 20, 128-20);
 
 		for (String sub : texts)
 		{
-			 text_total++;
+			text_total++;
 		}
 
 		isOpening = 1;
@@ -391,7 +394,7 @@ class textbox
 				{
 					String[] s_info = split(breakup[1],",");
 					shake_screen(float(s_info[0]),int(s_info[1]),int(s_info[1]));
-					 s_in += 2;
+					s_in += 2;
 				}
 				
 				if (breakup[s_in].equals("none"))
@@ -419,7 +422,7 @@ class textbox
 			}
 			else
 			{
-				 isOpening = 0;
+				isOpening = 0;
 			}
 		}
 	}
@@ -455,26 +458,32 @@ class textbox
 		pushMatrix();
 		if (isOpening == 1)
 		{
-			translate(64,128 - 20);
 			if (text_box_height < 40)
 			{
 				text_box_height += text_box_open_speed;
-				image(textbox_background_nox,0,0,128,text_box_height);
+
+				textbox_background_nox.setPos(64,128-20);
+				textbox_background_nox.setWH(128,text_box_height);
+				textbox_background_nox.draw();
 			}
 			else
 			{
+				textbox_background_nox.setWH(0,0);
+
 				if (!FinishedLine)
-					image(textbox_background_nox,0,0);
+					textbox_background_nox.draw();
 				else
-					image(textbox_background,0,0);
-				translate(-44,0);
-				
+					textbox_background.draw();
+
 				boolean UseBig = NoPortrait;
 				if (!NoPortrait && pSet != null)
 				{
 					int frame = pSet.GetFrame(int(progress_so_far) == string_length);
 					if (frame != -1)
-						image(avatar_list[pSet.framelist[frame]], 0,0);
+					{
+						av.setImage(avatar_list[pSet.framelist[frame]]);
+						av.draw();
+					}
 					else
 						UseBig = true;
 				}
@@ -491,7 +500,10 @@ class textbox
 					FinishedLine = true;
 				}
 				
+				translate(64,128 - 20);
+				translate(-44,0);
 				translate(16,-5);
+
 				if (UseBig)
 				{
 					wrapsize = 120;
@@ -596,9 +608,11 @@ class textbox
 		{
 			if (text_box_height > 0)
 			{
-				translate(64,128 - 20);
+				textbox_background_nox.setPos(64,128-20);
+				textbox_background_nox.setWH(128,text_box_height);
+				textbox_background_nox.draw();
+
 				text_box_height -= text_box_open_speed;
-				image(textbox_background_nox,0,0,128,text_box_height);
 			}
 		}
 		
@@ -614,7 +628,7 @@ class textbox
 		
 		if (i.z_state > 0)
 		{
-			 WriteFast = true;
+			WriteFast = true;
 		}
 		else
 			WriteFast = false;
@@ -637,59 +651,59 @@ class PortraitSet
 {
 	String name;
 	String soundlookup;
-	 PortraitSet(String pName, String frameset, int idle, String pSoundLookup)
-	 {
-		 name = pName;
-		 String[] s = split(frameset,",");
-		 framecount = 0;
-		 for (String sub : s)
-		 {
-			 framecount++;
-		 }
-		 
-		 framelist = new int[framecount];
-		 
-		 for (int j=0;j<framecount;j++)
-		 {
+	PortraitSet(String pName, String frameset, int idle, String pSoundLookup)
+	{
+		name = pName;
+		String[] s = split(frameset,",");
+		framecount = 0;
+		for (String sub : s)
+		{
+			framecount++;
+		}
+		
+		framelist = new int[framecount];
+		
+		for (int j=0;j<framecount;j++)
+		{
 				framelist[j] = int(s[j]);
-		 }
-		 
-		 idleframe = idle;
-		 soundlookup = pSoundLookup;
-	 }
-	 int framecount;
-	 int[] framelist;
-	 int idleframe;
-	 
-	 int cycles = 0;
-	 int rate = 5;
-	 int return_index = 0;
-	 int GetFrame(boolean idle)
-	 {
-		 if (idleframe == -1)
-		 {
-			 if (!idle)
-			 {
+		}
+		
+		idleframe = idle;
+		soundlookup = pSoundLookup;
+	}
+	int framecount;
+	int[] framelist;
+	int idleframe;
+	
+	int cycles = 0;
+	int rate = 5;
+	int return_index = 0;
+	int GetFrame(boolean idle)
+	{
+		if (idleframe == -1)
+		{
+			if (!idle)
+			{
 					cycles++;
 					if (cycles > rate)
 					{
 						cycles = 0;
 						make_sound.play(soundlookup);
 					}
-			 }
+			}
 				return -1;
-		 }
-			 
-		 if (idle)
-			 return idleframe;
-			 
-		 cycles++;
-		 if (cycles > rate)
-		 {
-			 return_index = (return_index + 1) % framecount;
-			 cycles = 0;
-			 make_sound.play(soundlookup);
-		 }
-		 return return_index;
-	 }
+		}
+			
+		if (idle)
+			return idleframe;
+			
+		cycles++;
+		if (cycles > rate)
+		{
+			return_index = (return_index + 1) % framecount;
+			cycles = 0;
+			make_sound.play(soundlookup);
+		}
+		return return_index;
+	}
 }

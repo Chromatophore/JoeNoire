@@ -149,13 +149,13 @@ void draw()
 	}
 	else if (SUPER_GAME_STATE == 200 || SUPER_GAME_STATE == 220)
 	{
-		 lv2.TakeInput(inp);
-		 lv2.draw();
+		lv2.TakeInput(inp);
+		lv2.draw();
 	}
 	else if (SUPER_GAME_STATE == 210)
 	{
-		 lv2_b.TakeInput(inp);
-		 lv2_b.draw();
+		lv2_b.TakeInput(inp);
+		lv2_b.draw();
 	}
 	else if (SUPER_GAME_STATE == 300)
 	{
@@ -209,28 +209,28 @@ void draw()
 
 void progress_game(String info)
 {
-	 if (info.equals("game_reset"))
-	 {
-		 cutscene_engine.play_scene(0);
-		 eye_c.change(true,"");
-		 titlescreen = new screen_title();
-		 make_sound.play_music("music1");
-		 SUPER_GAME_STATE = 0;
-		 theUI.showhide(false);
-		 theUI.chill = false;
-		 theUI.sounds(false);
-		 theUI.hijack_quit = false;
-		 
-		 jitter.anxiety(false);
-		 jitter.inaction_off();
-		 jitter.player_must_pump = false;
-		 jitter.MoveMarker(50);
-		 
+	if (info.equals("game_reset"))
+	{
+		cutscene_engine.play_scene(0);
+		eye_c.change(true,"");
+		titlescreen = new screen_title();
+		make_sound.play_music("music1");
+		SUPER_GAME_STATE = 0;
+		theUI.showhide(false);
+		theUI.chill = false;
+		theUI.sounds(false);
+		theUI.hijack_quit = false;
+		
+		jitter.anxiety(false);
+		jitter.inaction_off();
+		jitter.player_must_pump = false;
+		jitter.MoveMarker(50);
+		
 			lv1 = null;
 			lv2 = null;
 			lv2_b = null;
 			lv3 = null;
-	 }
+	}
 	else if (SUPER_GAME_STATE == 0 && info.equals("title_start"))
 	{
 		eye_c.change(false, "title_fade_out");
@@ -286,9 +286,9 @@ void progress_game(String info)
 	}
 	else if (SUPER_GAME_STATE == 202 && info.equals("eyes_close_cutscene_10"))
 	{
-	 SUPER_GAME_STATE = 210;
-	 cutscene_engine.play_scene(0);
-	 lv2_b = new level2_street();
+	SUPER_GAME_STATE = 210;
+	cutscene_engine.play_scene(0);
+	lv2_b = new level2_street();
 	}
 	else if (SUPER_GAME_STATE == 210 && info.equals("level2b_end"))
 	{
@@ -302,16 +302,16 @@ void progress_game(String info)
 	}
 	else if (SUPER_GAME_STATE == 212 && info.equals("eyes_close_cutscene_20"))
 	{
-		 SUPER_GAME_STATE = 220;
-		 cutscene_engine.play_scene(0);
-		 
-		 theUI.showhide(true);
-		 
-		 if (lv2 == null)
-			 lv2 = new level2();
-			 
-		 lv2_b = null;
-		 lv2.race(0);
+		SUPER_GAME_STATE = 220;
+		cutscene_engine.play_scene(0);
+		
+		theUI.showhide(true);
+		
+		if (lv2 == null)
+			lv2 = new level2();
+			
+		lv2_b = null;
+		lv2.race(0);
 	}
 	else if (SUPER_GAME_STATE == 220 && info.equals("heist2_eyes_open"))
 	{
@@ -336,7 +336,7 @@ void progress_game(String info)
 	}
 	else if (SUPER_GAME_STATE == 300 & info.equals("chapter_3_eyes_open"))
 	{
-		 lv3.callback(1);
+		lv3.callback(1);
 	}
 	else if (info.equals("credits"))
 	{
@@ -370,7 +370,7 @@ void progress_game(String info)
 		cutscene_engine.play_scene(1000);
 	}
 	
-	 
+	
 }
 
 class basic_image
@@ -396,6 +396,16 @@ class basic_image
 		y_float = ypos;
 	}
 
+	void setWH(float pW, float pH)
+	{
+		w = pW;
+		h = pH;
+	}
+	void setImage(PImage pImageRef)
+	{
+		imageRef = pImageRef;
+	}
+
 	void movePos(float xpos, float ypos)
 	{
 		x_float += xpos;
@@ -414,11 +424,9 @@ class basic_image
 	int fader = -1;
 	int fademod = 1;
 	
-	void fade(boolean in)
+	void fade(boolean pDirection)
 	{
-		
-		
-		if (in)
+		if (pDirection)
 		{
 			fademod = 3;
 			fader = 0;
@@ -429,7 +437,6 @@ class basic_image
 			fader = 256;
 		}
 		// tint(255, 127);	// Display at half opacity
-		
 	}
 	
 	void draw()
@@ -443,8 +450,10 @@ class basic_image
 			rotate(rotation);
 		}
 		
+		boolean correct_fade = false;
 		if (fader >= 0)
 		{
+			correct_fade = true;
 			tint(255, fader);
 			fader = constrain(fader + fademod,0,256);
 			if (fader == 0 || fader == 256)
@@ -462,7 +471,11 @@ class basic_image
 			image(imageRef,0,0);
 		}
 		
-		tint(255, 255);
+		if (correct_fade)
+		{
+			noTint();
+		}
+		
 		popMatrix();
 	}
 	

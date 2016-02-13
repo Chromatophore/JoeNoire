@@ -170,7 +170,7 @@ class level1
 		{
 			if (text_box_finish_name.equals("intro_1"))
 			{
-				 level_state(1);
+				level_state(1);
 			}
 			else if (text_box_finish_name.equals("intro_2"))
 			{
@@ -185,9 +185,9 @@ class level1
 			}
 			else if (text_box_finish_name.equals("intro_anxious"))
 			{
-				 jitter.anxiety(true);
-				 jitter.inaction_on();
-				 jitter.player_must_pump = true;
+				jitter.anxiety(true);
+				jitter.inaction_on();
+				jitter.player_must_pump = true;
 			}
 			else if (text_box_finish_name.equals("intro_11"))
 			{
@@ -205,10 +205,10 @@ class level1
 							text_box_finish_name.equals("intro_17_bad"))
 			{
 				
-				 jitter.anxiety(false);
-				 jitter.inaction_off();
-				 jitter.player_must_pump = false;
-				 
+				jitter.anxiety(false);
+				jitter.inaction_off();
+				jitter.player_must_pump = false;
+				
 				eye_c.change(false,"level1_end");
 			}
 		}
@@ -295,7 +295,7 @@ class level1
 
 		current_camera_x = 512 - 128;
 		
-		String lines[] = loadStrings("MIT/lv1/level1.txt");
+		String lines[] = loadStrings("data/MIT/lv1/level1.txt");
 		//crate_locations = new crate[10];
 		//for (int j = 0;j < 10;j ++)
 		//{
@@ -409,7 +409,7 @@ class level1
 	{
 		if (i.k1_down && spro != 100)
 		{
-			 level_state(100);
+			level_state(100);
 		}
 		
 		
@@ -511,9 +511,9 @@ class level1
 							}
 							else if (score < 50 && spro != 2)
 							{
-								 make_sound.play("bad");
-								 AddSad();
-								 type = 3;
+								make_sound.play("bad");
+								AddSad();
+								type = 3;
 							}
 							else
 							{
@@ -522,7 +522,7 @@ class level1
 							}
 							
 							if (spro == 2)
-								 level_state(3);
+								level_state(3);
 							else if (spro == 11)
 									level_state(12);
 							
@@ -614,7 +614,7 @@ class level1
 				}
 				else
 				{
-					 break;
+					break;
 				}
 			}
 			else
@@ -839,7 +839,7 @@ class level1
 		if (crates_complete % 4 == 3 && crates_complete > 8)
 		{
 			level_difficulty++;
-			println("difficulty: " + level_difficulty);
+			//println("difficulty: " + level_difficulty);
 			if (level_difficulty == 2)
 				texter = new textbox("intro_diff_up_1");
 			else if (level_difficulty == 3)
@@ -849,11 +849,11 @@ class level1
 		}
 		else
 		{
-			 if (spro > 30 && !was_good)
-			 {
-				 int r_str = int(random(6)) + 1;
-				 texter = new textbox("intro_abuse_" + str(r_str));
-			 }
+			if (spro > 30 && !was_good)
+			{
+				int r_str = int(random(6)) + 1;
+				texter = new textbox("intro_abuse_" + str(r_str));
+			}
 		}
 		
 		if (spro == 10)
@@ -878,10 +878,10 @@ class level1
 		}
 		else if (spro == 21)
 		{
-			 if (was_good)
-				 level_state(spro + 1);
-			 else
-				 level_state(spro + 2);
+			if (was_good)
+				level_state(spro + 1);
+			else
+				level_state(spro + 2);
 		}
 		
 		else if (spro == 25 || spro == 26 || spro == 27)
@@ -1022,7 +1022,7 @@ class crate
 		if (side_db == null)
 			return;
 			
-		 println("Making crate with diffiuclty: " + str(general_difficulty_level));
+		//println("Making crate with diffiuclty: " + str(general_difficulty_level));
 		
 		int sides_to_write = 2;
 		if (general_difficulty_level >= 1)

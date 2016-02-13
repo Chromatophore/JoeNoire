@@ -89,8 +89,8 @@ class cutscene
 			
 			if (progress == 5)
 			{
-				 if (booze.fader == -1)
-					 progress++;
+				if (booze.fader == -1)
+					progress++;
 			}
 			
 			if (progress == 6)
@@ -268,9 +268,9 @@ class cutscene
 			}
 			else if (progress >= 6)
 			{
-				 make_sound.stop_music();
-				 progress++;
-				 progress_game("end_chapter_2");
+				make_sound.stop_music();
+				progress++;
+				progress_game("end_chapter_2");
 			}
 		}
 		else if (current_scene == 40)
@@ -313,10 +313,10 @@ class cutscene
 				eye_c.change(true,"");
 				jitter.get_rekt(0.4);
 				texter = new textbox("chap3_2_2");
-				 jitter.anxiety(true);
-				 jitter.inaction_off();
-				 jitter.player_must_pump = false;
-				 jitter.MoveMarker(50);
+				jitter.anxiety(true);
+				jitter.inaction_off();
+				jitter.player_must_pump = false;
+				jitter.MoveMarker(50);
 				progress++;
 			}
 			else if (progress == 6)

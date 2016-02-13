@@ -94,12 +94,12 @@ class score_riser
 	
 	int life;
 	
-	 score_riser(float xpos, float ypos, String pValue, int pType)
-	 {
-		 x = xpos;
-		 y = ypos;
-		 value = pValue;
-		 type = pType;
-		 life = 0;
-	 }
+	score_riser(float xpos, float ypos, String pValue, int pType)
+	{
+		x = xpos;
+		y = ypos;
+		value = pValue;
+		type = pType;
+		life = 0;
+	}
 }

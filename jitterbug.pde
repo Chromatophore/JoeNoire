@@ -180,14 +180,14 @@ class jitterbug
 			}
 			else if (difference < 0.6)
 			{
-				 if (overall_state > 0.4)
-				 {
-					 modifier = -0.06 * tick;
-				 }
-				 else
-				 {
-					 modifier = 0.05 * tick;
-				 }
+				if (overall_state > 0.4)
+				{
+					modifier = -0.06 * tick;
+				}
+				else
+				{
+					modifier = 0.05 * tick;
+				}
 			}
 			else if (difference < 0.8)
 			{
@@ -236,17 +236,17 @@ class jitterbug
 	boolean punish_inaction = false;
 	void inaction_on()
 	{
-	 punish_inaction = true;
+	punish_inaction = true;
 	}
 	void inaction_off()
 	{
-	 punish_inaction = false;
+	punish_inaction = false;
 	}
 	
 	boolean system_state = false;
 	void anxiety(boolean state)
 	{
-		 system_state = state;
+		system_state = state;
 	}
 	
 	void MoveMarker(int value)

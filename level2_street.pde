@@ -25,20 +25,20 @@ class level2_street
 			eye_c.change(true,"");
 			texter = new textbox("chap2_4_2");
 			
-			 theUI.sounds(true);
-			 jitter.anxiety(true);
-			 jitter.inaction_on();
-			 jitter.player_must_pump = true;
+			theUI.sounds(true);
+			jitter.anxiety(true);
+			jitter.inaction_on();
+			jitter.player_must_pump = true;
 		}
 		else if (state == 50)
 		{
-			 theUI.sounds(false);
-			 jitter.anxiety(false);
-			 jitter.inaction_off();
-			 jitter.player_must_pump = false;
-			 
-			 eye_c.change(false,"");
-			 texter = new textbox("chap2_4_3");
+			theUI.sounds(false);
+			jitter.anxiety(false);
+			jitter.inaction_off();
+			jitter.player_must_pump = false;
+			
+			eye_c.change(false,"");
+			texter = new textbox("chap2_4_3");
 		}
 		
 		spro = state;
@@ -50,11 +50,11 @@ class level2_street
 		{
 			if (text_box_finish_name.equals("chap2_4_1"))
 			{
-				 level_state(2);
+				level_state(2);
 			}
 			if (text_box_finish_name.equals("chap2_4_bat"))
 			{
-				 level_state(50);
+				level_state(50);
 			}
 			if (text_box_finish_name.equals("chap2_4_3"))
 			{
@@ -183,7 +183,7 @@ class level2_street
 			
 			if (murder_man && monster && !bat_attack)
 			{
-			 bat_show = true;
+			bat_show = true;
 			}
 		}
 	}

@@ -42,22 +42,22 @@ class curtains
 		
 		float pos1 = 0;
 		float pos2 = 64;
-			 
-			 
+			
+			
 		if (progress >= 123)
 		{
-			 work = false;
-			 progress = 0;
-			 if (!finish_string.equals(""))
-			 {
-				 String temp = finish_string;
-				 finish_string = "";
+			work = false;
+			progress = 0;
+			if (!finish_string.equals(""))
+			{
+				String temp = finish_string;
+				finish_string = "";
 					progress_game(temp);
-			 }
+			}
 		}
-			 
-			 
-			 
+			
+			
+			
 		if (work)
 		{
 			progress++;
