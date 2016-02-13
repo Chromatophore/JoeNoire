@@ -100,6 +100,12 @@ class jitterbug
 	{
 		ideal_beat_total = map(overall_state, 0,1.0,minimum_cycle,maximum_cycle);
 		pulse_milli = millis() + ideal_beat_total;
+		theUI.SetTrackerPulseTime(pulse_milli,ideal_beat_total);
+	}
+
+	float get_current_beat_cycle()
+	{
+		return map(overall_state, 0,1.0,minimum_cycle,maximum_cycle);
 	}
 	
 	int things_done;
@@ -307,8 +313,6 @@ class jitterbug
 			//println("but forgiven!");
 		}
 		
-		
-
 		if (millis() > pulse_milli)
 		{
 			reset_pulse();

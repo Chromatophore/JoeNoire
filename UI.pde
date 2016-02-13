@@ -2,6 +2,8 @@
 int marker_max = 36;
 int bar_max = 42;
 
+float tracker_reducer = 35.0;
+
 class UI
 {
 	boolean is_on;
@@ -53,6 +55,16 @@ class UI
 		Cursor = new basic_image(loadImage("data/MIT/UI/cursor1.png"),64,64);
 		
 		chillimg = new basic_image(loadImage("data/MIT/UI/panic.png"),97,128 - 16 + 12);
+
+		donetracks = new completed_track[100];
+
+		tracker_success_history = new int[256];
+		for (int k = 0;k < 256; k++)
+		{
+			tracker_success_history[k] = 0;
+		}
+
+		tracker_history_image = createImage(256,2,ARGB);
 	}
 	
 	void reset_score()
@@ -183,7 +195,87 @@ class UI
 			if (chiller.draw())
 				chiller = null;
 		}
+
+
+		fill(dgrey);
+		rect(0,128-17,128,2);
+
+		// update interval count?
+		tracker_intervals = jitter.get_current_beat_cycle();
+
+		float bar_width = (tracker_intervals / tracker_reducer);
+
+		float start_x = 64 - bar_width + (tracker_target - millis()) / tracker_reducer;
+
+		boolean alternate = marker_pulse;
+
+		int bar_count = 0;
+		while (start_x < 128)
+		{
+			if (alternate)
+				fill(lgrey);
+			else
+				fill(dgrey);
+
+			if (bar_count == 2)
+				bar_width = (tracker_intervals / tracker_reducer);
+			bar_count++;
+
+			rect(start_x,128-17,bar_width,2);
+
+			start_x += bar_width;
+			alternate = !alternate;
+		}
+
+		for (int j = 0; j < 100; j++)
+		{
+			completed_track t = donetracks[j];
+			if (t != null)
+			{
+				if (t.draw())
+				{
+					donetracks[j] = null;
+				}
+			}
+		}
+
+		/*
+		if (tracker_held == marker_pulse)
+		{
+			tracker_success_history[tracker_success_index] = 1;
+		}
+		else
+		{
+			tracker_success_history[tracker_success_index] = 0;
+		}
+
+		tracker_success_index = (tracker_success_index + 1) % 256;
 		
+		for(int j=0;j<256;j++)
+		{
+			color write_color = black;
+			if (tracker_success_history[(j + tracker_success_index) % 256] == 1)
+			{
+				write_color = white;
+			}
+
+			tracker_history_image.pixels[j] = write_color;
+			tracker_history_image.pixels[j+256] = write_color;
+		}
+
+		tracker_history_image.updatePixels();
+		pushMatrix();
+
+		scale(0.25,0.25);
+		float magnify = 2;
+		image(tracker_history_image,(64 - 32 * magnify)*4,(128-16)*4, 256 * magnify, 2);
+
+		popMatrix();
+		*/
+		fill(black);
+		rect(64-0.25,128-17,0.5,2);
+
+
 	}
 	
 	
@@ -263,6 +355,8 @@ class UI
 					progress_game("game_reset");
 			}
 		}
+
+		tracker_held = (i.c_state > 0);
 	}
 	
 	int smiles = 0;
@@ -274,5 +368,59 @@ class UI
 	void SetSads(int pSads)
 	{
 		sads = pSads;
+	}
+
+	float tracker_intervals;
+	float tracker_First_intervals;
+	float tracker_target;
+	void SetTrackerPulseTime(float pTargetTime, float pFirstWidth)
+	{
+		donetracks[tracknum] = new completed_track(marker_pulse, tracker_target, tracker_intervals);
+
+		tracker_First_intervals = pFirstWidth;
+		tracker_target = pTargetTime;
+		tracknum = (tracknum + 1) % 100;
+	}
+
+	int tracknum;
+	completed_track[] donetracks;
+
+	int tracker_success_index = 0;
+	int[] tracker_success_history;
+	boolean tracker_held;
+	PImage tracker_history_image;
+}
+
+
+class completed_track
+{
+	float t_start;
+	float b_width;
+	boolean colour;
+
+	completed_track(boolean pColour, float pStart, float pInterval)
+	{
+		colour = pColour;
+		t_start = pStart;
+		b_width = (pInterval / tracker_reducer);
+	}
+
+	boolean draw()
+	{
+		if (colour)
+			fill(lgrey);
+		else
+			fill(dgrey);
+
+		float start_x = (64.0 - b_width) + (t_start - millis()) / tracker_reducer;
+		
+
+		if ((start_x + b_width) < -10)
+			return true;
+		else
+		{
+			rect(start_x,128-17,b_width,2);
+			return false;
+		}
 	}
 }
