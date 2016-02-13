@@ -6,6 +6,7 @@ float global_gain = -10;
 int game_width = 128;
 int game_height = 128;
 
+// GLOBAL VARIABLES
 jitterbug jitter;
 basic_image guncursor;
 UI theUI;
@@ -17,7 +18,6 @@ curtains eye_c;
 
 boolean show_ui = true;
 
-// GLOBAL VARIABLES
 boolean text_box_finished = false;
 String text_box_finish_name = "";
 
