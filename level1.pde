@@ -78,6 +78,7 @@ class level1
 		}
 		else if (state == 13)
 		{
+			show_rot_ui = true;
 			theUI.SetShowLearn(false);
 		}
 		// 14, 15 16 are based on how well you do
@@ -191,6 +192,7 @@ class level1
 				jitter.inaction_on();
 				jitter.player_must_pump = true;
 				theUI.SetShowLearn(true);
+				show_rot_ui = false;
 			}
 			else if (text_box_finish_name.equals("intro_11"))
 			{
@@ -632,6 +634,11 @@ class level1
 		
 		// attempt to draw the box in the middle of the screen but clamp it such that we don't move the camera off screen
 		float camera_x = box_current_x;
+
+
+		if (spro == 12)
+			camera_x += 96;
+
 		if (camera_x > 512 - 64)
 			camera_x = 512 - 64;
 		if (camera_x < 64)
@@ -648,7 +655,7 @@ class level1
 		
 		// if we are close to the crate we should draw the crate UI:
 		drawui = false;
-		if ((abs(current_camera_x - box_current_x) < 5 || box_current_x < 64))
+		if ((abs(current_camera_x - box_current_x) < 5 || box_current_x < 64) || spro == 12)
 		{
 				drawui = true;
 		}
