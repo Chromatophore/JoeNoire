@@ -1,6 +1,8 @@
 
 sideref[] side_db = null;
 
+int crate_goal = 20;
+
 class level1
 {
 	int spro = 0;
@@ -76,7 +78,7 @@ class level1
 		}
 		else if (state == 13)
 		{
-			
+			theUI.SetShowLearn(false);
 		}
 		// 14, 15 16 are based on how well you do
 		else if (state == 14)
@@ -188,6 +190,7 @@ class level1
 				jitter.anxiety(true);
 				jitter.inaction_on();
 				jitter.player_must_pump = true;
+				theUI.SetShowLearn(true);
 			}
 			else if (text_box_finish_name.equals("intro_11"))
 			{
@@ -266,7 +269,7 @@ class level1
 	boolean drawui;
 	
 	int crates_complete = 0;
-	int level_difficulty = 1;
+	int level_difficulty = 3;
 	
 	level1()
 	{
@@ -399,7 +402,6 @@ class level1
 		{
 			level_state(100);
 		}
-		
 		
 		if (i.z_down && spro >= 2)	// treat as swap?
 		{
@@ -754,7 +756,7 @@ class level1
 		}
 		
 		textFont(font_ui, 14);
-		text("Remaining: " + str(25 - crates_complete),5,5);
+		text("Remaining: " + str(crate_goal - crates_complete),5,5);
 		
 		// Draw the black box at the bottom:
 		fill(black);
@@ -877,7 +879,7 @@ class level1
 			level_state(spro + 1);
 		}
 		
-		if (crates_complete == 25)
+		if (crates_complete == crate_goal)
 		{
 			level_state(100);
 		}

@@ -230,6 +230,7 @@ void progress_game(String info)
 		theUI.chill = false;
 		theUI.sounds(false);
 		theUI.hijack_quit = false;
+		theUI.SetShowLearn(false);
 		
 		jitter.anxiety(false);
 		jitter.inaction_off();

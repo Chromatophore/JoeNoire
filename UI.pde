@@ -17,6 +17,13 @@ class UI
 	
 	basic_image Cursor;
 	basic_image Cursor_Replace;
+
+	basic_image cindicate1;
+	basic_image cindicate2;
+	boolean show_learn_c = false;
+
+	basic_image learn2c1;
+	basic_image learn2c2;
 	
 	float cursor_x = 64;
 	float cursor_y = 64;
@@ -56,15 +63,17 @@ class UI
 		
 		chillimg = new basic_image(loadImage("data/MIT/UI/panic.png"),97,128 - 16 + 12);
 
+		learn2c1 = new basic_image(loadImage("data/MIT/UI/learn2c1.png"), 64,64);
+		learn2c2 = new basic_image(loadImage("data/MIT/UI/learn2c2.png"), 64,64);
+
+		learn2c1 = new basic_image(loadImage("data/MIT/UI/learn2c1.png"), 64,64);
+		learn2c2 = new basic_image(loadImage("data/MIT/UI/learn2c2.png"), 64,64);
+
+		cindicate1 = new basic_image(loadImage("data/MIT/UI/cindicate1.png"), 64,128-23);
+		cindicate2 = new basic_image(loadImage("data/MIT/UI/cindicate2.png"), 64,128-23);
+
 		donetracks = new completed_track[100];
-
-		tracker_success_history = new int[256];
-		for (int k = 0;k < 256; k++)
-		{
-			tracker_success_history[k] = 0;
-		}
-
-		tracker_history_image = createImage(256,2,ARGB);
+		playertracks = new completed_track[100];
 	}
 	
 	void reset_score()
@@ -167,36 +176,8 @@ class UI
 		{
 			marker.draw();
 		}
-			
-		jitter.calc_jitter();
-		effective_cursor_x = jitter.apply_jitter_x(cursor_x);
-		effective_cursor_y = jitter.apply_jitter_y(cursor_y);
 
-		if (cursor_y > 128 - 16)
-		{
-			float amount_below = pow(constrain((cursor_y - (128-16)) / 8.0,0,1.0), 0.5);
-			effective_cursor_x = lerp(effective_cursor_x, cursor_x, amount_below);
-			effective_cursor_y = lerp(effective_cursor_y, cursor_y, amount_below);
-		}
-
-		if (cursor_override_state && Cursor_Replace != null && cursor_y < 128-16)
-		{
-			Cursor_Replace.setPos(effective_cursor_x,effective_cursor_y);
-			Cursor_Replace.draw();
-		}
-		else
-		{
-			Cursor.setPos(effective_cursor_x,effective_cursor_y);
-			Cursor.draw();
-		}
-		
-		if (chiller != null)
-		{
-			if (chiller.draw())
-				chiller = null;
-		}
-
-
+		// Pulse marker stuff:
 		fill(dgrey);
 		rect(0,128-17,128,2);
 
@@ -227,6 +208,7 @@ class UI
 			alternate = !alternate;
 		}
 
+		// previous display bars
 		for (int j = 0; j < 100; j++)
 		{
 			completed_track t = donetracks[j];
@@ -238,44 +220,79 @@ class UI
 				}
 			}
 		}
-
-		/*
-		if (tracker_held == marker_pulse)
+		// previous held bars:
+		for (int j = 0; j < 100; j++)
 		{
-			tracker_success_history[tracker_success_index] = 1;
-		}
-		else
-		{
-			tracker_success_history[tracker_success_index] = 0;
-		}
-
-		tracker_success_index = (tracker_success_index + 1) % 256;
-		
-		for(int j=0;j<256;j++)
-		{
-			color write_color = black;
-			if (tracker_success_history[(j + tracker_success_index) % 256] == 1)
+			completed_track t = playertracks[j];
+			if (t != null)
 			{
-				write_color = white;
+				if (t.draw())
+				{
+					playertracks[j] = null;
+				}
 			}
-
-			tracker_history_image.pixels[j] = write_color;
-			tracker_history_image.pixels[j+256] = write_color;
 		}
 
-		tracker_history_image.updatePixels();
-		pushMatrix();
-
-		scale(0.25,0.25);
-		float magnify = 2;
-		image(tracker_history_image,(64 - 32 * magnify)*4,(128-16)*4, 256 * magnify, 2);
-
-		popMatrix();
-		*/
+		// tiny marker:
 		fill(black);
 		rect(64-0.25,128-17,0.5,2);
 
+		// Held bars:
+		if (tracker_held)
+		{
+			bar_width = (millis() - tracker_player_push_time) / tracker_reducer;
+			start_x = 64 - bar_width;
 
+			fill(white);
+			rect(start_x,128-17+0.5,bar_width,1);
+		}
+
+		// holder button:
+		if (tracker_held) 
+			cindicate2.draw();
+		else
+			cindicate1.draw();
+
+		// cursor stuff:
+		jitter.calc_jitter();
+		effective_cursor_x = jitter.apply_jitter_x(cursor_x);
+		effective_cursor_y = jitter.apply_jitter_y(cursor_y);
+
+		if (cursor_y > 128 - 16)
+		{
+			float amount_below = pow(constrain((cursor_y - (128-16)) / 8.0,0,1.0), 0.5);
+			effective_cursor_x = lerp(effective_cursor_x, cursor_x, amount_below);
+			effective_cursor_y = lerp(effective_cursor_y, cursor_y, amount_below);
+		}
+
+		if (cursor_override_state && Cursor_Replace != null && cursor_y < 128-16)
+		{
+			Cursor_Replace.setPos(effective_cursor_x,effective_cursor_y);
+			Cursor_Replace.draw();
+		}
+		else
+		{
+			Cursor.setPos(effective_cursor_x,effective_cursor_y);
+			Cursor.draw();
+		}
+		
+		if (chiller != null)
+		{
+			if (chiller.draw())
+				chiller = null;
+		}
+
+		if (show_learn_c)
+		{
+			if (marker_pulse)
+			{
+				learn2c2.draw();
+			}
+			else
+			{
+				learn2c1.draw();
+			}
+		}
 	}
 	
 	
@@ -338,7 +355,7 @@ class UI
 	
 	
 	boolean hijack_quit = false;
-	
+
 	void TakeInput(inputblob i)
 	{
 		if (!is_on)
@@ -356,7 +373,16 @@ class UI
 			}
 		}
 
+		if (tracker_held && i.c_state == 0)
+		{
+			playertracks[playertracknum] = new completed_track(2, tracker_player_push_time, -1 * (millis() - tracker_player_push_time));
+			playertracknum = (playertracknum + 1) % 100;
+		}
+
 		tracker_held = (i.c_state > 0);
+
+		if (i.c_down)
+			tracker_player_push_time = millis();
 	}
 	
 	int smiles = 0;
@@ -375,7 +401,11 @@ class UI
 	float tracker_target;
 	void SetTrackerPulseTime(float pTargetTime, float pFirstWidth)
 	{
-		donetracks[tracknum] = new completed_track(marker_pulse, tracker_target, tracker_intervals);
+		int colour_select = 0;
+		if (marker_pulse)
+			colour_select = 1;
+
+		donetracks[tracknum] = new completed_track(colour_select, tracker_target, tracker_intervals);
 
 		tracker_First_intervals = pFirstWidth;
 		tracker_target = pTargetTime;
@@ -383,12 +413,20 @@ class UI
 	}
 
 	int tracknum;
+	int playertracknum;
 	completed_track[] donetracks;
+	completed_track[] playertracks;
 
 	int tracker_success_index = 0;
 	int[] tracker_success_history;
 	boolean tracker_held;
-	PImage tracker_history_image;
+
+	float tracker_player_push_time;
+
+	void SetShowLearn(boolean pState)
+	{
+		show_learn_c = pState;
+	}
 }
 
 
@@ -396,9 +434,9 @@ class completed_track
 {
 	float t_start;
 	float b_width;
-	boolean colour;
+	int colour;
 
-	completed_track(boolean pColour, float pStart, float pInterval)
+	completed_track(int pColour, float pStart, float pInterval)
 	{
 		colour = pColour;
 		t_start = pStart;
@@ -407,19 +445,23 @@ class completed_track
 
 	boolean draw()
 	{
-		if (colour)
+		if (colour == 2)
+			fill(white);
+		else if (colour == 1)
 			fill(lgrey);
 		else
 			fill(dgrey);
 
-		float start_x = (64.0 - b_width) + (t_start - millis()) / tracker_reducer;
-		
+		float start_x = 64 - b_width + (t_start - millis()) / tracker_reducer;
 
-		if ((start_x + b_width) < -10)
+		if ((start_x - b_width) < -64)
 			return true;
 		else
 		{
-			rect(start_x,128-17,b_width,2);
+			if (colour == 2)
+				rect(start_x,128-17+0.5,b_width,1);
+			else
+				rect(start_x,128-17,b_width,2);
 			return false;
 		}
 	}
