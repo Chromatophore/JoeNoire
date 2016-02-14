@@ -12,6 +12,7 @@ void load_sounds()
 		
 	sounds = new AudioPlayer[30];
 
+	// Short sounds:
 	sounds[0] = minim.loadFile("data/MIT/sounds/beep.mp3");
 	sounds[1] = minim.loadFile("data/sound/242501__gabrielaraujo__powerup-success.mp3");
 	sounds[2] = minim.loadFile("data/sound/242503__gabrielaraujo__failure-wrong-action.mp3");
@@ -23,28 +24,32 @@ void load_sounds()
 	sounds[8] = minim.loadFile("data/MIT/sounds/pulse_real2.mp3");
 	sounds[9] = minim.loadFile("data/sound/snow_shriek.mp3");
 	sounds[10] = minim.loadFile("data/MIT/sounds/talk4.mp3");
-	
-	sounds[11] = minim.loadFile("data/music_KevinMacloud/Comfortable Mystery 4 (EP).mp3");
-	sounds[12] = minim.loadFile("data/music_KevinMacloud/Rollin at 5_edit.mp3");
-	sounds[15] = minim.loadFile("data/music_MiodragMarjanovQuintet/Miodrag_Marjanov_Quintet_-_05_-_Gamblers_Blues.mp3");
-	sounds[16] = minim.loadFile("data/music_KevinMacloud/Bass Walker.mp3");
-	sounds[17] = minim.loadFile("data/music_KevinMacloud/Kevin_MacLeod_-_Faster_Does_It.mp3");
-	sounds[20] = minim.loadFile("data/music_MiodragMarjanovQuintet/Miodrag_Marjanov_Quintet_-_02_-_Good_Old_Club_Days.mp3");
-	
-	sounds[21] = minim.loadFile("data/music_KevinMacloud/Just As Soon.mp3");
-	sounds[22] = minim.loadFile("data/music_KevinMacloud/Backed Vibes Clean.mp3");
-	
-	
 	sounds[13] = minim.loadFile("data/MIT/sounds/talk5.mp3");
 	sounds[14] = minim.loadFile("data/MIT/sounds/talk6.mp3");
 	sounds[18] = minim.loadFile("data/sound/gunshot.mp3");
 	sounds[19] = minim.loadFile("data/sound/alarm_short.mp3");
-	
 	sounds[23] = minim.loadFile("data/sound/170272__knova__gun-click.mp3");
-	
 	sounds[24] = minim.loadFile("data/MIT/sounds/talk7.mp3");
 	sounds[25] = minim.loadFile("data/MIT/sounds/talk8.mp3");
 	sounds[26] = minim.loadFile("data/MIT/sounds/talk9.mp3");
+	
+	// Long music:
+	// Title screen
+	sounds[11] = minim.loadFile("data/music_KevinMacloud/Comfortable Mystery 4 (EP).mp3");
+	// Level 1:
+	sounds[12] = minim.loadFile("data/music_KevinMacloud/Rollin at 5_edit.mp3");
+	// Bar and credits:
+	sounds[15] = minim.loadFile("data/music_MiodragMarjanovQuintet/Miodrag_Marjanov_Quintet_-_05_-_Gamblers_Blues.mp3");
+	// Cutscene chapter 2
+	sounds[16] = minim.loadFile("data/music_KevinMacloud/Bass Walker.mp3");
+	// Jewelry heist
+	sounds[17] = minim.loadFile("data/music_KevinMacloud/Kevin_MacLeod_-_Faster_Does_It.mp3");
+	// Jewelry race
+	sounds[20] = minim.loadFile("data/music_MiodragMarjanovQuintet/Miodrag_Marjanov_Quintet_-_02_-_Good_Old_Club_Days.mp3");
+	// Cutscene chapter 3
+	sounds[21] = minim.loadFile("data/music_KevinMacloud/Just As Soon.mp3");
+	// ending?
+	sounds[22] = minim.loadFile("data/music_KevinMacloud/Backed Vibes Clean.mp3");
 	
 	for (AudioPlayer thing : sounds)
 	{
