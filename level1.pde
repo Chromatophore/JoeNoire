@@ -1,7 +1,9 @@
 
 sideref[] side_db = null;
 
-int crate_goal = 20;
+int crate_goal = 17;
+int bad_limit = 7;
+float jitter_state_to_pass_tutorial = 0.85;
 
 class level1
 {
@@ -85,6 +87,7 @@ class level1
 		}
 		else if (state == 13)
 		{
+			texter = new textbox("intro_anxious_done");
 			show_rot_ui = true;
 			theUI.SetShowLearn(false);
 		}
@@ -161,7 +164,11 @@ class level1
 			jitter.inaction_off();
 			jitter.player_must_pump = false;
 			
-			if (sads < 5)
+			if (bad_sides > bad_limit)
+			{
+				texter = new textbox("intro_17_worst");
+			}
+			else if (sads < 5)
 			{
 				texter = new textbox("intro_17_good");
 			}
@@ -214,7 +221,8 @@ class level1
 				time_between_crates = 10000;*/
 			}
 			else if (text_box_finish_name.equals("intro_17_good") ||
-							text_box_finish_name.equals("intro_17_bad"))
+							text_box_finish_name.equals("intro_17_bad") ||
+							text_box_finish_name.equals("intro_17_worst") )
 			{
 				
 				jitter.anxiety(false);
@@ -223,6 +231,25 @@ class level1
 				
 				eye_c.change(false,"level1_end");
 			}
+		}
+
+
+		if (spro == 12)
+		{
+			if (jitter.get_state() > jitter_state_to_pass_tutorial)
+			{
+				// pretend we selected the next crate
+				nextCrate();
+				// Order of this is important!!
+				// jump to next state
+				level_state(13);
+				
+			}
+		}
+
+		if (bad_sides > bad_limit && spro != 100)
+		{
+			level_state(100);
 		}
 	}
 	
@@ -278,6 +305,7 @@ class level1
 	boolean drawui;
 	
 	int crates_complete = 0;
+	int bad_sides = 0;
 	int level_difficulty = 3;
 	
 	level1()
@@ -770,7 +798,8 @@ class level1
 		}
 		
 		textFont(font_ui, 14);
-		text("Remaining: " + str(crate_goal - crates_complete),5,5);
+		text("Progress: " + str(crates_complete) + "/" + str(crate_goal),5,5);
+		text("Bad sides: " + str(bad_sides) + "/" + str(bad_limit),75,5);
 		
 		// Draw the black box at the bottom:
 		fill(black);
@@ -824,13 +853,22 @@ class level1
 		// check current crate is finished
 		boolean was_good = true;
 		crate thiscrate = crate_locations[focus_crate];
-		if (!thiscrate.IsFinished())
+		// we have a 'fake' empty crate when we do 12 so, I'm going to give this one as a freebie
+		if (!thiscrate.IsFinished() && spro != 12)
 		{
 			was_good = false;
 			make_sound.play("bad");
-			AddSad();
+			int sad_count = thiscrate.sides_unfinished;
+
 			int type = 3;
-			scorer.add_riser(new score_riser(64 - 20, 20, "unfinished", type));
+			scorer.add_riser(new score_riser(64 - 20, 20, str(sad_count) + " unfinished", type));
+
+			bad_sides += sad_count;
+			while (sad_count > 0)
+			{
+				AddSad();
+				sad_count--;
+			}
 		}
 		
 		
@@ -944,15 +982,18 @@ class crate
 		x = -1100;
 	}
 	
+	int sides_unfinished = 0;
 	boolean IsFinished()
 	{
 		for (int j = 0; j < 4; j++)
 		{
 			if ((labelneeds[j] & labelmask[j]) != labelneeds[j])
 			{
-				return false;
+				sides_unfinished++;
 			}
 		}
+		if (sides_unfinished != 0)
+			return false;
 		return true;
 	}
 	

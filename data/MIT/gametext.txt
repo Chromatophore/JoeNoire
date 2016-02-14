@@ -77,8 +77,14 @@ intro_anxious
 4
 tannoy^Hey Jack, you look like you could use a break! Not that you'll get one, ha!
 none^Can't drop these damned shakes again!
-none^Just gotta hold C to relax. Focus on breathing.
-none^Hold in... and release out...
+none^Just gotta use C to relax. To time my breathing.
+none^Hold for in... Release for out...
+
+text
+intro_anxious_done
+2
+none^Yeah, that's it. If I want to stay calm...
+none^I've gotta keep focus on taking EVEN breaths!
 
 text
 intro_10_good
@@ -102,12 +108,12 @@ none^Gotta put one on then use Z to swap to the other.
 text
 intro_13_good
 1
-tannoy^Alright, alright, finish up with those and move on to the international crates.
+tannoy^Alright, finish up there! The International crates are coming down the line.
 
 text
 intro_13_bad
 1
-tannoy^This is the last domestic crate, try not to screw it up! International shipping is next.
+tannoy^International crates coming down the line. Try not to screw them up too!
 
 text
 intro_14
@@ -117,13 +123,13 @@ none^I hate international crates. Damned regulations putting labels on different
 text
 intro_15
 1
-none^Then you have the ones that need duplicate labels!
+none^Ugh, then you have the ones that need duplicate labels!
 
 text
 intro_16
 2
 none^No sense doing any more thinking.
-none^Just breathe, and work.
+none^Just... breathe. And work.
 
 text
 intro_abuse_1
@@ -167,21 +173,30 @@ tannoy^Next ones will need another label!
 
 text
 intro_diff_up_3
-1
-tannoy^Next ones are controlled goods, you have to be spot on!
+2
+tannoy^There are some controlled goods coming, You'll have to be spot on!
+none^Ugh, this is all getting too much.
 
 text
 intro_17_good
 4
-jack^That's it! I've had it with this! Give me what I'm owed, and I'm out of here. I quit!
+jack^That's it! I can't take this this any more! Give me what I'm owed, and I'm out of here. I quit!
 tannoy^What?? I'm coming down there!
 workboss^That hurts! I give you an honest wage and an honest job, and all I get is abuse!
 workboss^Take your money and get out of here. Don't come crawling back to me when you can't find anything better!
 
 text
 intro_17_bad
-1
-tannoy^That's it! I've seen enough! Here's the money you're owed for today, but don't come back. You're fired!
+2
+tannoy^Well, at least you finished your shift! But your work is terrible! Here's what your owed for today, but, don't come back.
+shake^1,60^tannoy^You're fired!
+
+text
+intro_17_worst
+2
+tannoy^That's it! I've seen enough! Here's the money you're owed for today, don't come back.
+shake^1,60^tannoy^You're FIRED!
+
 
 text
 chap1_2_1
