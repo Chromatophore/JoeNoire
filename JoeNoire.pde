@@ -6,6 +6,8 @@ float volume_change_rate = 0.1;
 float volume_cap_up = -10;
 float volume_cap_dn = -40;
 
+float breath_ms_delay = -100;
+
 int game_width = 128;
 int game_height = 128;
 

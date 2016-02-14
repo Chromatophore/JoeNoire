@@ -85,6 +85,7 @@ class jitterbug
 	int pulse_max = maximum_cycle;
 	
 	float pulse_milli = 0;
+	float sound_milli = 0;
 	
 	float calm_start = -1;
 	float release_start = -1;
@@ -100,6 +101,7 @@ class jitterbug
 	{
 		ideal_beat_total = map(overall_state, 0,1.0,minimum_cycle,maximum_cycle);
 		pulse_milli = millis() + ideal_beat_total;
+		sound_milli = pulse_milli + breath_ms_delay;
 		theUI.SetTrackerPulseTime(pulse_milli,ideal_beat_total);
 	}
 
@@ -312,7 +314,13 @@ class jitterbug
 			text_box_forgive = false;
 			//println("but forgiven!");
 		}
-		
+
+		if (millis() > sound_milli)
+		{
+			sound_milli += 99999;
+			theUI.pulse_sound(!pulse);
+		}
+
 		if (millis() > pulse_milli)
 		{
 			reset_pulse();

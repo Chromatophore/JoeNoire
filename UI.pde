@@ -118,13 +118,11 @@ class UI
 		marker_jitter = random(abs(panic_buildup - 1)*2) - 1;
 	}
 	
-	void pulse(boolean state)
+	void pulse_sound(boolean state)
 	{
-		marker_pulse = state;
-		
 		if (play_sounds)
 		{
-			if (marker_pulse)
+			if (state)
 			{
 				make_sound.play("pulse2");
 				make_sound.halt("pulse1");
@@ -135,6 +133,11 @@ class UI
 				make_sound.halt("pulse2");
 			}
 		}
+	}
+
+	void pulse(boolean state)
+	{
+		marker_pulse = state;
 	}
 	
 	float markerpos;
