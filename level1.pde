@@ -11,8 +11,13 @@ class level1
 	{
 		if (state == 0)
 		{
+			theUI.SetShowTracker(false);
 			theUI.ResetCursor();
 			texter = new textbox("intro_1");
+
+			// make sure happy/sads are reset
+			theUI.SetSmiles(smiles);
+			theUI.SetSads(sads);
 		}
 		else if (state == 1)
 		{
@@ -72,9 +77,11 @@ class level1
 		else if (state == 12)
 		{
 			texter = new textbox("intro_anxious");
+			show_rot_ui = false;
 			new_box();
 			frames_to_convey = 1000;
 			theUI.sounds(true);
+			theUI.SetShowTracker(true);
 		}
 		else if (state == 13)
 		{

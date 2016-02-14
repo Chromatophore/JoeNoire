@@ -20,6 +20,8 @@ class UI
 
 	basic_image cindicate1;
 	basic_image cindicate2;
+	basic_image cindicate3;
+	basic_image cindicate4;
 	boolean show_learn_c = false;
 
 	basic_image learn2c1;
@@ -71,6 +73,8 @@ class UI
 
 		cindicate1 = new basic_image(loadImage("data/MIT/UI/cindicate1.png"), 64,128-23);
 		cindicate2 = new basic_image(loadImage("data/MIT/UI/cindicate2.png"), 64,128-23);
+		cindicate3 = new basic_image(loadImage("data/MIT/UI/cindicate3.png"), 64,128-23);
+		cindicate4 = new basic_image(loadImage("data/MIT/UI/cindicate4.png"), 64,128-23);
 
 		donetracks = new completed_track[100];
 		playertracks = new completed_track[100];
@@ -124,7 +128,6 @@ class UI
 		if (!is_on)
 			return;
 			
-			
 		fill(black);
 		indi_rect(0,128-16,128,16);
 		
@@ -177,81 +180,97 @@ class UI
 			marker.draw();
 		}
 
-		// Pulse marker stuff:
-		fill(dgrey);
-		indi_rect(0,128-17,128,2);
 
-		// update interval count?
-		tracker_intervals = jitter.get_current_beat_cycle();
-
-		float bar_width = (tracker_intervals / tracker_reducer);
-
-		float start_x = 64 - bar_width + (tracker_target - millis()) / tracker_reducer;
-
-		boolean alternate = marker_pulse;
-
-		int bar_count = 0;
-		while (start_x < 128)
+		if (show_pulse_tracker)
 		{
-			if (alternate)
-				fill(lgrey);
+			// Pulse marker stuff:
+			fill(dgrey);
+			indi_rect(0,128-17,128,2);
+
+			// update interval count?
+			tracker_intervals = jitter.get_current_beat_cycle();
+
+			float bar_width = (tracker_intervals / tracker_reducer);
+
+			float start_x = 64 - bar_width + (tracker_target - millis()) / tracker_reducer;
+
+			boolean alternate = marker_pulse;
+
+			int bar_count = 0;
+			while (start_x < 128)
+			{
+				if (alternate)
+					fill(lgrey);
+				else
+					fill(dgrey);
+
+				if (bar_count == 2)
+					bar_width = (tracker_intervals / tracker_reducer);
+				bar_count++;
+
+				indi_rect(start_x,128-17,bar_width,2);
+
+				start_x += bar_width;
+				alternate = !alternate;
+			}
+
+			// previous display bars
+			for (int j = 0; j < 100; j++)
+			{
+				completed_track t = donetracks[j];
+				if (t != null)
+				{
+					if (t.draw())
+					{
+						donetracks[j] = null;
+					}
+				}
+			}
+			// previous held bars:
+			for (int j = 0; j < 100; j++)
+			{
+				completed_track t = playertracks[j];
+				if (t != null)
+				{
+					if (t.draw())
+					{
+						playertracks[j] = null;
+					}
+				}
+			}
+
+			// tiny marker:
+			fill(black);
+			indi_rect(64-0.25,128-17,0.5,2);
+
+			// Held bars:
+			if (tracker_held)
+			{
+				bar_width = (millis() - tracker_player_push_time) / tracker_reducer;
+				start_x = 64 - bar_width;
+
+				fill(white);
+				indi_rect(start_x,128-17+0.5,bar_width,1);
+			}
+
+			// holder button:
+
+			if (marker_pulse)
+			{
+				if (tracker_held) 
+					cindicate4.draw();
+				else
+					cindicate3.draw();
+			}
 			else
-				fill(dgrey);
-
-			if (bar_count == 2)
-				bar_width = (tracker_intervals / tracker_reducer);
-			bar_count++;
-
-			indi_rect(start_x,128-17,bar_width,2);
-
-			start_x += bar_width;
-			alternate = !alternate;
-		}
-
-		// previous display bars
-		for (int j = 0; j < 100; j++)
-		{
-			completed_track t = donetracks[j];
-			if (t != null)
 			{
-				if (t.draw())
-				{
-					donetracks[j] = null;
-				}
+				if (tracker_held) 
+					cindicate2.draw();
+				else
+					cindicate1.draw();
 			}
+
 		}
-		// previous held bars:
-		for (int j = 0; j < 100; j++)
-		{
-			completed_track t = playertracks[j];
-			if (t != null)
-			{
-				if (t.draw())
-				{
-					playertracks[j] = null;
-				}
-			}
-		}
-
-		// tiny marker:
-		fill(black);
-		indi_rect(64-0.25,128-17,0.5,2);
-
-		// Held bars:
-		if (tracker_held)
-		{
-			bar_width = (millis() - tracker_player_push_time) / tracker_reducer;
-			start_x = 64 - bar_width;
-
-			fill(white);
-			indi_rect(start_x,128-17+0.5,bar_width,1);
-		}
-
-		// holder button:
-		if (tracker_held) 
-			cindicate2.draw();
-		else
-			cindicate1.draw();
 
 		// cursor stuff:
 		jitter.calc_jitter();
@@ -426,6 +445,12 @@ class UI
 	void SetShowLearn(boolean pState)
 	{
 		show_learn_c = pState;
+	}
+	boolean show_pulse_tracker = false;
+
+	void SetShowTracker(boolean pState)
+	{
+		show_pulse_tracker = pState;
 	}
 }
 

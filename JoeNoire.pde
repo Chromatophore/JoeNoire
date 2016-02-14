@@ -231,6 +231,7 @@ void progress_game(String info)
 		theUI.sounds(false);
 		theUI.hijack_quit = false;
 		theUI.SetShowLearn(false);
+		theUI.SetShowTracker(true);
 		
 		jitter.anxiety(false);
 		jitter.inaction_off();
