@@ -11,6 +11,9 @@ class UI
 	basic_image ui_base;
 	basic_image ui_base1;
 	basic_image ui_base2;
+
+	basic_image volume_graphic;
+	basic_image volume_title;
 	
 	basic_image marker;
 	basic_image marker2;
@@ -53,6 +56,21 @@ class UI
 		is_on = state;
 	}
 
+	void draw_volume(boolean title)
+	{
+		int volume_display = round((100.0 / 30.0) * (global_gain + 40));
+		if (title)
+		{
+			volume_title.draw();
+			text(str(volume_display),128-11,7);
+		}
+		else
+		{
+			volume_graphic.draw();
+			text(str(volume_display),9,128 - 9);
+		}
+	}
+
 	UI()
 	{
 		ui_base = new basic_image(loadImage("data/MIT/UI/UI_base.png"), 64,128 - 8);
@@ -75,6 +93,10 @@ class UI
 		cindicate2 = new basic_image(loadImage("data/MIT/UI/cindicate2.png"), 64,128-23);
 		cindicate3 = new basic_image(loadImage("data/MIT/UI/cindicate3.png"), 64,128-23);
 		cindicate4 = new basic_image(loadImage("data/MIT/UI/cindicate4.png"), 64,128-23);
+
+		PImage volume_art = loadImage("data/MIT/UI/volume.png");
+		volume_title = new basic_image(volume_art, 128 - 16, 6);
+		volume_graphic = new basic_image(volume_art, 4, 128 - 10);
 
 		donetracks = new completed_track[100];
 		playertracks = new completed_track[100];
@@ -170,6 +192,8 @@ class UI
 		if (number.length() == 1)
 			number = "0" + number;
 		text(number,118,125);
+
+		draw_volume(false);
 		
 		if (marker_pulse)
 		{
@@ -377,6 +401,21 @@ class UI
 
 	void TakeInput(inputblob i)
 	{
+		if (i.minus_state == true)
+		{
+			global_gain -= volume_change_rate;
+			global_gain = constrain(global_gain, volume_cap_dn, volume_cap_up);
+			adjust_volume();
+		}
+		else if (i.plus_state == true)
+		{
+			global_gain += volume_change_rate;
+			global_gain = constrain(global_gain, volume_cap_dn, volume_cap_up);
+			adjust_volume();
+		}
+
+		
+
 		if (!is_on)
 			return;
 		cursor_x = constrain( cursor_x + cursor_speed * i.x_axis, cursor_minx, cursor_maxx);

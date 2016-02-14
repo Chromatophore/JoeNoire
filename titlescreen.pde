@@ -58,7 +58,6 @@ class screen_title
 		}
 		
 		pressXtoStart = new basic_image(loadImage("data/MIT/title/pressXtoStart.png"),64,115);
-		
 	}
 	
 	void draw()
@@ -91,6 +90,11 @@ class screen_title
 		{
 			pressxframes -= 120;
 		}
+
+		textFont(font_ui, 14);
+		fill(white);
+
+		theUI.draw_volume(true);
 	}
 	
 	void TakeInput(inputblob i)

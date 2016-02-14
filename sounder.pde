@@ -1,6 +1,7 @@
 
 Minim minim;//audio context
 AudioPlayer[] sounds;
+boolean[] sounds_loaded;
 
 boolean loaded = false;
 void load_sounds()
@@ -11,6 +12,11 @@ void load_sounds()
 	minim = new Minim(this);
 		
 	sounds = new AudioPlayer[30];
+
+	sounds_loaded = new boolean[30];
+
+	for (int j = 0;j<30;j++)
+		sounds_loaded[j] = true;
 
 	// Short sounds:
 	sounds[0] = minim.loadFile("data/MIT/sounds/beep.mp3");
@@ -32,26 +38,59 @@ void load_sounds()
 	sounds[24] = minim.loadFile("data/MIT/sounds/talk7.mp3");
 	sounds[25] = minim.loadFile("data/MIT/sounds/talk8.mp3");
 	sounds[26] = minim.loadFile("data/MIT/sounds/talk9.mp3");
+
+	configure_non_music();
 	
 	// Long music:
 	// Title screen
-	sounds[11] = minim.loadFile("data/music_KevinMacloud/Comfortable Mystery 4 (EP).mp3");
+	sounds[11] = minim.loadFile("data/music_KevinMacloud/Comfortable Mystery 4 (EP).mp3");				// 1
 	// Level 1:
-	sounds[12] = minim.loadFile("data/music_KevinMacloud/Rollin at 5_edit.mp3");
+	sounds_loaded[12] = false;
+	//sounds[12] = minim.loadFile("data/music_KevinMacloud/Rollin at 5_edit.mp3");						// 2
 	// Bar and credits:
-	sounds[15] = minim.loadFile("data/music_MiodragMarjanovQuintet/Miodrag_Marjanov_Quintet_-_05_-_Gamblers_Blues.mp3");
+	sounds_loaded[15] = false;
+	//sounds[15] = minim.loadFile("data/music_MiodragMarjanovQuintet/Miodrag_Marjanov_Quintet_-_05_-_Gamblers_Blues.mp3");		// 3
 	// Cutscene chapter 2
-	sounds[16] = minim.loadFile("data/music_KevinMacloud/Bass Walker.mp3");
+	sounds_loaded[16] = false;
+	//sounds[16] = minim.loadFile("data/music_KevinMacloud/Bass Walker.mp3");							// 4
 	// Jewelry heist
-	sounds[17] = minim.loadFile("data/music_KevinMacloud/Kevin_MacLeod_-_Faster_Does_It.mp3");
+	sounds_loaded[17] = false;
+	//sounds[17] = minim.loadFile("data/music_KevinMacloud/Kevin_MacLeod_-_Faster_Does_It.mp3");		// 5
 	// Jewelry race
-	sounds[20] = minim.loadFile("data/music_MiodragMarjanovQuintet/Miodrag_Marjanov_Quintet_-_02_-_Good_Old_Club_Days.mp3");
+	sounds_loaded[20] = false;
+	//sounds[20] = minim.loadFile("data/music_MiodragMarjanovQuintet/Miodrag_Marjanov_Quintet_-_02_-_Good_Old_Club_Days.mp3");	// 6
 	// Cutscene chapter 3
-	sounds[21] = minim.loadFile("data/music_KevinMacloud/Just As Soon.mp3");
+	sounds_loaded[21] = false;
+	//sounds[21] = minim.loadFile("data/music_KevinMacloud/Just As Soon.mp3");							// 7
 	// ending?
-	sounds[22] = minim.loadFile("data/music_KevinMacloud/Backed Vibes Clean.mp3");
+	sounds_loaded[22] = false;
+	//sounds[22] = minim.loadFile("data/music_KevinMacloud/Backed Vibes Clean.mp3");					// 8
 	
+
+	adjust_volume();
+	
+	//sounds[11].setGain(global_gain + 10);
+	
+	loaded = true;
+}
+
+
+void configure_non_music()
+{
+	non_music_sounds = new AudioPlayer[30];
+
+	int j = 0;
+
 	for (AudioPlayer thing : sounds)
+	{
+		non_music_sounds[j++] = thing;
+	}
+}
+
+AudioPlayer[] non_music_sounds;
+void adjust_volume()
+{
+	for (AudioPlayer thing : non_music_sounds)
 	{
 		if (thing != null)
 		{
@@ -60,10 +99,37 @@ void load_sounds()
 			//println("Gain after: " + thing.getGain());
 		}
 	}
-	
-	//sounds[11].setGain(global_gain + 10);
-	
-	loaded = true;
+}
+
+void load_id(int id)
+{
+	if (sounds_loaded[id] == true)
+			return;
+
+	println("Loading audio ID " + str(id));
+	// Level 1:
+	if (id == 12)
+		sounds[12] = minim.loadFile("data/music_KevinMacloud/Rollin at 5_edit.mp3");
+	// Bar and credits:
+	if (id == 15)
+		sounds[15] = minim.loadFile("data/music_MiodragMarjanovQuintet/Miodrag_Marjanov_Quintet_-_05_-_Gamblers_Blues.mp3");
+	// Cutscene chapter 2
+	if (id == 16)
+		sounds[16] = minim.loadFile("data/music_KevinMacloud/Bass Walker.mp3");
+	// Jewelry heist
+	if (id == 17)
+		sounds[17] = minim.loadFile("data/music_KevinMacloud/Kevin_MacLeod_-_Faster_Does_It.mp3");
+	// Jewelry race
+	if (id == 20)
+		sounds[20] = minim.loadFile("data/music_MiodragMarjanovQuintet/Miodrag_Marjanov_Quintet_-_02_-_Good_Old_Club_Days.mp3");
+	// Cutscene chapter 3
+	if (id == 21)
+		sounds[21] = minim.loadFile("data/music_KevinMacloud/Just As Soon.mp3");
+	// ending?
+	if (id == 22)
+		sounds[22] = minim.loadFile("data/music_KevinMacloud/Backed Vibes Clean.mp3");
+
+	sounds_loaded[id] = true;
 }
 
 void unload_sounds()
@@ -166,6 +232,9 @@ class sounder
 	{
 		if (id >= 0)
 		{
+			if (sounds_loaded[id] == false)
+				load_id(id);
+
 			sounds[id].rewind();
 			sounds[id].play();
 		}
@@ -179,6 +248,9 @@ class sounder
 	void play_music(String name)
 	{
 		next_music = IDfromName(name);
+
+		if (sounds_loaded[next_music] == false)
+			load_id(next_music);
 
 		fade_progress = 0;
 		full_pass = 0;
@@ -205,6 +277,12 @@ class sounder
 
 	void loop_by_id(int id)
 	{
+		if (id != -1)
+		{
+			if (sounds_loaded[id] == false)
+				load_id(id);
+		}
+
 		if (id != -1 && sounds[id] != null)
 			sounds[id].loop();
 	}

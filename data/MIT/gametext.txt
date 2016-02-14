@@ -19,7 +19,8 @@ SOME OTHERS I FORGOT
 
 text
 intro_1
-5
+6
+none^Press 'H' at any time to show help page!
 none^I was never anybody. Never wanted to be.
 none^Never wanted to stand out, kept my head down.
 none^Just wanted to be, you know, happy. But no.

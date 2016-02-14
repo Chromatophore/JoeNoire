@@ -78,6 +78,8 @@ class level1
 		}
 		else if (state == 12)
 		{
+			load_id(make_sound.IDfromName("music3"));	// try to preload the audio.
+
 			texter = new textbox("intro_anxious");
 			show_rot_ui = false;
 			new_box();

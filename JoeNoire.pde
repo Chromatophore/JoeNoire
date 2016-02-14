@@ -2,6 +2,9 @@ import ddf.minim.*; //<>// //<>//
 
 // GLOBAL SETTINGS:
 float global_gain = -10;
+float volume_change_rate = 0.1;
+float volume_cap_up = -10;
+float volume_cap_dn = -40;
 
 int game_width = 128;
 int game_height = 128;
@@ -45,6 +48,8 @@ color dgrey;
 color lgrey;
 color white;
 
+basic_image help_screen;
+
 void setup()
 {
 	// Set up window:
@@ -82,6 +87,7 @@ void setup()
 
 	// Load the gun cursor because it's used in multiple levels and globals are lazy!
 	guncursor = new basic_image(loadImage("data/MIT/UI/crosshair.png"),64,64);
+	help_screen = new basic_image(loadImage("data/MIT/UI/helppage.png"),64,64);
 	
 	// Start the game
 	progress_game("game_reset");
@@ -215,6 +221,9 @@ void draw()
 	make_sound.service();
 	text_box_finished = false;
 	//println(frameRate);
+
+	if (inp.h_state)
+		help_screen.draw();
 }
 
 void progress_game(String info)
@@ -245,6 +254,8 @@ void progress_game(String info)
 	}
 	else if (SUPER_GAME_STATE == 0 && info.equals("title_start"))
 	{
+		load_id(make_sound.IDfromName("music2"));	// try to preload the audio.
+
 		eye_c.change(false, "title_fade_out");
 		make_sound.stop_music();
 		
@@ -267,6 +278,8 @@ void progress_game(String info)
 	{
 		SUPER_GAME_STATE = 102;
 		cutscene_engine.blip();
+
+		load_id(make_sound.IDfromName("music4"));	// try to preload the audio.
 	}
 	else if (SUPER_GAME_STATE == 102 && info.equals("eyes_close_cutscene_1"))
 	{
@@ -278,6 +291,8 @@ void progress_game(String info)
 	{
 		SUPER_GAME_STATE = 111;
 		cutscene_engine.blip();
+
+		load_id(make_sound.IDfromName("music5"));	// try to preload the audio.
 	}
 	else if (SUPER_GAME_STATE == 111 && info.equals("eyes_close_cutscene_2"))
 	{
@@ -301,6 +316,8 @@ void progress_game(String info)
 	SUPER_GAME_STATE = 210;
 	cutscene_engine.play_scene(0);
 	lv2_b = new level2_street();
+
+	load_id(make_sound.IDfromName("music6"));	// try to preload the audio.
 	}
 	else if (SUPER_GAME_STATE == 210 && info.equals("level2b_end"))
 	{
@@ -324,6 +341,8 @@ void progress_game(String info)
 			
 		lv2_b = null;
 		lv2.race(0);
+
+		load_id(make_sound.IDfromName("music7"));	// try to preload the audio.
 	}
 	else if (SUPER_GAME_STATE == 220 && info.equals("heist2_eyes_open"))
 	{
@@ -338,6 +357,8 @@ void progress_game(String info)
 	{
 		SUPER_GAME_STATE = 222;
 		cutscene_engine.blip();
+
+		load_id(make_sound.IDfromName("music8"));	// try to preload the audio.
 	}
 	else if (SUPER_GAME_STATE == 222 && info.equals("end_chapter_2"))
 	{
@@ -498,12 +519,12 @@ class basic_image
 }
 
 // Input handling
-void keyPressed(KeyEvent e)
+void keyPressed() // KeyEvent e)
 {
 	inp.do_input(key, 1);
 }
 
-void keyReleased(KeyEvent e)
+void keyReleased() // KeyEvent e)
 {
 	inp.do_input(key, 0);
 }

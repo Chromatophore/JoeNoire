@@ -19,6 +19,10 @@ class inputblob
 	boolean k2_down;
 	boolean k3_down;
 	boolean k4_down;
+
+	boolean minus_state;
+	boolean plus_state;
+	boolean h_state;
 	
 	int up_state;
 	int down_state;
@@ -142,6 +146,22 @@ class inputblob
 			{
 				if (down == 1)
 					k4_down = true;
+			}
+
+
+
+			if (c == '-' || c == '_')
+			{
+				minus_state = (down == 1);
+			}
+			if (c == '=' || c == '+')
+			{
+				plus_state = (down == 1);
+			}
+
+			if (c == 'h' || c == 'H')
+			{
+				h_state = (down == 1);
 			}
 		}
 		
