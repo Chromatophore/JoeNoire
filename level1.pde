@@ -760,7 +760,7 @@ class level1
 		
 		// Draw the black box at the bottom:
 		fill(black);
-		rect(0,128-16,128,16);
+		indi_rect(0,128-16,128,16);
 
 		if (drawui)
 		{

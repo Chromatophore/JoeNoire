@@ -589,7 +589,7 @@ class level2
 			bag_accumulator *= 0.9;
 		
 		fill(color(0,0,0));
-		rect(0,128-16,128,16);
+		indi_rect(0,128-16,128,16);
 	}
 	
 	void TakeInput(inputblob i)

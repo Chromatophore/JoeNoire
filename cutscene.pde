@@ -361,7 +361,7 @@ class cutscene
 			else
 			{
 				fill(black);
-				rect(0,0,128,128);
+				indi_rect(0,0,128,128);
 			}
 			
 			if (progress < 240)
@@ -426,7 +426,7 @@ class cutscene
 			else
 			{
 				fill(black);
-				rect(0,0,128,128);
+				indi_rect(0,0,128,128);
 			}
 			
 			if (progress < 240)
@@ -494,7 +494,7 @@ class cutscene
 			else
 			{
 				fill(black);
-				rect(0,0,128,128);
+				indi_rect(0,0,128,128);
 			}
 			
 			if (progress < 120)
@@ -548,7 +548,7 @@ class cutscene
 		else if (current_scene == 130)
 		{
 			fill(black);
-			rect(0,0,128,128);
+			indi_rect(0,0,128,128);
 			if (text_box_finished)
 			{
 				if (text_box_finish_name.equals("epi3_1_1"))
@@ -633,7 +633,7 @@ class cutscene
 				eye_c.change(true,"");
 			}
 			fill(black);
-			rect(0,0,128,128);
+			indi_rect(0,0,128,128);
 			progress++;
 			
 			cred.movePos(0,-0.25);

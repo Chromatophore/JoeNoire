@@ -126,7 +126,7 @@ class UI
 			
 			
 		fill(black);
-		rect(0,128-16,128,16);
+		indi_rect(0,128-16,128,16);
 		
 		textFont(font_ui, 14);
 		
@@ -146,7 +146,7 @@ class UI
 		}
  
 		float panic_bar = map(panic_buildup,0,1.0,bar_max,0);
-		rect(64 - panic_bar, 128 - 14, 2 * panic_bar, 12);
+		indi_rect(64 - panic_bar, 128 - 14, 2 * panic_bar, 12);
 		
 		ui_base.draw();
 		
@@ -179,7 +179,7 @@ class UI
 
 		// Pulse marker stuff:
 		fill(dgrey);
-		rect(0,128-17,128,2);
+		indi_rect(0,128-17,128,2);
 
 		// update interval count?
 		tracker_intervals = jitter.get_current_beat_cycle();
@@ -202,7 +202,7 @@ class UI
 				bar_width = (tracker_intervals / tracker_reducer);
 			bar_count++;
 
-			rect(start_x,128-17,bar_width,2);
+			indi_rect(start_x,128-17,bar_width,2);
 
 			start_x += bar_width;
 			alternate = !alternate;
@@ -235,7 +235,7 @@ class UI
 
 		// tiny marker:
 		fill(black);
-		rect(64-0.25,128-17,0.5,2);
+		indi_rect(64-0.25,128-17,0.5,2);
 
 		// Held bars:
 		if (tracker_held)
@@ -244,7 +244,7 @@ class UI
 			start_x = 64 - bar_width;
 
 			fill(white);
-			rect(start_x,128-17+0.5,bar_width,1);
+			indi_rect(start_x,128-17+0.5,bar_width,1);
 		}
 
 		// holder button:
@@ -459,9 +459,9 @@ class completed_track
 		else
 		{
 			if (colour == 2)
-				rect(start_x,128-17+0.5,b_width,1);
+				indi_rect(start_x,128-17+0.5,b_width,1);
 			else
-				rect(start_x,128-17,b_width,2);
+				indi_rect(start_x,128-17,b_width,2);
 			return false;
 		}
 	}

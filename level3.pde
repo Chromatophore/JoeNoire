@@ -187,7 +187,7 @@ class level3
 		}
 		
 		
-		rect(0,0,128,128);
+		indi_rect(0,0,128,128);
 		
 		family.draw();
 		man_base.draw();

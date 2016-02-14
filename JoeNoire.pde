@@ -104,7 +104,7 @@ void draw()
 	
 	// Set up the screen shake black out:
 	fill(black);
-	rect(-10,-10,148,148);
+	indi_rect(-10,-10,148,148);
 	fill(white);
 	
 	if (!shake_ui)
@@ -520,4 +520,9 @@ boolean box_test(float x, float y, float box_x, float box_y, float w, float h)
 	boolean maxy = y < (box_y + h);
 	// if all these things are true then we're solid.
 	return minx & miny & maxx & maxy;
+}
+
+void indi_rect(float x, float y, float w, float h)
+{
+	rect(x,y,w,h);
 }

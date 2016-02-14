@@ -89,7 +89,7 @@ class curtains
 		}
 		
 		
-		rect(0,pos1,128,65);
-		rect(0,pos2-0.5,128,65);
+		indi_rect(0,pos1,128,65);
+		indi_rect(0,pos2-0.5,128,65);
 	}
 }
