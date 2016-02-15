@@ -241,8 +241,13 @@ class cutscene
 			
 			if (text_box_finished)
 			{
-				if (text_box_finish_name.equals("chap2_6_1"))
+				if (text_box_finish_name.equals("chap2_6_1_joe_first"))
 					progress++;
+				if (text_box_finish_name.equals("chap2_6_1_joe_second"))
+					progress++;
+				if (text_box_finish_name.equals("chap2_6_1_joe_last"))
+					progress++;
+					
 				if (text_box_finish_name.equals("chap2_6_2"))
 					progress++;
 			}
@@ -257,7 +262,14 @@ class cutscene
 			
 			else if (progress == 2)
 			{
-				texter = new textbox("chap2_6_1");
+
+				// branches based on necklace selection
+				if (necklace_select < 16)
+					texter = new textbox("chap2_6_1_joe_first");
+				else if (necklace_select < 32)
+					texter = new textbox("chap2_6_1_joe_second");
+				else
+					texter = new textbox("chap2_6_1_joe_last");
 				progress++;
 			}
 			else if (progress == 4)

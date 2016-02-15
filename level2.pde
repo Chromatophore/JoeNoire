@@ -1,4 +1,4 @@
-// level 2 OH LORDY LORD
+	// level 2 OH LORDY LORD
 
 basic_image coin_gfx[];
 
@@ -112,27 +112,72 @@ class level2
 				
 				theUI.SetCursorConstraints(20,0,108,127);
 		}
-		else if (state == 70 || state == 71)
+		else if (state == 61)
 		{
+			// R wins the race and takes one of the necklaces, then goes away?
+			necklaces = 5;
+
+			texter = new textbox("chap2_5_6_finished_r_takes_one");
+		}
+		else if (state == 70 || state == 71 || state == 72)
+		{
+			// end the race
 			game_on = false;
+			theUI.special_race_mode(false);
+			theUI.ResetCursor();
+
+			theUI.OverrideCursor(false, bagcursor);
+
+			if (state == 70)
+			{
+				// player has full selection of all necklaces
+				necklaces = 7;
+				texter = new textbox("chap2_5_6_finished_first");
+			}
+			else if (state == 71)
+			{
+				// player comes second
+				necklaces = 5;
+				texter = new textbox("chap2_5_6_finished_second");
+			}
+			else if (state == 72)
+			{
+				// pick a random necklace for L to take
+				if (random(100) > 50)
+					necklaces = 1;
+				else
+					necklaces = 4;
+				texter = new textbox("chap2_5_6_finished_last");
+			}
+		}
+		else if (state == 80 || state == 81 || state == 82)
+		{
+			// the level is going to end now
 			theUI.sounds(false);
 			jitter.anxiety(false);
 			jitter.inaction_off();
 			jitter.player_must_pump = false;
-			
-			
-				theUI.special_race_mode(false);
-				theUI.ResetCursor();
-				
-				if (state == 70)
-				{
-					texter = new textbox("chap2_5_6_win");
-				}
-				else
-				{
-					texter = new textbox("chap2_5_6_lose");
-				}
+
+			if (state == 80)
+			{
+				texter = new textbox("chap2_5_6_player_pick_win");
+
+				// leave the selection alone
+				necklace_select = necklace_select;
+			}
+			if (state == 81)
+			{
+				texter = new textbox("chap2_5_6_player_pick_middle");
+
+				necklace_select += 16;
+			}
+			if (state == 82)
+			{
+				texter = new textbox("chap2_5_6_player_pick_last");
+				necklace_select += 32;
+			}
 		}
+
 		
 		spro = state;
 	}
@@ -168,8 +213,9 @@ class level2
 				jitter.player_must_pump = true;
 			}
 			
-			if ((text_box_finish_name.equals("chap2_5_6_win")) ||
-					(text_box_finish_name.equals("chap2_5_6_lose")))
+			if ((text_box_finish_name.equals("chap2_5_6_player_pick_win")) ||
+					(text_box_finish_name.equals("chap2_5_6_player_pick_middle")) ||
+					(text_box_finish_name.equals("chap2_5_6_player_pick_last")))
 			{
 				eye_c.change(false,"level2_finalend");
 				make_sound.stop_music();
@@ -200,6 +246,7 @@ class level2
 	
 	basic_image HeistBG;
 	basic_image Heist2BG;
+	basic_image Heist2BG_mid;
 	basic_image Heist2BG_break;
 	basic_image bagcursor;
 	
@@ -207,8 +254,12 @@ class level2
 	basic_image bagcursor_R;
 	
 	basic_image[] ring_treasures;
-	
-	
+
+
+	basic_image Heist3BG;
+	basic_image Heist3_neck1;
+	basic_image Heist3_neck2;
+	basic_image Heist3_neck3;
 	
 	float bag_accumulator;
 	
@@ -238,6 +289,7 @@ class level2
 		
 		HeistBG = new basic_image(loadImage("data/MIT/lv2/heist.png"),64,64);
 		Heist2BG = new basic_image(loadImage("data/MIT/lv2/heist_2.png"),64,64);
+		Heist2BG_mid = new basic_image(loadImage("data/MIT/lv2/heist_2_mid.png"),64,64);
 		Heist2BG_break	= new basic_image(loadImage("data/MIT/lv2/heist_2_break.png"),64,64);
 		bagcursor = new basic_image(loadImage("data/MIT/lv2/bagcursor.png"),64,64);
 		
@@ -252,6 +304,11 @@ class level2
 		ring_treasures[1] = new basic_image(loadImage("data/MIT/lv2/ring_green.png"),64,64);
 		ring_treasures[2] = new basic_image(loadImage("data/MIT/lv2/ring_pink.png"),64,64);
 		ring_treasures[3] = new basic_image(loadImage("data/MIT/lv2/ring_red.png"),64,64);
+
+		Heist3BG = new basic_image(loadImage("data/MIT/lv2/heist_3.png"),64,64);
+		Heist3_neck1 = new basic_image(loadImage("data/MIT/lv2/neck1.png"),64,64);
+		Heist3_neck2 = new basic_image(loadImage("data/MIT/lv2/neck2.png"),64,64);
+		Heist3_neck3 = new basic_image(loadImage("data/MIT/lv2/neck3.png"),64,64);
 		
 		bag_accumulator = 0;
 		
@@ -274,7 +331,10 @@ class level2
 	
 	int next_t;
 	
-	int rings = 50;
+	int rings = 40;
+
+	boolean race_auto_climb = false;
+	int necklaces = 7;
 	
 	void draw()
 	{
@@ -284,7 +344,12 @@ class level2
 		if (spro < 50)
 			HeistBG.draw();
 		else
-			Heist2BG.draw();
+		{
+			if (necklaces != 5)
+				Heist2BG.draw();
+			else
+				Heist2BG_mid.draw();
+		}
 			
 		if (spro >= 60)
 		{
@@ -311,6 +376,21 @@ class level2
 			}
 		}
 		
+		if (spro >= 70)
+		{
+			Heist3BG.draw();
+			if (necklaces > 0)
+			{
+				if ((necklaces & 1) != 0)
+					Heist3_neck1.draw();
+				if ((necklaces & 2) != 0)
+					Heist3_neck2.draw();
+				if ((necklaces & 4) != 0)
+					Heist3_neck3.draw();
+			}
+		}
+
+
 		
 		if (!game_on)
 		{
@@ -318,7 +398,6 @@ class level2
 		}
 		
 		theUI.OverrideCursor(true, bagcursor);
-		
 		
 		c_timer++;
 		if (c_timer % 10 == 0 && (rings > 1 || spro == 60))
@@ -425,28 +504,45 @@ class level2
 			
 			// check everyone's heights
 			
-			if (spro == 60)
+			if (spro == 60 || spro == 61)
 			{
-				float winnerheight = 37;
+				println(theUI.cursor_y);
+				float winnerheight = 45;
 				if (theUI.cursor_y <= winnerheight)
 				{
-					level_state(70);
+					// the player is at the top
+					if (spro == 60)
+						level_state(70);	// is 1st
+					else
+						level_state(71);	// is 2nd
 				}
-				else if (bagcursor_R.y_float <= winnerheight || bagcursor_L.y_float <= winnerheight)
+				else if (bagcursor_R.y_float <= winnerheight && spro == 60)
 				{
-					level_state(71);
+					// don't end, but enable auto climb
+					race_auto_climb = true;
+					level_state(61);
+				}
+				else if (bagcursor_L.y_float <= winnerheight)
+				{
+					// even been beaten by useless L
+					level_state(72);
 				}
 			}
-			
-			
-			
 		}
-			
+		
 		bagcursor_L.draw();
-		bagcursor_R.draw();
+		if (spro < 61)
+			bagcursor_R.draw();
 		
 		float size_allow = 10;
 		
+		if (race_auto_climb && texter == null)
+		{
+			bagcursor_L.y_float -= 0.1;
+			bagcursor_R.y_float -= 0.1;
+			theUI.mod_up(-0.1);
+		}
+
 		for (int j = 0; j < 100; j++)
 		{
 			coin c = coinpile[j];
@@ -594,7 +690,6 @@ class level2
 	
 	void TakeInput(inputblob i)
 	{
-		
 		if (preshoot)
 		{
 			if (spro == 51 || spro == 52)
@@ -623,7 +718,38 @@ class level2
 				}
 				
 			}
-			
+		}
+
+		if (spro >= 70 && spro < 80)
+		{
+			float effective_cursor_x = theUI.GetCursorX();
+			float effective_cursor_y = theUI.GetCursorY();
+
+			if (i.x_down)
+			{
+				int necklace_start = necklaces;
+
+				if (box_test(effective_cursor_x,effective_cursor_y, 22, 61, 16,17) && (necklaces & 1) != 0)
+				{
+					necklaces -= 1;
+					necklace_select = 1;
+				}
+				if (box_test(effective_cursor_x,effective_cursor_y, 64, 66, 14,16) && (necklaces & 2) != 0)
+				{
+					necklaces -= 2;
+					necklace_select = 2;
+				}
+				if (box_test(effective_cursor_x,effective_cursor_y, 98, 66, 12,11) && (necklaces & 4) != 0)
+				{
+					necklaces -= 4;
+					necklace_select = 4;
+				}
+
+				if (necklaces != necklace_start)
+				{
+					level_state(spro + 10);
+				}
+			}
 		}
 		
 		if (!game_on)

@@ -366,6 +366,8 @@ class UI
 	
 	void ResetCursor()
 	{
+		cursor_y = round(cursor_y);
+
 		cursor_minx = 0;
 		cursor_miny = 0;
 		cursor_maxx = 127;
