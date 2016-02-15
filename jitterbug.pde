@@ -114,7 +114,7 @@ class jitterbug
 	
 	void assess_input_score()
 	{
-		things_done += 1;
+		things_done += 2;
 		float total_delta = hold_total + release_total;
 		//println("delta: " + total_delta);
 		//println("% held: " + (hold_total/total_delta));
@@ -222,10 +222,10 @@ class jitterbug
 	
 	void check_did_anything()
 	{
-		if (things_done > 1)
+		if (things_done > 2 && punish_inaction)
 		{
 			// we're ok this turn
-			things_done = 1;
+			things_done = 2;
 		}
 		else if (things_done == 0)
 		{
@@ -233,22 +233,28 @@ class jitterbug
 			marker_position = 0;
 			pump_bar();
 		}
-		else if (things_done != 0)
+		else if (things_done >= 0 && punish_inaction)
 		{
 			// weve skipped a beat, but, we could easily get stiffed on this so we have this one beat window each time.
-			if (punish_inaction)
-				things_done = 0;
+			if (things_done == 1)
+			{
+				marker_position = 25;
+			}
+
+			if (things_done > 0)
+				things_done--;
 		}
 	}
 	
 	boolean punish_inaction = false;
 	void inaction_on()
 	{
-	punish_inaction = true;
+		punish_inaction = true;
+		things_done = 3;
 	}
 	void inaction_off()
 	{
-	punish_inaction = false;
+		punish_inaction = false;
 	}
 	
 	boolean system_state = false;
@@ -313,12 +319,13 @@ class jitterbug
 		{
 			text_box_forgive = false;
 			//println("but forgiven!");
+			things_done = 3;		
 		}
 
 		if (millis() > sound_milli)
 		{
 			sound_milli += 99999;
-			theUI.pulse_sound(!pulse);
+			theUI.pulse_sound(pulse);
 		}
 
 		if (millis() > pulse_milli)

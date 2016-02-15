@@ -374,8 +374,6 @@ class sounder
 		// as is our calmness, 1.0 is fully calm
 		// we need to reverse this:
 		factor = 1 - factor;
-
-		factor = 1;
 		
 		float up_gain = global_gain + (20 * factor) - 15;
 		down_gain = global_gain - (10 * factor);

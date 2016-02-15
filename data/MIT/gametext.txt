@@ -78,8 +78,8 @@ intro_anxious
 4
 tannoy^Hey Jack, you look like you could use a break! Not that you'll get one, ha!
 none^Can't drop these damned shakes again!
-none^Just gotta use C to relax. To time my breathing.
-none^Hold for in... Release for out...
+none^Just gotta relax... Gotta use C in time to my breathing.
+none^Push and hold when breathing out... Release when I breathe in...
 
 text
 intro_anxious_done
