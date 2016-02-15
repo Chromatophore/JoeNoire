@@ -62,7 +62,7 @@ class screen_title
 	
 	void draw()
 	{
-		textFont(font, 20);
+		indi_textFont(font, 20);
 		
 		title_img_bg.draw();
 		
@@ -78,7 +78,7 @@ class screen_title
 			subwave.draw();
 		}
 		
-		text("AVERAGE",37,15);
+		indi_text("AVERAGE",37,15);
 		
 		pressxframes += 1;
 		
@@ -91,7 +91,7 @@ class screen_title
 			pressxframes -= 120;
 		}
 
-		textFont(font_ui, 14);
+		indi_textFont(font_ui, 14);
 		fill(white);
 
 		theUI.draw_volume(true);
@@ -202,6 +202,9 @@ class wave
 	void draw()
 	{
 		pushMatrix();
+
+		if (js_mode)
+			scale(js_scale,js_scale);
 		
 		x_float += speed;
 		translate(x_float,y);

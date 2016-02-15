@@ -459,7 +459,7 @@ class textbox
 			}
 			else
 			{
-				textFont(font, 20);
+				indi_textFont(font, 20);
 				fill(white);
 
 				textbox_background_nox.setWH(0,0);
@@ -495,14 +495,25 @@ class textbox
 				}
 				
 				// translate to text start position:
-				translate(36,103);
+
+				float x_shift = 36;
+				float y_shift = 103;
 
 				if (UseBig)
 				{
 					// translate back to wide box position:
 					wrapsize = 120;
-					translate(-31,0);
+					x_shift -= 31;
 				}
+
+				if (js_mode)
+				{
+					x_shift *= js_scale;
+					y_shift *= js_scale;
+				}
+
+
+				translate(x_shift,y_shift);
 				
 				int x_offset = 0;
 				String textwrite = this_text;
@@ -521,7 +532,7 @@ class textbox
 					{
 						// Draw this character
 						if (linedrops < 2)
-							text(substring,x_offset,0);
+							indi_text(substring,x_offset,0);
 
 						// And extend our offset by its width
 						x_offset += var_width_array[charry[j]] + 1;
@@ -590,7 +601,11 @@ class textbox
 								// However we don't need this until we wrap again
 							}
 							x_offset = 0;
-							translate(0,16);
+							if (js_mode)
+								translate(0,16 * js_scale);
+							else
+								translate(0,16);
+							
 							chars_on_line = 0;
 							
 							linedrops++;

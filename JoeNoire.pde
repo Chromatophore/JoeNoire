@@ -2,6 +2,11 @@
 
 import ddf.minim.*; //<>// //<>//
 
+// GLOBAL JS SETTINGS:
+boolean js_mode = false;
+boolean js_scale_images = false;
+float js_scale = 4;
+
 // GLOBAL SETTINGS:
 float global_gain = -10;
 float volume_change_rate = 0.1;
@@ -60,9 +65,13 @@ void setup()
 {
 	// Set up window:
 	size(512,512, P2D);
-	((PGraphicsOpenGL)g).textureSampling(3);
-	// Try and prevent resizing because it does not work at all
-	surface.setResizable(false);
+
+	if (!js_mode)
+	{
+		((PGraphicsOpenGL)g).textureSampling(3);
+		// Try and prevent resizing because it does not work at all
+		surface.setResizable(false);
+	}
 	
 	// Setup image mode, stroke and background settings
 	imageMode(CENTER);
@@ -84,10 +93,29 @@ void setup()
 	white = color(255,255,255);
 	
 	// Load fonts:
-	font = createFont("RetroDeco.ttf",20,false);
-	font_ui = createFont("Minimal4.ttf",14,false);
 
-	textFont(font, 20);
+	String font_string1 = "RetroDeco";
+	String font_string2 = "Minimal4";
+
+	int size1 = 20;
+	int size2 = 14;
+
+	if (!js_mode)
+	{
+		font_string1 += ".ttf";
+		font_string2 += ".ttf";
+	}
+	else
+	{
+		size1 *= js_scale;
+		size2 *= js_scale;
+	}
+
+
+	font = createFont(font_string1,size1,false);
+	font_ui = createFont(font_string2,size2,false);
+
+	indi_textFont(font, 20);
 
 	// Initialise text system
 	textbox_setup();
@@ -113,7 +141,8 @@ void draw()
 {
 	boolean shake_ui = true;
 	// Set up our initial scale:
-	scale(4.0,4.0);
+	if (!js_mode)
+		scale(4.0,4.0);
 	
 	// Set up the screen shake black out:
 	fill(black);
@@ -137,6 +166,11 @@ void draw()
 		
 		float shake_x = random(2 * shake_scale) - shake_scale;
 		float shake_y = random(2 * shake_scale) - shake_scale;
+		if (js_mode)
+		{
+			shake_x *= js_scale;
+			shake_y *= js_scale;
+		}
 		translate(shake_x,shake_y);
 		shake_frames--;
 	}
@@ -483,7 +517,10 @@ class basic_image
 	{
 		pushMatrix();
 		
-		translate(x_float,y_float);
+		if (js_mode)
+			translate(x_float * js_scale,y_float * js_scale);
+		else
+			translate(x_float,y_float);
 
 		if (rotation != 0.0)
 		{
@@ -504,11 +541,22 @@ class basic_image
 		
 		if (w != 0 || h != 0)
 		{
-			image(imageRef,0,0,w,h);
+			if (js_mode)
+				image(imageRef,0,0,w * 4,h * 4);
+			else
+				image(imageRef,0,0,w,h);
 		}
 		else
 		{
-			image(imageRef,0,0);
+			if (js_mode)	
+			{
+				if (js_scale_images) // images need to be scaled
+					image(imageRef,0,0,imageRef.width * js_scale, imageRef.height * js_scale);
+				else // images bigger already
+					image(imageRef,0,0);
+			}
+			else
+				image(imageRef,0,0);
 		}
 		
 		if (correct_fade)
@@ -521,7 +569,10 @@ class basic_image
 	
 	boolean do_box_test(float x, float y)
 	{
-		return box_test(x,y, x_float, y_float, imageRef.width / 2, imageRef.height / 2);
+		if (js_mode)
+			return box_test(x,y, x_float, y_float, imageRef.width / (2 * js_scale), imageRef.height / (2 * js_scale));
+		else
+			return box_test(x,y, x_float, y_float, imageRef.width / 2, imageRef.height / 2);
 	}
 }
 
@@ -553,5 +604,26 @@ boolean box_test(float x, float y, float box_x, float box_y, float w, float h)
 
 void indi_rect(float x, float y, float w, float h)
 {
-	rect(x,y,w,h);
+	if (js_mode)
+		rect(4 * x,4 * y,4 * w,4 * h);
+	else
+		rect(x,y,w,h);
+}
+
+void indi_text(String s, float x, float y)
+{
+	if (js_mode)
+	{
+		text(s,4 * x,4 * y);
+	}
+	else
+		text(s,x,y);
+}
+
+void indi_textFont(PFont f, float size)
+{
+	if (js_mode)
+		size *= js_scale;
+	
+	textFont(f, size);
 }

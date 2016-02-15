@@ -62,12 +62,12 @@ class UI
 		if (title)
 		{
 			volume_title.draw();
-			text(str(volume_display),128-11,7);
+			indi_text(str(volume_display),128-11,7);
 		}
 		else
 		{
 			volume_graphic.draw();
-			text(str(volume_display),9,128 - 9);
+			indi_text(str(volume_display),9,128 - 9);
 		}
 	}
 
@@ -156,7 +156,7 @@ class UI
 		fill(black);
 		indi_rect(0,128-16,128,16);
 		
-		textFont(font_ui, 14);
+		indi_textFont(font_ui, 14);
 		
 		fill(lgrey);
 		
@@ -190,11 +190,11 @@ class UI
 			number = "0" + number;
 
 
-		text(number,118,119);
+		indi_text(number,118,119);
 		number = str(sads);
 		if (number.length() == 1)
 			number = "0" + number;
-		text(number,118,125);
+		indi_text(number,118,125);
 
 		draw_volume(false);
 		

@@ -799,9 +799,9 @@ class level1
 			}
 		}
 		
-		textFont(font_ui, 14);
-		text("Progress: " + str(crates_complete) + "/" + str(crate_goal),5,5);
-		text("Bad sides: " + str(bad_sides) + "/" + str(bad_limit),75,5);
+		indi_textFont(font_ui, 14);
+		indi_text("Progress: " + str(crates_complete) + "/" + str(crate_goal),5,5);
+		indi_text("Bad sides: " + str(bad_sides) + "/" + str(bad_limit),75,5);
 		
 		// Draw the black box at the bottom:
 		fill(black);

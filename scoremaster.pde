@@ -33,7 +33,7 @@ class scoremaster
 	
 	void draw()
 	{
-		textFont(font_ui, 14);
+		indi_textFont(font_ui, 14);
 		for (int j = 0; j < risermax; j++)
 		{
 			score_riser s = score_rise_effects[j];
@@ -71,7 +71,7 @@ class scoremaster
 					}
 					
 					String o = s.value;
-					text(o, s.x - 4, s.y + 2);
+					indi_text(o, s.x - 4, s.y + 2);
 					if (ref != null)
 					{
 						ref.setPos(s.x - 2 + (o.length()) * 4,s.y);
