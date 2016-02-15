@@ -66,6 +66,8 @@ void setup()
 	// Set up window:
 	size(512,512, P2D);
 
+	js_mode = js_test();
+
 	if (!js_mode)
 	{
 		((PGraphicsOpenGL)g).textureSampling(3);
@@ -121,8 +123,8 @@ void setup()
 	textbox_setup();
 
 	// Load the gun cursor because it's used in multiple levels and globals are lazy!
-	guncursor = new basic_image(loadImage("data/MIT/UI/crosshair.png"),64,64);
-	help_screen = new basic_image(loadImage("data/MIT/UI/helppage.png"),64,64);
+	guncursor = new basic_image(indi_loadImage("data/MIT/UI/crosshair.png"),64,64);
+	help_screen = new basic_image(indi_loadImage("data/MIT/UI/helppage.png"),64,64);
 	
 	// Start the game
 	progress_game("game_reset");
@@ -626,4 +628,19 @@ void indi_textFont(PFont f, float size)
 		size *= js_scale;
 	
 	textFont(f, size);
+}
+
+PImage indi_loadImage(String path)
+{
+	if (js_mode)
+	{
+		// example path:
+		//"data/MIT/lv3/arm_down.png"
+		String path_cut = path.substring(8);
+		return loadImage("data/MIT_4x" + path_cut);
+	}
+	else
+	{
+		return loadImage(path);
+	}
 }

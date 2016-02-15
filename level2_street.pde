@@ -67,17 +67,17 @@ class level2_street
 	
 	level2_street()
 	{
-		streetBG = new basic_image(loadImage("data/MIT/lv2/streetview.png"),64,64);
+		streetBG = new basic_image(indi_loadImage("data/MIT/lv2/streetview.png"),64,64);
 		
-		scary1 = new basic_image(loadImage("data/MIT/lv2/streetview_a.png"),64,64);
-		lessscary1 = new basic_image(loadImage("data/MIT/lv2/streetview_ar.png"),64,64);
+		scary1 = new basic_image(indi_loadImage("data/MIT/lv2/streetview_a.png"),64,64);
+		lessscary1 = new basic_image(indi_loadImage("data/MIT/lv2/streetview_ar.png"),64,64);
 		
-		scary2 = new basic_image(loadImage("data/MIT/lv2/streetview_b.png"),64,64);
-		lessscary2 = new basic_image(loadImage("data/MIT/lv2/streetview_br.png"),64,64);
+		scary2 = new basic_image(indi_loadImage("data/MIT/lv2/streetview_b.png"),64,64);
+		lessscary2 = new basic_image(indi_loadImage("data/MIT/lv2/streetview_br.png"),64,64);
 		
-		scary3 = new basic_image(loadImage("data/MIT/lv2/streetview_c.png"),64,64);
+		scary3 = new basic_image(indi_loadImage("data/MIT/lv2/streetview_c.png"),64,64);
 		
-		bat = new basic_image(loadImage("data/MIT/lv2/bat.png"),64,64);
+		bat = new basic_image(indi_loadImage("data/MIT/lv2/bat.png"),64,64);
 		
 		level_state(0);
 	}

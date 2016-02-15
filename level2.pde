@@ -281,34 +281,34 @@ class level2
 		coin_gfx = new basic_image[10];
 		for (int j = 0;j < 10; j++)
 		{
-			coin_gfx[j] = new basic_image(loadImage("data/MIT/lv2/coin" + str(j) + ".png"),64,64);
+			coin_gfx[j] = new basic_image(indi_loadImage("data/MIT/lv2/coin" + str(j) + ".png"),64,64);
 		}
 		
 		coinpile = new coin[100];
 		ringpile = new treasure[20];
 		
-		HeistBG = new basic_image(loadImage("data/MIT/lv2/heist.png"),64,64);
-		Heist2BG = new basic_image(loadImage("data/MIT/lv2/heist_2.png"),64,64);
-		Heist2BG_mid = new basic_image(loadImage("data/MIT/lv2/heist_2_mid.png"),64,64);
-		Heist2BG_break	= new basic_image(loadImage("data/MIT/lv2/heist_2_break.png"),64,64);
-		bagcursor = new basic_image(loadImage("data/MIT/lv2/bagcursor.png"),64,64);
+		HeistBG = new basic_image(indi_loadImage("data/MIT/lv2/heist.png"),64,64);
+		Heist2BG = new basic_image(indi_loadImage("data/MIT/lv2/heist_2.png"),64,64);
+		Heist2BG_mid = new basic_image(indi_loadImage("data/MIT/lv2/heist_2_mid.png"),64,64);
+		Heist2BG_break	= new basic_image(indi_loadImage("data/MIT/lv2/heist_2_break.png"),64,64);
+		bagcursor = new basic_image(indi_loadImage("data/MIT/lv2/bagcursor.png"),64,64);
 		
-		bagcursor_L = new basic_image(loadImage("data/MIT/lv2/goonbag1.png"),-64,64);
-		bagcursor_R = new basic_image(loadImage("data/MIT/lv2/goonbag2.png"),-64,64);
+		bagcursor_L = new basic_image(indi_loadImage("data/MIT/lv2/goonbag1.png"),-64,64);
+		bagcursor_R = new basic_image(indi_loadImage("data/MIT/lv2/goonbag2.png"),-64,64);
 		
-		shard_image = new basic_image(loadImage("data/MIT/lv2/glass_shatter.png"),-64,64);
+		shard_image = new basic_image(indi_loadImage("data/MIT/lv2/glass_shatter.png"),-64,64);
 		
 		ring_treasures = new basic_image[4];
 		
-		ring_treasures[0] = new basic_image(loadImage("data/MIT/lv2/ring_blue.png"),64,64);
-		ring_treasures[1] = new basic_image(loadImage("data/MIT/lv2/ring_green.png"),64,64);
-		ring_treasures[2] = new basic_image(loadImage("data/MIT/lv2/ring_pink.png"),64,64);
-		ring_treasures[3] = new basic_image(loadImage("data/MIT/lv2/ring_red.png"),64,64);
+		ring_treasures[0] = new basic_image(indi_loadImage("data/MIT/lv2/ring_blue.png"),64,64);
+		ring_treasures[1] = new basic_image(indi_loadImage("data/MIT/lv2/ring_green.png"),64,64);
+		ring_treasures[2] = new basic_image(indi_loadImage("data/MIT/lv2/ring_pink.png"),64,64);
+		ring_treasures[3] = new basic_image(indi_loadImage("data/MIT/lv2/ring_red.png"),64,64);
 
-		Heist3BG = new basic_image(loadImage("data/MIT/lv2/heist_3.png"),64,64);
-		Heist3_neck1 = new basic_image(loadImage("data/MIT/lv2/neck1.png"),64,64);
-		Heist3_neck2 = new basic_image(loadImage("data/MIT/lv2/neck2.png"),64,64);
-		Heist3_neck3 = new basic_image(loadImage("data/MIT/lv2/neck3.png"),64,64);
+		Heist3BG = new basic_image(indi_loadImage("data/MIT/lv2/heist_3.png"),64,64);
+		Heist3_neck1 = new basic_image(indi_loadImage("data/MIT/lv2/neck1.png"),64,64);
+		Heist3_neck2 = new basic_image(indi_loadImage("data/MIT/lv2/neck2.png"),64,64);
+		Heist3_neck3 = new basic_image(indi_loadImage("data/MIT/lv2/neck3.png"),64,64);
 		
 		bag_accumulator = 0;
 		

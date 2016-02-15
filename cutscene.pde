@@ -22,21 +22,21 @@ class cutscene
 	
 	cutscene()
 	{
-		bar = new basic_image(loadImage("data/MIT/cutscenes/bar.png"),64,64);
-		booze = new basic_image(loadImage("data/MIT/cutscenes/booze.png"),64,64);
-		bank = new basic_image(loadImage("data/MIT/cutscenes/bank.png"),64,64);
+		bar = new basic_image(indi_loadImage("data/MIT/cutscenes/bar.png"),64,64);
+		booze = new basic_image(indi_loadImage("data/MIT/cutscenes/booze.png"),64,64);
+		bank = new basic_image(indi_loadImage("data/MIT/cutscenes/bank.png"),64,64);
 		
-		superboss_cut1 = new basic_image(loadImage("data/MIT/cutscenes/superboss_cutscene.png"),64,64);
-		superboss_cut2 = new basic_image(loadImage("data/MIT/cutscenes/superboss_cutscene_2.png"),64,64);
+		superboss_cut1 = new basic_image(indi_loadImage("data/MIT/cutscenes/superboss_cutscene.png"),64,64);
+		superboss_cut2 = new basic_image(indi_loadImage("data/MIT/cutscenes/superboss_cutscene_2.png"),64,64);
 		
-		gunshot = new basic_image(loadImage("data/MIT/lv3/gunshot.png"),64,64);
+		gunshot = new basic_image(indi_loadImage("data/MIT/lv3/gunshot.png"),64,64);
 		
-		ep1 = new basic_image(loadImage("data/MIT/epilogue/epilogue_1.png"),64,48);
-		ep2 = new basic_image(loadImage("data/MIT/epilogue/epilogue_2.png"),64,48);
-		ep3 = new basic_image(loadImage("data/MIT/epilogue/epilogue_3.png"),64,48);
-		ep4 = new basic_image(loadImage("data/MIT/epilogue/epilogue_4.png"),64,48);
+		ep1 = new basic_image(indi_loadImage("data/MIT/epilogue/epilogue_1.png"),64,48);
+		ep2 = new basic_image(indi_loadImage("data/MIT/epilogue/epilogue_2.png"),64,48);
+		ep3 = new basic_image(indi_loadImage("data/MIT/epilogue/epilogue_3.png"),64,48);
+		ep4 = new basic_image(indi_loadImage("data/MIT/epilogue/epilogue_4.png"),64,48);
 		
-		cred = new basic_image(loadImage("data/MIT/epilogue/credits.png"),64,256+128);
+		cred = new basic_image(indi_loadImage("data/MIT/epilogue/credits.png"),64,256+128);
 	}
 	
 	

@@ -123,13 +123,13 @@ class level3
 	
 	level3()
 	{
-			arm_down = new basic_image(loadImage("data/MIT/lv3/arm_down.png"),64,64);
-			arm_up = new basic_image(loadImage("data/MIT/lv3/arm_up.png"),64,64);
-			family = new basic_image(loadImage("data/MIT/lv3/family.png"),64,64);
-			man_base = new basic_image(loadImage("data/MIT/lv3/man_base.png"),64,64);
-			necklace = new basic_image(loadImage("data/MIT/lv3/necklace.png"),64,64);
-			tiepin = new basic_image(loadImage("data/MIT/lv3/tiepin.png"),64,64);
-			watch = new basic_image(loadImage("data/MIT/lv3/watch.png"),64,64);
+			arm_down = new basic_image(indi_loadImage("data/MIT/lv3/arm_down.png"),64,64);
+			arm_up = new basic_image(indi_loadImage("data/MIT/lv3/arm_up.png"),64,64);
+			family = new basic_image(indi_loadImage("data/MIT/lv3/family.png"),64,64);
+			man_base = new basic_image(indi_loadImage("data/MIT/lv3/man_base.png"),64,64);
+			necklace = new basic_image(indi_loadImage("data/MIT/lv3/necklace.png"),64,64);
+			tiepin = new basic_image(indi_loadImage("data/MIT/lv3/tiepin.png"),64,64);
+			watch = new basic_image(indi_loadImage("data/MIT/lv3/watch.png"),64,64);
 			
 			level_state(0);
 	}

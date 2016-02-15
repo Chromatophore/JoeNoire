@@ -1,0 +1,6 @@
+
+
+boolean js_test()
+{
+	return true;
+}

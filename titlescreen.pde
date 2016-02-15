@@ -13,9 +13,9 @@ class screen_title
 	
 	screen_title()
 	{
-		title_img_bg = new basic_image(loadImage("data/MIT/title/title_grey_noav.png"),64,64);
-		title_img_city = new basic_image(loadImage("data/MIT/title/city.png"),64,64);
-		spotlight_img = new basic_image(loadImage("data/MIT/title/spotlight.png"),0,0);
+		title_img_bg = new basic_image(indi_loadImage("data/MIT/title/title_grey_noav.png"),64,64);
+		title_img_city = new basic_image(indi_loadImage("data/MIT/title/city.png"),64,64);
+		spotlight_img = new basic_image(indi_loadImage("data/MIT/title/spotlight.png"),0,0);
 		
 		color lightgrey = color(191,191,191);
 	
@@ -57,7 +57,7 @@ class screen_title
 			title_spots[j] = new spotlight(int(x_offset + ratio * (128 - 2 * x_offset)),91,(1.0 + 0.8 + ratio * 0.4) * PI, spotlight_img);
 		}
 		
-		pressXtoStart = new basic_image(loadImage("data/MIT/title/pressXtoStart.png"),64,115);
+		pressXtoStart = new basic_image(indi_loadImage("data/MIT/title/pressXtoStart.png"),64,115);
 	}
 	
 	void draw()

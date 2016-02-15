@@ -312,28 +312,28 @@ class level1
 	
 	level1()
 	{
-		WareHouseBG = new basic_image(loadImage("data/MIT/lv1/warehouse.png"),-128,64);
-		WareHouseSky = new basic_image(loadImage("data/MIT/lv1/warehouse_sky.png"),64,256);
-		Crate1 = new basic_image(loadImage("data/MIT/lv1/crate1.png"),0,0);
-		Crate2 = new basic_image(loadImage("data/MIT/lv1/crate2.png"),0,0);
+		WareHouseBG = new basic_image(indi_loadImage("data/MIT/lv1/warehouse.png"),-128,64);
+		WareHouseSky = new basic_image(indi_loadImage("data/MIT/lv1/warehouse_sky.png"),64,256);
+		Crate1 = new basic_image(indi_loadImage("data/MIT/lv1/crate1.png"),0,0);
+		Crate2 = new basic_image(indi_loadImage("data/MIT/lv1/crate2.png"),0,0);
 		
-		conveyor_wheels = new basic_image(loadImage("data/MIT/lv1/conveyorwheels.png"),15,64);
+		conveyor_wheels = new basic_image(indi_loadImage("data/MIT/lv1/conveyorwheels.png"),15,64);
 		
-		arrow_left = new basic_image(loadImage("data/MIT/lv1/leftside_arrow.png"),15,64);
-		arrow_right = new basic_image(loadImage("data/MIT/lv1/rightside_arrow.png"),113,64);
-		next_button = new basic_image(loadImage("data/MIT/lv1/next.png"),113,96);
+		arrow_left = new basic_image(indi_loadImage("data/MIT/lv1/leftside_arrow.png"),15,64);
+		arrow_right = new basic_image(indi_loadImage("data/MIT/lv1/rightside_arrow.png"),113,64);
+		next_button = new basic_image(indi_loadImage("data/MIT/lv1/next.png"),113,96);
 		
-		label1 = new basic_image(loadImage("data/MIT/lv1/l1.png"),64,64);
-		label2 = new basic_image(loadImage("data/MIT/lv1/l2.png"),64,64);
+		label1 = new basic_image(indi_loadImage("data/MIT/lv1/l1.png"),64,64);
+		label2 = new basic_image(indi_loadImage("data/MIT/lv1/l2.png"),64,64);
 		
 		label_zones = new basic_image[6];
 		
-		label_zones[0] = new basic_image(loadImage("data/MIT/lv1/l1z1.png"),64,64);
-		label_zones[1] = new basic_image(loadImage("data/MIT/lv1/l1z2.png"),64,64);
-		label_zones[2] = new basic_image(loadImage("data/MIT/lv1/l1z3.png"),64,64);
-		label_zones[3] = new basic_image(loadImage("data/MIT/lv1/l2z1.png"),64,64);
-		label_zones[4] = new basic_image(loadImage("data/MIT/lv1/l2z2.png"),64,64);
-		label_zones[5] = new basic_image(loadImage("data/MIT/lv1/l2z3.png"),64,64);
+		label_zones[0] = new basic_image(indi_loadImage("data/MIT/lv1/l1z1.png"),64,64);
+		label_zones[1] = new basic_image(indi_loadImage("data/MIT/lv1/l1z2.png"),64,64);
+		label_zones[2] = new basic_image(indi_loadImage("data/MIT/lv1/l1z3.png"),64,64);
+		label_zones[3] = new basic_image(indi_loadImage("data/MIT/lv1/l2z1.png"),64,64);
+		label_zones[4] = new basic_image(indi_loadImage("data/MIT/lv1/l2z2.png"),64,64);
+		label_zones[5] = new basic_image(indi_loadImage("data/MIT/lv1/l2z3.png"),64,64);
 
 		current_camera_x = 512 - 128;
 		

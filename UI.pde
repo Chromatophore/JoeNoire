@@ -73,28 +73,28 @@ class UI
 
 	UI()
 	{
-		ui_base = new basic_image(loadImage("data/MIT/UI/UI_base.png"), 64,128 - 8);
-		ui_base1 = new basic_image(loadImage("data/MIT/UI/UI_base_a.png"), 64,128 - 8);
-		ui_base2 = new basic_image(loadImage("data/MIT/UI/UI_base_b.png"), 64,128 - 8);
-		marker = new basic_image(loadImage("data/MIT/UI/calm_marker.png"), 64,128 - 10);
-		marker2 = new basic_image(loadImage("data/MIT/UI/calm_marker2.png"), 64,128 - 10);
+		ui_base = new basic_image(indi_loadImage("data/MIT/UI/UI_base.png"), 64,128 - 8);
+		ui_base1 = new basic_image(indi_loadImage("data/MIT/UI/UI_base_a.png"), 64,128 - 8);
+		ui_base2 = new basic_image(indi_loadImage("data/MIT/UI/UI_base_b.png"), 64,128 - 8);
+		marker = new basic_image(indi_loadImage("data/MIT/UI/calm_marker.png"), 64,128 - 10);
+		marker2 = new basic_image(indi_loadImage("data/MIT/UI/calm_marker2.png"), 64,128 - 10);
 		
-		Cursor = new basic_image(loadImage("data/MIT/UI/cursor1.png"),64,64);
+		Cursor = new basic_image(indi_loadImage("data/MIT/UI/cursor1.png"),64,64);
 		
-		chillimg = new basic_image(loadImage("data/MIT/UI/panic.png"),97,128 - 16 + 12);
+		chillimg = new basic_image(indi_loadImage("data/MIT/UI/panic.png"),97,128 - 16 + 12);
 
-		learn2c1 = new basic_image(loadImage("data/MIT/UI/learn2c1.png"), 64,64);
-		learn2c2 = new basic_image(loadImage("data/MIT/UI/learn2c2.png"), 64,64);
+		learn2c1 = new basic_image(indi_loadImage("data/MIT/UI/learn2c1.png"), 64,64);
+		learn2c2 = new basic_image(indi_loadImage("data/MIT/UI/learn2c2.png"), 64,64);
 
-		learn2c1 = new basic_image(loadImage("data/MIT/UI/learn2c1.png"), 64,64);
-		learn2c2 = new basic_image(loadImage("data/MIT/UI/learn2c2.png"), 64,64);
+		learn2c1 = new basic_image(indi_loadImage("data/MIT/UI/learn2c1.png"), 64,64);
+		learn2c2 = new basic_image(indi_loadImage("data/MIT/UI/learn2c2.png"), 64,64);
 
-		cindicate1 = new basic_image(loadImage("data/MIT/UI/cindicate1.png"), 64,128-23);
-		cindicate2 = new basic_image(loadImage("data/MIT/UI/cindicate2.png"), 64,128-23);
-		cindicate3 = new basic_image(loadImage("data/MIT/UI/cindicate3.png"), 64,128-23);
-		cindicate4 = new basic_image(loadImage("data/MIT/UI/cindicate4.png"), 64,128-23);
+		cindicate1 = new basic_image(indi_loadImage("data/MIT/UI/cindicate1.png"), 64,128-23);
+		cindicate2 = new basic_image(indi_loadImage("data/MIT/UI/cindicate2.png"), 64,128-23);
+		cindicate3 = new basic_image(indi_loadImage("data/MIT/UI/cindicate3.png"), 64,128-23);
+		cindicate4 = new basic_image(indi_loadImage("data/MIT/UI/cindicate4.png"), 64,128-23);
 
-		PImage volume_art = loadImage("data/MIT/UI/volume.png");
+		PImage volume_art = indi_loadImage("data/MIT/UI/volume.png");
 		volume_title = new basic_image(volume_art, 128 - 16, 6);
 		volume_graphic = new basic_image(volume_art, 4, 128 - 10);
 

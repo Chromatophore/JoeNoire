@@ -95,25 +95,25 @@ textblob[] all_texts;
 void textbox_setup()
 {
 	avatar_list = new PImage[100];
-	avatar_list[0] = loadImage("data/MIT/chat_avs/boss1.png");
-	avatar_list[1] = loadImage("data/MIT/chat_avs/boss2.png");
-	avatar_list[2] = loadImage("data/MIT/chat_avs/goon1.png");
-	avatar_list[3] = loadImage("data/MIT/chat_avs/goon2.png");
-	avatar_list[4] = loadImage("data/MIT/chat_avs/goonB1.png");
-	avatar_list[5] = loadImage("data/MIT/chat_avs/goonB2.png");
-	avatar_list[6] = loadImage("data/MIT/chat_avs/superboss.png");
-	avatar_list[7] = loadImage("data/MIT/chat_avs/lady.png");
-	avatar_list[8] = loadImage("data/MIT/chat_avs/lady_hand_rings.png");
-	avatar_list[9] = loadImage("data/MIT/chat_avs/lady_hand_rings2i.png");
-	avatar_list[10] = loadImage("data/MIT/chat_avs/lady_hand_rings2.png");
-	avatar_list[11] = loadImage("data/MIT/chat_avs/lady_hand_brace.png");
-	avatar_list[12] = loadImage("data/MIT/chat_avs/man_end0.png");
-	avatar_list[13] = loadImage("data/MIT/chat_avs/man_end1.png");
-	avatar_list[14] = loadImage("data/MIT/chat_avs/tannoy1.png");
-	avatar_list[15] = loadImage("data/MIT/chat_avs/tannoy2.png");
-	avatar_list[16] = loadImage("data/MIT/chat_avs/marco.png");
-	avatar_list[17] = loadImage("data/MIT/chat_avs/mystery_man.png");
-	avatar_list[18] = loadImage("data/MIT/chat_avs/other_lady.png");
+	avatar_list[0] = indi_loadImage("data/MIT/chat_avs/boss1.png");
+	avatar_list[1] = indi_loadImage("data/MIT/chat_avs/boss2.png");
+	avatar_list[2] = indi_loadImage("data/MIT/chat_avs/goon1.png");
+	avatar_list[3] = indi_loadImage("data/MIT/chat_avs/goon2.png");
+	avatar_list[4] = indi_loadImage("data/MIT/chat_avs/goonB1.png");
+	avatar_list[5] = indi_loadImage("data/MIT/chat_avs/goonB2.png");
+	avatar_list[6] = indi_loadImage("data/MIT/chat_avs/superboss.png");
+	avatar_list[7] = indi_loadImage("data/MIT/chat_avs/lady.png");
+	avatar_list[8] = indi_loadImage("data/MIT/chat_avs/lady_hand_rings.png");
+	avatar_list[9] = indi_loadImage("data/MIT/chat_avs/lady_hand_rings2i.png");
+	avatar_list[10] = indi_loadImage("data/MIT/chat_avs/lady_hand_rings2.png");
+	avatar_list[11] = indi_loadImage("data/MIT/chat_avs/lady_hand_brace.png");
+	avatar_list[12] = indi_loadImage("data/MIT/chat_avs/man_end0.png");
+	avatar_list[13] = indi_loadImage("data/MIT/chat_avs/man_end1.png");
+	avatar_list[14] = indi_loadImage("data/MIT/chat_avs/tannoy1.png");
+	avatar_list[15] = indi_loadImage("data/MIT/chat_avs/tannoy2.png");
+	avatar_list[16] = indi_loadImage("data/MIT/chat_avs/marco.png");
+	avatar_list[17] = indi_loadImage("data/MIT/chat_avs/mystery_man.png");
+	avatar_list[18] = indi_loadImage("data/MIT/chat_avs/other_lady.png");
 	
 	portrait_db = new PortraitSet[30];
 	portrait_db[0] = new PortraitSet("workboss","0,1",0, "talk1");
@@ -136,8 +136,8 @@ void textbox_setup()
 	portrait_db[17] = new PortraitSet("internal_deep","-1",-1, "talk2");
 	portrait_db[18] = new PortraitSet("morph","-1",-1, "talk7");
 	
-	textbox_a = loadImage("data/MIT/UI/textbox.png");
-	textbox_b = loadImage("data/MIT/UI/textbox_nox.png");
+	textbox_a = indi_loadImage("data/MIT/UI/textbox.png");
+	textbox_b = indi_loadImage("data/MIT/UI/textbox_nox.png");
 	
 	var_width_array = new int[256];
 	for(int j = 0; j < 256; j++)
