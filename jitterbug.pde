@@ -139,7 +139,9 @@ class jitterbug
 		
 		// numbers below 1 will indicate that the beat was too fast, and numbers above 1 will indicate that the beat was too slow
 		// we want hyper ventilating to go up, so, we do this:
-		marker_position = 50 * (constrain(1 + score,0.0,2.0));
+		float new_marker_position = 50 * (constrain(1 + score,0.0,2.0));
+		float difference = constrain((new_marker_position - marker_position),-25,25);
+		marker_position = marker_position + difference;
 		
 		pump_bar();
 	}
@@ -239,6 +241,8 @@ class jitterbug
 			if (things_done == 1)
 			{
 				marker_position = 25;
+				// prevent perfect action making things worse, but not provide too much of an advantage:
+				release_start += 3 * ideal_beat_total;
 			}
 
 			if (things_done > 0)
@@ -319,7 +323,7 @@ class jitterbug
 		{
 			text_box_forgive = false;
 			//println("but forgiven!");
-			things_done = 3;		
+			things_done = 5;
 		}
 
 		if (millis() > sound_milli)
