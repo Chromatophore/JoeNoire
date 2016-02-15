@@ -1,8 +1,8 @@
 
 sideref[] side_db = null;
 
-int crate_goal = 17;
-int bad_limit = 7;
+int crate_goal = 15;
+int bad_limit = 3;
 float jitter_state_to_pass_tutorial = 0.85;
 
 class level1
@@ -863,9 +863,9 @@ class level1
 			int sad_count = thiscrate.sides_unfinished;
 
 			int type = 3;
-			scorer.add_riser(new score_riser(64 - 20, 20, str(sad_count) + " unfinished", type));
+			scorer.add_riser(new score_riser(64 - 20, 20, "unfinished", type));
 
-			bad_sides += sad_count;
+			bad_sides += 1;
 			while (sad_count > 0)
 			{
 				AddSad();
@@ -880,7 +880,7 @@ class level1
 		
 		crates_complete++;
 		//println("completed: " + crates_complete);
-		if (crates_complete % 4 == 3 && crates_complete > 8)
+		if (crates_complete % 3 == 2 && crates_complete > 8)
 		{
 			level_difficulty++;
 			//println("difficulty: " + level_difficulty);
