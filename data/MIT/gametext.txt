@@ -20,7 +20,7 @@ SOME OTHERS I FORGOT
 text
 intro_1
 6
-none^Hold 'H' at any time to show a help page!
+help^Hold 'H' at any time to show a help page!
 none^I was never anybody. Never wanted to be.
 none^Never wanted to stand out, kept my head down.
 none^Just wanted to be, you know, happy. But no.
@@ -78,14 +78,14 @@ intro_anxious
 4
 tannoy^Hey Jack, you look like you could use a break! Not that you'll get one, ha!
 none^Can't drop these damned shakes again!
-none^Just gotta relax... Gotta use C in time to my breathing.
+none^Just gotta relax... Focus on using C in time with my breathing.
 none^Push and hold when breathing out... Release when I breathe in...
 
 text
 intro_anxious_done
 2
 none^Yeah, that's it. If I want to stay calm...
-none^I've gotta keep focus on taking EVEN breaths!
+none^I've gotta keep focused on taking EVEN breaths!
 
 text
 intro_10_good
@@ -104,7 +104,7 @@ marco^Hey Bossman, I need a few minutes to head outside for... a smoke.
 tannoy^No worries, Marco. Jack will cover you!
 none^Can't remember the last time I got a break.
 none^Gotta do both labels now.
-none^Gotta put one on then use Z to swap to the other.
+none^Put one on then use Z to swap to the other.
 
 text
 intro_13_good
@@ -436,39 +436,39 @@ shake^2,120^none^Dammit!
 text
 chap2_5_6_finished_first
 2
-none^OK, I got here first, now, to grab the necklaces.
-none^I wonder which she'd like the most?
+none^OK, I got here first! Now, to grab the best necklace.
+none^I wonder which one she'd like the most?
 
 text
 chap2_5_6_finished_r_takes_one
 2
 goon1^Very nice, I'm liking the look of this one.
-goon1^Hey, you two, stop messing around and get over here!
+goon1^Hey, you two, stop fooling around and get over here!
 
 text
 chap2_5_6_finished_second
 2
-none^I guess there's 2 left to choose from.
+none^There's still two left to choose from.
 none^Which should I pick?
 
 text
 chap2_5_6_finished_last
 3
-goon2^Ooh, I like this one!
+goon2^Ooh, I really like this one!
 goon1^Hey, dunderhead, it doesn't matter which one YOU like...
-none^I guess I'll grab the last one.
+none^I guess I'll grab this last one.
 
 text
 chap2_5_6_player_pick_win
 2
-goon1^Nice choice Joe, thanks for saving the other two for us.
-goon1^Now, let's get out of here.
+goon2^Nice choice Joe, and thanks for saving the other two for us!
+goon1^Alright, let's get out of here.
 
 text
 chap2_5_6_player_pick_middle
 3
-goon2^Aw, that was the one I liked!
-goon1^Well, then you shoulda got there first!
+goon2^Aw, but that was the one I liked!
+goon1^Well, then maybe you shoulda got there first.
 goon1^Now, let's get out of here!
 
 text
@@ -481,9 +481,9 @@ goon1^Let's get out of here!
 text
 chap2_6_1_joe_first
 21
-superboss^Now my dear, I hear that Joe selected this one for you especially...
+superboss^Here you are, my dear. Joe... I mean, I... selected this one just for you.
 lady^Oh my... would you look at that!
-shake^2,120^lady^That's horrible! What kind of hussy do I look like?
+shake^2,120^lady^It's horrible! What kind of hussy do I look like?
 lady^This is something you'd see a call-girl wearing!
 lady^Is that how you think of me?
 superboss^No, no, of course not, my dear. There must have been a mix up.
@@ -505,18 +505,18 @@ goon1^You bet boss.
 
 text
 chap2_6_1_joe_second
-23
-superboss^Ah, you boys are back.
+25
+superboss^Ah, the boys are back.
 superboss^Now, where is that special necklace?
-none^... huh... are these two fidgeting?
-goon1^Well uh, why don't you show the lady what you have, Joe?
+none^... Odd... those two guys are fidgeting?
+goon1^Well uh, why don't you show the lady what you got, Joe?
 shake^1,60^lady^Oh, no no no! I don't like that one at all!
 lady^Is that all you have?
 goon2^Well, they had these ones too...
 lady^Well, maybe... this one might have been ok.
-shake^1,60^But now it just reminds me of that first one!
-lady^Oh, woe, my poor cold neck...
-superboss^My dear, there must have been a delay... I'm sure we'll have your necklace soon.
+shake^1,60^But now it just reminds me of that terrible first one!
+lady^Oh, woe, my poor barren neck...
+superboss^Sorry, my dear, there must have been a delay... I'm sure we'll have your necklace soon.
 shake^2,120^superboss^Joe! you screwup.
 superboss^I ask you to do one simple thing.
 superboss^Just one. A simple thing.
@@ -536,16 +536,16 @@ goon1^You bet boss.
 text
 chap2_6_1_joe_last
 24
-superboss^Ah, you boys are back.
+superboss^Ah, my boys are back.
 superboss^Now, where is that special necklace?
-none^... huh... are these two fidgeting?
-goon1^Why don't you show the lady what you have, Joe?
+none^... Strange... those two guys are fidgeting?
+goon1^Why don't you show the lady yours, Joe?
 shake^1,60^lady^Oh, is this it?
 lady^Did you think I'd want to wear this?
-goon1^He picked it out himself.
-shake^1,60^lady^Out of where? A dumpster??
-lady^This is terrible, my poor cold neck...
-superboss^Oh, my poor dear, there must have been a delay. I'm sure we'll have your necklace soon.
+goon1^Joe picked it out himself.
+shake^1,60^lady^Picked it out of what? A dumpster?
+lady^This is terrible, my poor desolate neck...
+superboss^Ah, my dear, just a minor miscommunication. I'm sure we'll have your necklace soon.
 shake^1,120^superboss^Joe, you screwup.
 superboss^I ask you to do one simple thing.
 superboss^Just one. A simple thing.

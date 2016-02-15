@@ -22,30 +22,40 @@ function AudioPlayer(str, auto) {
         this.play();
       }
     }, false);
-	/*
-	if (auto != undefined)
-	{
-		console.log("preload: (" + auto + ") " + str);
-		audio.preload = auto;
-	} else {
-		audio.preload = 'none';
-	}
-	*/
-	audio.preload = 'metadata';
+
+  	if (auto != undefined)
+  	{
+  		console.log("preload: (" + auto + ") " + str);
+  		audio.preload = auto;
+  	} else {
+  		audio.preload = 'none';
+  	}
+
     audio.autobuffer = true;
-    if (canPlayOgg() && false) {
+    if (canPlayOgg() && false) { // No oggs here!
       audio.src = str.split(".")[0] + ".ogg";
     } else if (canPlayMp3()) {
-      audio.src = str;
+      audio.src = str.split(".")[0] + ".mp3";
     }
     loaded = true;
-	/*
+
+/*
+  // Render the audio divs for debugging purposes.
 	var simplename = str.replace(/\W/g, '');
 	audio.setAttribute("id", simplename);
 	audio.setAttribute("controls", "controls");
-	var currentDiv = document.getElementById("canvas1"); 
-	document.body.insertBefore(audio, currentDiv); 
-	*/
+  if (document.getElementById("audiocontainer") == null)
+  {
+    var node = document.createElement("div");
+    node.setAttribute("id", "audiocontainer");
+  	var currentDiv = document.getElementById("flexbox");
+    document.body.insertBefore(node, currentDiv);
+  }
+  currentDiv = document.getElementById("audiocontainer");
+  document.body.insertBefore(audio, currentDiv);
+  currentDiv.appendChild(audio);
+*/
+
   }
   this.setGain = function (vol) {
     if (!loaded) {
@@ -60,6 +70,16 @@ function AudioPlayer(str, auto) {
       var local = this;
       setTimeout(function() { local.play(); }, 50);
       return;
+    }
+    var local = this;
+    setTimeout(function() { local.delayplay(); }, 50);
+    return;
+  };
+  // This is a bit of a hack to try to get other browsers to play nice with the rapid talking sound.
+  this.delayplay = function () {
+    audio.pause();
+    if(audio.currentTime) {
+      audio.currentTime = 0;
     }
     audio.play();
   };
