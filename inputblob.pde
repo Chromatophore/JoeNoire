@@ -69,7 +69,7 @@ class inputblob
 		}
 		else
 		{
-			if (c == 'z')
+			if (c == 'z' || c == 'Z')
 			{
 				z_state = down;
 				if (z_edge == 0 && down == 1)
@@ -87,7 +87,7 @@ class inputblob
 				}
 				//println(z_down);
 			}
-			if (c == 'x')
+			if (c == 'x' || c == 'X')
 			{
 				x_state = down;
 				if (x_edge == 0 && down == 1)
@@ -104,7 +104,7 @@ class inputblob
 					x_edge = 0;
 				}
 			}
-			if (c == 'c')
+			if (c == 'c' || c == 'C')
 			{
 				c_state = down;
 				if (c_edge == 0 && down == 1)
@@ -121,7 +121,7 @@ class inputblob
 					c_edge = 0;
 				}
 			}
-			if (c == 'a')
+			if (c == 'a' || c == 'A')
 			{
 				if (down == 1)
 					a_down = true;
