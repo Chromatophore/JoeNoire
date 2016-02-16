@@ -87,6 +87,8 @@ class level1
 			frames_to_convey = 1000;
 			theUI.sounds(true);
 			theUI.SetShowTracker(true);
+
+			jitter.MoveMarker(30);
 		}
 		else if (state == 13)
 		{
