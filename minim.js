@@ -31,25 +31,30 @@ function AudioPlayer(str, auto) {
 
   	if (auto != undefined)
   	{
-  		console.log("preload: (" + auto + ") " + str);
+  		//console.log("preload: (" + auto + ") " + str);
   		audio.preload = auto;
   	} else {
   		audio.preload = 'none';
   	}
 
     audio.autobuffer = true;
+    // We need to detect IE, because it doesn't seem to like having a sound
+    // be rewound and played at a fast rate, so we skip rewinding.
+    this.isIE = false;
+    var canWav = canPlayWav();
+    var canMp3 = canPlayMp3();
+    if (!canWav && canMp3)
+    {
+      this.isIE = true;
+    }
     if (canPlayOgg() && false) { // No oggs here!
-      this.myType = "ogg";
       audio.src = str.split(".")[0] + ".ogg";
-    } else if (canPlayWav() && str.split(".")[1] == "wav") {
-      this.myType = "wav";
+    } else if (canWav && str.split(".")[1] == "wav") {
       audio.src = str.split(".")[0] + ".wav";
-    } else if (canPlayMp3()) {
-      this.myType = "mp3";
+    } else if (canMp3) {
       audio.src = str.split(".")[0] + ".mp3";
     }
     loaded = true;
-    this.isPlaying = false;
 
     if (debug)
     {
@@ -84,21 +89,7 @@ function AudioPlayer(str, auto) {
       setTimeout(function() { local.play(); }, 50);
       return;
     }
-//    audio.pause();
-    if (this.myType == "mp3")
-    {
-      if (this.isPlaying)
-      {
-        audio.currentTime = 0;
-      } else {
-        audio.play();
-      }
-    } else {
-      audio.currentTime = 0;
-      audio.play();
-    }
-    this.isPlaying = true;
-    return;
+    audio.play();
   };
   this.loop = function () {
     if (!loaded) {
@@ -114,12 +105,11 @@ function AudioPlayer(str, auto) {
     if (!loaded) {
       return;
     }
-    this.isPlaying = false;
     audio.pause();
   };
   this.rewind = function () {
-    // Rewind screws up things. Urgh.
-    if(true)
+    // Rewind screws up things in IE. Urgh.
+    if (this.isIE)
     {
       return;
     }
