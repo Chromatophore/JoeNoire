@@ -14,6 +14,7 @@ class inputblob
 	int z_edge;
 	int x_edge;
 	int c_edge;
+	int a_edge;
 	
 	boolean k1_down;
 	boolean k2_down;
@@ -123,8 +124,20 @@ class inputblob
 			}
 			if (c == 'a' || c == 'A')
 			{
-				if (down == 1)
+				// no held state for a
+				if (a_edge == 0 && down == 1)
+				{
 					a_down = true;
+					a_edge = 1;
+				}
+				else if (a_edge == 1 && down == 1)
+				{
+					a_down = false; 
+				}
+				else
+				{
+					a_edge = 0;
+				}
 			}
 			
 			if (c == '1')
