@@ -83,7 +83,6 @@ void setup()
 
 	// Create instances of all our classes.
 	inp = new inputblob();
-	jitter = new jitterbug();
 	theUI = new UI();
 	scorer = new scoremaster();
 	make_sound = new sounder();
@@ -274,6 +273,9 @@ void progress_game(String info)
 {
 	if (info.equals("game_reset"))
 	{
+		// throw out old jitter
+		jitter = new jitterbug();
+
 		cutscene_engine.play_scene(0);
 		eye_c.change(true,"");
 		titlescreen = new screen_title();
@@ -285,16 +287,18 @@ void progress_game(String info)
 		theUI.hijack_quit = false;
 		theUI.SetShowLearn(false);
 		theUI.SetShowTracker(true);
+		theUI.ResetCursor();
+		theUI.OverrideCursor(false,null);
 		
 		jitter.anxiety(false);
 		jitter.inaction_off();
 		jitter.player_must_pump = false;
 		jitter.MoveMarker(50);
 		
-			lv1 = null;
-			lv2 = null;
-			lv2_b = null;
-			lv3 = null;
+		lv1 = null;
+		lv2 = null;
+		lv2_b = null;
+		lv3 = null;
 	}
 	else if (SUPER_GAME_STATE == 0 && info.equals("title_start"))
 	{
