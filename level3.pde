@@ -234,12 +234,12 @@ class level3
 			
 			if (shoot_state)
 			{
-				if (box_test(effective_cursor_x, effective_cursor_y,	60,88, 20,20) || 
-						box_test(effective_cursor_x, effective_cursor_y,	20,70, 20,20))
+				if (box_test(effective_cursor_x, effective_cursor_y,	60,68, 20,40) || 
+						box_test(effective_cursor_x, effective_cursor_y,	30,70, 20,40))
 				{
 					level_state(60);
 				}
-				else if (box_test(effective_cursor_x, effective_cursor_y,	99,85, 10,20))
+				else if (box_test(effective_cursor_x, effective_cursor_y,	99,85, 10,25))
 				{
 					level_state(70);
 				}
