@@ -306,6 +306,7 @@ void progress_game(String info)
 	}
 	else if (SUPER_GAME_STATE == 1 && info.equals("title_fade_out"))
 	{
+		eye_c.draw();
 		lv1 = new level1();
 		titlescreen = null;
 		theUI.showhide(true);
@@ -342,6 +343,7 @@ void progress_game(String info)
 		cutscene_engine.play_scene(0);
 		theUI.showhide(true);
 		SUPER_GAME_STATE = 200;
+		eye_c.draw();
 		lv2 = new level2();
 	}
 	else if (SUPER_GAME_STATE == 200 && info.equals("level_2_cutscene_1"))
@@ -356,11 +358,12 @@ void progress_game(String info)
 	}
 	else if (SUPER_GAME_STATE == 202 && info.equals("eyes_close_cutscene_10"))
 	{
-	SUPER_GAME_STATE = 210;
-	cutscene_engine.play_scene(0);
-	lv2_b = new level2_street();
+		SUPER_GAME_STATE = 210;
+		cutscene_engine.play_scene(0);
+		eye_c.draw();
+		lv2_b = new level2_street();
 
-	load_id(make_sound.IDfromName("music6"));	// try to preload the audio.
+		load_id(make_sound.IDfromName("music6"));	// try to preload the audio.
 	}
 	else if (SUPER_GAME_STATE == 210 && info.equals("level2b_end"))
 	{
@@ -380,7 +383,10 @@ void progress_game(String info)
 		theUI.showhide(true);
 		
 		if (lv2 == null)
+		{
+			eye_c.draw();
 			lv2 = new level2();
+		}
 			
 		lv2_b = null;
 		lv2.race(0);
@@ -408,7 +414,10 @@ void progress_game(String info)
 		SUPER_GAME_STATE = 300;
 		theUI.showhide(true);
 		if (lv3 == null)
+		{
+			eye_c.draw();
 			lv3 = new level3();
+		}
 	}
 	else if (SUPER_GAME_STATE == 300 & info.equals("chapter_3_eyes_open"))
 	{
