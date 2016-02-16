@@ -18,9 +18,13 @@ marco - your work mate
 SOME OTHERS I FORGOT
 
 text
+help_box
+1
+none^Hold 'H' at any time to show a help page!
+
+text
 intro_1
-6
-help^Hold 'H' at any time to show a help page!
+5
 none^I was never anybody. Never wanted to be.
 none^Never wanted to stand out, kept my head down.
 none^Just wanted to be, you know, happy. But no.

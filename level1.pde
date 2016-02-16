@@ -15,7 +15,8 @@ class level1
 		{
 			theUI.SetShowTracker(false);
 			theUI.ResetCursor();
-			texter = new textbox("intro_1");
+
+			texter = new textbox("help_box");
 
 			// make sure happy/sads are reset
 			theUI.SetSmiles(smiles);
@@ -187,7 +188,11 @@ class level1
 	{
 		if (text_box_finished)
 		{
-			if (text_box_finish_name.equals("intro_1"))
+			if (text_box_finish_name.equals("help_box"))
+			{
+				texter = new textbox("intro_1");
+			}
+			else if (text_box_finish_name.equals("intro_1"))
 			{
 				level_state(1);
 			}
