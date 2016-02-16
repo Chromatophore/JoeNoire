@@ -37,6 +37,7 @@ PFont font;
 PFont font_ui;
 
 int necklace_select = 0;
+int ending_get = 0;
 
 // VARIABLES THAT ARE GLOBAL BUT REALLY ONLY USED HERE:
 int SUPER_GAME_STATE = 0;

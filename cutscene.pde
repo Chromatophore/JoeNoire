@@ -247,7 +247,7 @@ class cutscene
 					progress++;
 				if (text_box_finish_name.equals("chap2_6_1_joe_last"))
 					progress++;
-					
+
 				if (text_box_finish_name.equals("chap2_6_2"))
 					progress++;
 			}
@@ -414,6 +414,7 @@ class cutscene
 			}
 			else if (progress == 302)
 			{
+				ending_get = 1;
 				eye_c.change(false,"credits");
 				progress++;
 			}
@@ -474,6 +475,7 @@ class cutscene
 			
 			if (progress == 300)
 			{
+				ending_get = 2;
 				texter = new textbox("epi4_1");
 				progress++;
 			}
@@ -552,6 +554,7 @@ class cutscene
 			}
 			else if (progress == 302)
 			{
+				ending_get = 3;
 				eye_c.change(false,"credits");
 				progress++;
 			}
@@ -631,6 +634,7 @@ class cutscene
 			}
 			else if (progress == 302)
 			{
+				ending_get = 4;
 				eye_c.change(false,"credits");
 				progress++;
 			}
@@ -640,18 +644,37 @@ class cutscene
 		{
 			if (progress == 0)
 			{
-				cred.setPos(64,512+128);
+				cred.setPos(64,704+128);
 				make_sound.play_music("music3");
 				eye_c.change(true,"");
 			}
 			fill(black);
 			indi_rect(0,0,128,128);
-			progress++;
+
+			if (inp.z_state != 0 || inp.x_state != 0)
+			{
+				progress += 8;
+				cred.movePos(0,-2);
+			}
+			else
+			{
+				progress++;
+				cred.movePos(0,-0.25);
+			}
+
 			
-			cred.movePos(0,-0.25);
+
+			
 			cred.draw();
+
+
+			if (ending_get != 0)
+			{
+				theUI.Cursor.setPos(40 + (ending_get - 1) * 16, cred.y_float - 704 + 198);
+				theUI.Cursor.draw();
+			}
 			
-			if (progress > ((1024 + 256) / 0.25))
+			if (progress > ((1408 + 256) / 0.25) || (inp.a_down))
 			{
 				eye_c.change(false,"game_reset");
 			}
