@@ -8,9 +8,9 @@ void load_sounds()
 {
 	if (loaded)
 		return;
-		
+
 	minim = new Minim(this);
-		
+
 	sounds = new AudioPlayer[30];
 
 	sounds_loaded = new boolean[30];
@@ -23,24 +23,24 @@ void load_sounds()
 	sounds[1] = minim.loadFile("data/sound/242501__gabrielaraujo__powerup-success.mp3");
 	sounds[2] = minim.loadFile("data/sound/242503__gabrielaraujo__failure-wrong-action.mp3");
 	sounds[3] = minim.loadFile("data/sound/171521__fins__button.mp3");
-	sounds[4] = minim.loadFile("data/MIT/sounds/talk1.mp3");
-	sounds[5] = minim.loadFile("data/MIT/sounds/talk2.mp3");
-	sounds[6] = minim.loadFile("data/MIT/sounds/talk3.mp3");
-	sounds[7] = minim.loadFile("data/MIT/sounds/pulse_real1.mp3");
-	sounds[8] = minim.loadFile("data/MIT/sounds/pulse_real2.mp3");
+	sounds[4] = minim.loadFile("data/MIT/sounds/talk1.wav");
+	sounds[5] = minim.loadFile("data/MIT/sounds/talk2.wav");
+	sounds[6] = minim.loadFile("data/MIT/sounds/talk3.wav");
+	sounds[7] = minim.loadFile("data/MIT/sounds/pulse_real1.wav");
+	sounds[8] = minim.loadFile("data/MIT/sounds/pulse_real2.wav");
 	sounds[9] = minim.loadFile("data/sound/snow_shriek.mp3");
-	sounds[10] = minim.loadFile("data/MIT/sounds/talk4.mp3");
-	sounds[13] = minim.loadFile("data/MIT/sounds/talk5.mp3");
-	sounds[14] = minim.loadFile("data/MIT/sounds/talk6.mp3");
+	sounds[10] = minim.loadFile("data/MIT/sounds/talk4.wav");
+	sounds[13] = minim.loadFile("data/MIT/sounds/talk5.wav");
+	sounds[14] = minim.loadFile("data/MIT/sounds/talk6.wav");
 	sounds[18] = minim.loadFile("data/sound/gunshot.mp3");
 	sounds[19] = minim.loadFile("data/sound/alarm_short.mp3");
 	sounds[23] = minim.loadFile("data/sound/170272__knova__gun-click.mp3");
-	sounds[24] = minim.loadFile("data/MIT/sounds/talk7.mp3");
-	sounds[25] = minim.loadFile("data/MIT/sounds/talk8.mp3");
-	sounds[26] = minim.loadFile("data/MIT/sounds/talk9.mp3");
+	sounds[24] = minim.loadFile("data/MIT/sounds/talk7.wav");
+	sounds[25] = minim.loadFile("data/MIT/sounds/talk8.wav");
+	sounds[26] = minim.loadFile("data/MIT/sounds/talk9.wav");
 
 	configure_non_music();
-	
+
 	// Long music:
 	// Title screen
 	sounds[11] = minim.loadFile("data/music_KevinMacloud/Comfortable Mystery 4 (EP).mp3");				// 1
@@ -65,12 +65,12 @@ void load_sounds()
 	// ending?
 	sounds_loaded[22] = false;
 	//sounds[22] = minim.loadFile("data/music_KevinMacloud/Backed Vibes Clean.mp3");					// 8
-	
+
 
 	adjust_volume();
-	
+
 	//sounds[11].setGain(global_gain + 10);
-	
+
 	loaded = true;
 }
 
@@ -142,7 +142,7 @@ void unload_sounds()
 			thing.close();
 		}
 	}
-	
+
 	minim.stop();
 }
 
@@ -153,11 +153,11 @@ class sounder
 		load_sounds();
 		breath_loudness(1.0);
 	}
-	
+
 	int IDfromName(String name)
 	{
 		int id = -1;
-		
+
 		if (name.equals("beep"))
 			id = 0;
 		else if (name.equals("good"))
@@ -188,10 +188,10 @@ class sounder
 			id = 18;
 		else if (name.equals("alarm"))
 			id = 19;
-			
-			
-			
-			
+
+
+
+
 		else if (name.equals("music1"))
 			id = 11;
 		else if (name.equals("music2"))
@@ -204,30 +204,30 @@ class sounder
 			id = 17;
 		else if (name.equals("music6"))
 			id = 20;
-			
+
 		else if (name.equals("music7"))
 			id = 21;
 		else if (name.equals("music8"))
 			id = 22;
-			
+
 		else if (name.equals("gunclick"))
 			id = 23;
-			
+
 		else if (name.equals("talk7"))
 			id = 24;
 		else if (name.equals("talk8"))
 			id = 25;
 		else if (name.equals("talk9"))
 			id = 26;
-			
+
 		return id;
 	}
-	
+
 	void play(String name)
 	{
     	play_by_id(IDfromName(name));
 	}
-	
+
 	void play_by_id(int id)
 	{
 		if (id >= 0)
@@ -239,10 +239,10 @@ class sounder
 			sounds[id].play();
 		}
 	}
-	
+
 	float fade_progress = 0;
 	float fade_interval = 0.25;
-	
+
 	int last_music = -1;
 	int next_music = -1;
 	void play_music(String name)
@@ -254,7 +254,7 @@ class sounder
 
 		fade_progress = 0;
 		full_pass = 0;
-		
+
 		if (last_music == -1)
 		{
 			fade_progress = 30;
@@ -263,16 +263,16 @@ class sounder
 			full_pass = 1;
 		}
 	}
-	
+
 	void stop_music()
 	{
 		next_music = -1;
 		fade_progress = 0;
 		full_pass = 0;
 	}
-	
+
 	int full_pass = 0;
-	
+
 	float music_boost = 15.0;
 
 	void loop_by_id(int id)
@@ -307,11 +307,11 @@ class sounder
 				fade_progress += fade_interval;
 			}
 		}
-		
-		
+
+
 		if (next_music != -1 & fade_progress >= 30 && full_pass == 1)
 		{
-			
+
 			if (fade_progress < 60)
 			{
 				fade_progress += fade_interval;
@@ -331,7 +331,7 @@ class sounder
 			//println(next_music + " " + fade_progress + " " + full_pass);
 			full_pass = 2;
 		}
-		
+
 		//println(last_music);
 		if (last_music != -1)
 		{
@@ -348,12 +348,12 @@ class sounder
 		}
 
 	}
-	
+
 	void halt(String name)
 	{
 		halt_by_id(IDfromName(name));
 	}
-	
+
 	void halt_by_id(int id)
 	{
 		if (id >= 0)
@@ -361,33 +361,33 @@ class sounder
 			sounds[id].pause();
 		}
 	}
-	
+
 	void end_program()
 	{
 		unload_sounds();
 	}
-	
+
 	float down_gain;
-	
+
 	void breath_loudness(float factor)
 	{
 		// as is our calmness, 1.0 is fully calm
 		// we need to reverse this:
 		factor = 1 - factor;
-		
+
 		float up_gain = global_gain + (20 * factor) - 15;
 		down_gain = global_gain - (10 * factor);
-		
+
 		if (full_pass == 2 && last_music != -1)
 		{
 			sounds[last_music].setGain(music_boost + global_gain + down_gain);
 		}
-		
+
 		// make breathing louder
 		sounds[7].setGain(up_gain);
 		sounds[8].setGain(up_gain);
-		
+
 		// reduce music files by down_gain:
-		
+
 	}
 }

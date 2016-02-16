@@ -2,6 +2,12 @@
  * Minim-emulation code by Daniel Hodgin
  */
 
+/*
+  This is a *VERY* hacky version of minim.js. Do not use for any other project!
+*/
+
+var debug = false;
+
 // wrap the P5 Minim sound library classes
 function Minim() {
   this.loadFile = function (str, auto) {
@@ -33,28 +39,35 @@ function AudioPlayer(str, auto) {
 
     audio.autobuffer = true;
     if (canPlayOgg() && false) { // No oggs here!
+      this.myType = "ogg";
       audio.src = str.split(".")[0] + ".ogg";
+    } else if (canPlayWav() && str.split(".")[1] == "wav") {
+      this.myType = "wav";
+      audio.src = str.split(".")[0] + ".wav";
     } else if (canPlayMp3()) {
+      this.myType = "mp3";
       audio.src = str.split(".")[0] + ".mp3";
     }
     loaded = true;
+    this.isPlaying = false;
 
-/*
-  // Render the audio divs for debugging purposes.
-	var simplename = str.replace(/\W/g, '');
-	audio.setAttribute("id", simplename);
-	audio.setAttribute("controls", "controls");
-  if (document.getElementById("audiocontainer") == null)
-  {
-    var node = document.createElement("div");
-    node.setAttribute("id", "audiocontainer");
-  	var currentDiv = document.getElementById("flexbox");
-    document.body.insertBefore(node, currentDiv);
-  }
-  currentDiv = document.getElementById("audiocontainer");
-  document.body.insertBefore(audio, currentDiv);
-  currentDiv.appendChild(audio);
-*/
+    if (debug)
+    {
+      // Render the audio divs for debugging purposes.
+    	var simplename = str.replace(/\W/g, '');
+    	audio.setAttribute("id", simplename);
+    	audio.setAttribute("controls", "controls");
+      if (document.getElementById("audiocontainer") == null)
+      {
+        var node = document.createElement("div");
+        node.setAttribute("id", "audiocontainer");
+      	var currentDiv = document.getElementById("flexbox");
+        document.body.insertBefore(node, currentDiv);
+      }
+      currentDiv = document.getElementById("audiocontainer");
+      document.body.insertBefore(audio, currentDiv);
+      currentDiv.appendChild(audio);
+    }
 
   }
   this.setGain = function (vol) {
@@ -71,17 +84,21 @@ function AudioPlayer(str, auto) {
       setTimeout(function() { local.play(); }, 50);
       return;
     }
-    var local = this;
-    setTimeout(function() { local.delayplay(); }, 50);
-    return;
-  };
-  // This is a bit of a hack to try to get other browsers to play nice with the rapid talking sound.
-  this.delayplay = function () {
-    audio.pause();
-    if(audio.currentTime) {
+//    audio.pause();
+    if (this.myType == "mp3")
+    {
+      if (this.isPlaying)
+      {
+        audio.play();
+      } else {
+        audio.currentTime = 0;
+      }
+    } else {
       audio.currentTime = 0;
+      audio.play();
     }
-    audio.play();
+    this.isPlaying = true;
+    return;
   };
   this.loop = function () {
     if (!loaded) {
@@ -97,9 +114,15 @@ function AudioPlayer(str, auto) {
     if (!loaded) {
       return;
     }
+    this.isPlaying = false;
     audio.pause();
   };
   this.rewind = function () {
+    // Rewind screws up things. Urgh.
+    if(true)
+    {
+      return;
+    }
     if (!loaded) {
       return;
     }
@@ -141,4 +164,9 @@ function canPlayOgg() {
 function canPlayMp3() {
   var a = document.createElement('audio');
   return !!(a.canPlayType && a.canPlayType('audio/mpeg;').replace(/no/, ''));
+}
+
+function canPlayWav() {
+  var a = document.createElement('audio');
+  return !!(a.canPlayType && a.canPlayType(type='audio/wav; codecs="1"').replace(/no/, ''));
 }
