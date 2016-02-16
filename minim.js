@@ -89,9 +89,9 @@ function AudioPlayer(str, auto) {
     {
       if (this.isPlaying)
       {
-        audio.play();
-      } else {
         audio.currentTime = 0;
+      } else {
+        audio.play();
       }
     } else {
       audio.currentTime = 0;
